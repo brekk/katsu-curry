@@ -1,0 +1,120 @@
+import test from 'ava'
+import map from 'ramda/src/map'
+import filter from 'ramda/src/filter'
+import reject from 'ramda/src/reject'
+import {
+  curryObjectN,
+  curryObjectK
+} from './curry-object'
+
+import {
+  pipe,
+  keys,
+  values,
+  length,
+  merge
+} from './utils'
+
+test(`merge should be object assign + curry`, (t) => {
+  const rando = (x) => Math.round(Math.random() * x)
+  const [a, b, c] = [rando(), rando(), rando()]
+  t.deepEqual({a, b, c}, merge({a, b}, {c}))
+})
+
+test(`curryObjectN should allow unary functions that use key-length as arity`, (t) => {
+  const takes3 = curryObjectN(3, (x) => {
+    return values(x).reduce((_, y) => _ + y, 0)
+  })
+  const output = takes3({a: 1, b: 2, c: 3})
+  const output2 = takes3({x: 23, y: 24, z: 25})
+  t.deepEqual(output, 6)
+  t.deepEqual(output2, 72)
+})
+const permutationsForABCXZ = (a, b, c, x, z) => ({
+  a: {a},
+  b: {b},
+  c: {c},
+  x: {x},
+  ab: {a, b},
+  ac: {a, c},
+  bc: {b, c},
+  ax: {a, x},
+  bx: {b, x},
+  cx: {c, x},
+  az: {a, z},
+  bz: {b, z},
+  cz: {c, z},
+  xz: {x, z},
+  abc: {a, b, c},
+  abx: {a, b, x},
+  acx: {a, c, x},
+  abz: {a, b, z},
+  bcx: {b, c, x},
+  bcz: {b, c, z},
+  abcx: {a, b, c, x},
+  abcz: {a, b, c, z},
+  acxz: {a, c, x, z}
+})
+const isFunction = (x) => typeof x === `function`
+const functionProps = filter(isFunction)
+const noFnProps = reject(isFunction)
+const totalFunctionProperties = pipe(functionProps, keys, length)
+test(`curryObjectN should return functions when key length has not been met`, (t) => {
+  const divideThenSum = curryObjectN(3, (obj) => {
+    const [A, B, C] = values(obj)
+    return B + C / A
+  })
+  t.is(typeof divideThenSum, `function`)
+  const permutations1 = permutationsForABCXZ(10, 2, 8, 3, 5)
+  const permutations2 = permutationsForABCXZ(1, 2, 3, 4, 5)
+  const op = map(divideThenSum)
+  const outputs1 = op(permutations1)
+  const outputs2 = op(permutations2)
+  t.deepEqual(noFnProps(outputs1), {
+    abc: 2.8,
+    abcx: 2.8,
+    abcz: 2.8,
+    abx: 2.3,
+    abz: 2.5,
+    acx: 8.3,
+    acxz: 8.3,
+    bcx: 9.5,
+    bcz: 10.5
+  })
+  t.deepEqual(totalFunctionProperties(outputs1), 14)
+  t.deepEqual(noFnProps(outputs2), {
+    abc: 5,
+    abcx: 5,
+    abcz: 5,
+    abx: 6,
+    abz: 7,
+    acx: 7,
+    acxz: 7,
+    bcx: 5,
+    bcz: 5.5
+  })
+  t.deepEqual(totalFunctionProperties(outputs2), 14)
+})
+test(`curryObjectK should return functions when explicit keys have not been met`, (t) => {
+  const divideThenSum = curryObjectK([`a`, `b`, `c`], (obj) => {
+    const [A, B, C] = values(obj)
+    return B + C / A
+  })
+  const permutations1 = permutationsForABCXZ(10, 2, 8, 3, 5)
+  const permutations2 = permutationsForABCXZ(1, 2, 3, 4, 5)
+  const op = map(divideThenSum)
+  const outputs1 = op(permutations1)
+  const outputs2 = op(permutations2)
+  t.deepEqual(noFnProps(outputs1), {
+    abc: 2.8,
+    abcx: 2.8,
+    abcz: 2.8
+  })
+  t.deepEqual(totalFunctionProperties(outputs1), 20)
+  t.deepEqual(noFnProps(outputs2), {
+    abc: 5,
+    abcx: 5,
+    abcz: 5
+  })
+  t.deepEqual(totalFunctionProperties(outputs2), 20)
+})

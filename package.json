@@ -1,0 +1,93 @@
+{
+  "name": "katsu-curry",
+  "version": "0.0.0",
+  "description": "curry functions with placeholders or in object form",
+  "license": "ISC",
+  "main": "katsu-curry.js",
+  "reveal": true,
+  "ava": {
+    "require": [
+      "babel-register"
+    ],
+    "babel": "inherit"
+  },
+  "nyc": {
+    "statements": 100,
+    "branches": 100,
+    "functions": 100,
+    "lines": 100,
+    "reporter": [
+      "lcov",
+      "json",
+      "html",
+      "text",
+      "text-summary"
+    ],
+    "exclude": [
+      "node_modules",
+      "config",
+      "coverage",
+      "src/*.spec.js",
+      "src/index.js",
+      "katsu-curry.js",
+      "katsu-curry.es.js"
+    ],
+    "include": [
+      "src/*.js",
+      "!src/*.spec.js"
+    ],
+    "all": true,
+    "check-coverage": true,
+    "require": [
+      "babel-register"
+    ]
+  },
+  "scripts": {
+    "dependencies": "depcheck",
+    "readme": "documentation readme README.md -s \"API\" src/index.js",
+    "lint": "npm run lint:src && npm run lint:jsdoc",
+    "lint:src": "eslint src/*.js",
+    "lint:jsdoc": "documentation lint src/index.js",
+    "test": "nyc npm run test:ava",
+    "test:ava": "ava src/*.spec.js",
+    "build": "npm run build:main",
+    "build:main": "rollup -c config/rollup.config.main.js",
+    "due-diligence": "npm run lint && npm run test && npm run build && npm run readme",
+    "precommit": "npm run due-diligence",
+    "postinstall": "npm run build"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "ava": "^0.20.0",
+    "babel-plugin-istanbul": "^4.1.4",
+    "babel-plugin-transform-es2015-destructuring": "^6.23.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "documentation": "^4.0.0-rc.1",
+    "eslint": "^3.12.2",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-babel": "^4.1.1",
+    "eslint-plugin-better": "^0.1.5",
+    "eslint-plugin-eslint-comments": "^1.0.2",
+    "eslint-plugin-fp": "^2.3.0",
+    "eslint-plugin-import": "^2.6.1",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-standard": "^2.0.1",
+    "husky": "^0.14.2",
+    "istanbul": "0.4.x",
+    "nyc": "^11.0.3",
+    "ramda": "^0.24.1",
+    "rollup": "^0.43.0",
+    "rollup-plugin-babili": "^3.1.0",
+    "rollup-plugin-buble": "^0.15.0",
+    "rollup-plugin-cleanup": "^1.0.1",
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-istanbul": "^1.1.0",
+    "rollup-plugin-json": "^2.3.0",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-progress": "^0.4.0"
+  },
+  "repository": "https://github.com/brekk/katsu-curry",
+  "author": "brekk"
+}

@@ -1,0 +1,107 @@
+{
+  "root": true,
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "space": 2,
+  "semicolon": false,
+  "esnext": true,
+  "ecmaFeatures": {
+    "jsx": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 7,
+    "sourceType": "module"
+  },
+  "ignores": [
+    "*.js",
+    "forge-ui.*"
+  ],
+  "rules": {
+    "complexity": [1, 4],
+    "max-params": [1, {"max": 5}],
+    "valid-jsdoc": [2, {
+      "prefer": {
+        "return": "returns"
+      }
+    }],
+    "no-var": 2,
+    "no-constant-condition": 2,
+    "no-const-assign": 2,
+    "no-global-assign": 2,
+    "no-debugger": 2,
+    "no-prototype-builtins": 2,
+    "no-unreachable": 2,
+    "no-extra-bind": 2,
+    "no-extra-label": 2,
+    "no-else-return": 2,
+    "no-labels": 2,
+    "no-redeclare": 2,
+    "no-self-assign": 2,
+    "no-self-compare": 2,
+    "func-name-matching": 2,
+    "valid-typeof": 2,
+    "dot-location": [2, "property"],
+    "no-console": 2,
+    "eqeqeq": [2, "smart"],
+    "arrow-parens": [2, "always"],
+    "consistent-this": 2,
+    "func-names": [2],
+    "generator-star-spacing": [2, "after"],
+    "indent": [2, 2],
+    "jsx-quotes": [1, "prefer-double"],
+    "quotes": [2, "backtick"],
+    "max-len": [1, 100, 2],
+    "new-cap": [2, {"capIsNew": false}],
+    "no-trailing-spaces": [2, { "skipBlankLines": true }],
+    "no-unused-vars": [2, {
+      "vars": "all",
+      "varsIgnorePattern": "^style|^Inferno$"
+    }],
+    "object-curly-spacing": 0,
+    "one-var": 0,
+    "operator-linebreak": [2, "after"],
+    "prefer-reflect": 0,
+    "prefer-destructuring": 2,
+    "space-before-function-paren": [2, "never"],
+    "strict": 0,
+    "no-shadow": [2, { "builtinGlobals": false, "hoist": "all" }],
+    "fp/no-class": 2,
+    "fp/no-delete": 2,
+    "fp/no-events": 2,
+    "fp/no-get-set": 2,
+    "fp/no-let": 2,
+    "fp/no-loops": 2,
+    "fp/no-mutating-assign": 2,
+    "fp/no-mutating-methods": [2, {
+      "allowedObjects": ["R", "ƒ"]
+    }],
+    "fp/no-mutation": [2, {
+      "commonjs": true
+    }],
+    "fp/no-proxy": 2,
+    "fp/no-rest-parameters": 2,
+    "fp/no-this": 0,
+    "fp/no-throw": 2,
+    "fp/no-unused-expression": 0,
+    "fp/no-valueof-field": 2,
+    "import/named": 2,
+    "import/no-mutable-exports": 2,
+    "import/order": 2,
+    "import/extensions": [2, {
+      "js": "never",
+      "validation": "always",
+      "task": "always"
+    }],
+    "eslint-comments/disable-enable-pair": 2,
+    "eslint-comments/no-duplicate-disable": 2,
+    "eslint-comments/no-unlimited-disable": 2,
+    "eslint-comments/no-unused-disable": 2,
+    "eslint-comments/no-unused-enable": 2
+  },
+  "extends": ["standard"],
+  "plugins": [
+    "babel", "better", "fp", "import", "eslint-comments"
+  ]
+}
