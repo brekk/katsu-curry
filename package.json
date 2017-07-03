@@ -53,8 +53,7 @@
     "build": "npm run build:main",
     "build:main": "rollup -c config/rollup.config.main.js",
     "due-diligence": "npm run lint && npm run test && npm run build && npm run readme",
-    "precommit": "npm run due-diligence",
-    "postinstall": "npm run build"
+    "precommit": "npm run due-diligence"
   },
   "dependencies": {},
   "devDependencies": {
