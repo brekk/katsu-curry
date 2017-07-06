@@ -1,4 +1,4 @@
-![curry sviggies](./katsu-curry.svg?raw=true)
+![curry sviggies](logo)
 
 > 🍛 for everyone
 
