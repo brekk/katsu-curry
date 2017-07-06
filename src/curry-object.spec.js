@@ -4,11 +4,15 @@ import filter from 'ramda/src/filter'
 import reject from 'ramda/src/reject'
 import {
   curryObjectN,
-  curryObjectK
+  curryObjectK,
+  curryObjectKN
 } from './curry-object'
 
 import {
-  pipe,
+  pipe
+} from './fn'
+
+import {
   keys,
   values,
   length,
@@ -117,4 +121,22 @@ test(`curryObjectK should return functions when explicit keys have not been met`
     abcz: 5
   })
   t.deepEqual(totalFunctionProperties(outputs2), 20)
+})
+test(`curryObjectKN should behave like both other morphisms`, (t) => {
+  t.plan(6)
+  t.is(typeof curryObjectKN, `function`)
+  const input = {a: 1, b: 2, c: 3}
+  const input2 = {a: 1, b: 2, c: 3, d: 4}
+  const input3 = {a: 1, b: 2, c: 3, d: 4, e: 10}
+  const input4 = {a: 1, b: 2, c: 3, d: 4, whatever: 10}
+  const input5 = {a: 1, w: 2, x: 3, y: 4, z: 10}
+  const doit = curryObjectKN(
+    {k: `abc`.split(``), n: 5},
+    ({a = 1, b = 1, c = 1, d = 1, e = 0}) => e + ((a + b + c) / d)
+  )
+  t.is(doit(input), 6)
+  t.is(doit(input2), 1.5)
+  t.is(doit(input3), 11.5)
+  t.is(doit(input4), 1.5)
+  t.is(doit(input5), 3)
 })

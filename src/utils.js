@@ -1,4 +1,5 @@
 import {curry} from './curry'
+import {pipe} from './fn'
 
 const {assign: _assign, keys: _keys} = Object
 
@@ -19,9 +20,6 @@ export const values = (x) => {
 const delegatee = curry((method, arg, x) => (x[method](arg)))
 const filter = delegatee(`filter`)
 export const merge = curry((a, b) => assign({}, a, b))
-
-// eslint-disable-next-line fp/no-rest-parameters
-export const pipe = (...args) => (x) => args.reduce((last, curr) => curr(last), x)
 
 const propLength = prop(`length`)
 const objectLength = pipe(keys, propLength)
