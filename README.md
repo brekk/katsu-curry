@@ -1,4 +1,4 @@
-![curry sviggies](logo)
+![curry sviggies](https://cdn.rawgit.com/brekk/katsu-curry/9e097df0/logo.svg)
 
 > 🍛 for everyone
 
@@ -217,5 +217,3 @@ compose(f, g)(a) === f(g(a))
 ```
 
 Returns **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** a composed function
-
-[logo]: https://cdn.rawgit.com/brekk/katsu-curry/9e097df0/logo.svg
