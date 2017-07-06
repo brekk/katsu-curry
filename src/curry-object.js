@@ -10,6 +10,7 @@ import {merge, length, matchingKeyCount} from './utils'
  * @param {function} fn - function to be curried
  * @returns {function} - invoked function or partially applied function
  * @public
+ * @example
  * import {curryObjectByCondition} from 'katsu-curry'
  * const expectNArgs = (size, args) => length(args) >= size
  * const curryObjectN = curryObjectByCondition(expectNArgs)
