@@ -1,9 +1,4 @@
-     _         _                                              
-    | | ____ _| |_ ___ _   _        ___ _   _ _ __ _ __ _   _
-    | |/ / _` | __/ __| | | |_____ / __| | | | '__| '__| | | |
-    |   < (_| | |_\__ \ |_| |_____| (__| |_| | |  | |  | |_| |
-    |_|\_\__,_|\__|___/\__,_|      \___|\__,_|_|  |_|   \__, |
-                                                        |___/
+![curry sviggies](logo)
 
 > 🍛 for everyone
 
@@ -74,6 +69,14 @@ Take some arguments, test them, and then either return a partially applied funct
 -   `comparison` **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** function to compare arguments
 -   `x` **any** input
 -   `fn` **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** function to be curried
+
+**Examples**
+
+```javascript
+import {curryObjectByCondition} from 'katsu-curry'
+const expectNArgs = (size, args) => length(args) >= size
+const curryObjectN = curryObjectByCondition(expectNArgs)
+```
 
 Returns **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** invoked function or partially applied function
 
