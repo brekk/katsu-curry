@@ -29,6 +29,7 @@
       "coverage",
       "src/*.spec.js",
       "src/index.js",
+      "src/combinators.js",
       "katsu-curry.js",
       "katsu-curry.es.js"
     ],
@@ -44,6 +45,7 @@
   },
   "scripts": {
     "dependencies": "depcheck",
+    "documentation": "documentation build src/** -f html -o docs",
     "readme": "documentation readme README.md -s \"API\" src/index.js",
     "lint": "npm run lint:src && npm run lint:jsdoc",
     "lint:src": "eslint src/*.js",
@@ -75,6 +77,7 @@
     "eslint-plugin-standard": "^2.0.1",
     "husky": "^0.14.2",
     "istanbul": "0.4.x",
+    "locus": "^2.0.1",
     "nyc": "^11.0.3",
     "ramda": "^0.24.1",
     "rollup": "^0.43.0",

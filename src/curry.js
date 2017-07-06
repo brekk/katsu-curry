@@ -1,8 +1,15 @@
 /**
- * The default placeholder value
+ * 🍛 The default placeholder value
  * @constant PLACEHOLDER
+ * @alias $
+ * @example
+ * import {curry, PLACEHOLDER as $} from 'katsu-curry'
+ * // $ is actually also exported as an alias, for your convenience
+ * const divide = curry((a, b) => a / b)
+ * const half = divide($, 2)
  */
 export const PLACEHOLDER = `🍛`
+export const $ = PLACEHOLDER
 
 /**
  * test whether two symbols match
@@ -40,6 +47,7 @@ const countNonPlaceholdersFn = (test) => (args) => args.reduce(
 const some = (f) => (xs) => xs.some(f)
 
 /**
+ * A function that merges parameters, given a test function
  * @method mergeParams
  * @param {function} test - something to test whether a given argument is a placeholder
  // * @param {Array} a - first argument list to compare
@@ -56,11 +64,12 @@ const mergeParamsByTest = (test) => (a, b) => a.map(
 ).concat(b)
 
 /**
+ * The core currying function. You shouldn't import this directly, instead use `curryify`.
  * @method curryPowder
  * @param {function} test - a function which asserts whether a given parameter is a placeholder
  // * @param {function} fn - a function to be curried
  * @returns {function} - a curried function
- * @public
+ * @private
  */
 export const curryPowder = (test) => (fn) => {
   const countNonPlaceholders = countNonPlaceholdersFn(test)
@@ -85,17 +94,30 @@ export const curryPowder = (test) => (fn) => {
 }
 
 /**
+ * Generate a custom `curry` function given a test function that checks for placeholders
  * @method currify
  * @param {function} test - a function that tests for placeholder-iness
  * @returns {function} - function which can curry other functions
  * @public
+ * @example
+ * import {currify} from 'katsu-curry'
+ * const tester = (x) => x === 'butts'
+ * const customCurry = currify(tester)
+ * const divide = customCurry((a, b) => a / b)
+ * const half = divide('butts', 2)
  */
 export const curryify = (test) => curryPowder(test, curryPowder)
 
 /**
+ * curry a given function so that it takes multiple arguments (or a tuple of arguments)
  * @method curry
  * @param {function} fn - any function
  * @returns {function} - a curried function
  * @public
+ * @example
+ * import {curry, $} from 'katsu-curry'
+ * const divide = curry((a, b) => a / b)
+ * const half = divide($, 2)
+ * const twoOver = divide(2)
  */
 export const curry = curryify(symbolTest(PLACEHOLDER))
