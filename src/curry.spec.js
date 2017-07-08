@@ -28,3 +28,14 @@ test(`curry allows you to curry functions, with a curry emoji as a placeholder`,
   t.is(half(20), 10)
   t.is(fraction(100), 1 / 100)
 })
+
+test(`curry adds a toString method to each function which adds clarity to state`, (t) => {
+  t.plan(2)
+  const add = (a, b) => a + b
+  const sum = curry(add)
+  const strung = `curry(function add(a, b) {
+    return a + b;
+  })`
+  t.is(sum.toString(), strung)
+  t.is(sum(2).toString(), `${strung}(2)`)
+})

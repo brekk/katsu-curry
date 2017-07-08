@@ -63,6 +63,10 @@ const mergeParamsByTest = (test) => (a, b) => a.map(
   )
 ).concat(b)
 
+const toString = (fn, args = []) => () => (
+  `curry(${fn.toString()})${args.length > 0 ? `(${args.join(`,`)})` : ``}`
+)
+
 /**
  * The core currying function. You shouldn't import this directly, instead use `curryify`.
  * @method curryPowder
@@ -77,19 +81,19 @@ export const curryPowder = (test) => (fn) => {
   const hasSauce = some(test)
   function curried(...args) { // eslint-disable-line fp/no-rest-parameters
     const length = hasSauce(args) ? countNonPlaceholders(args) : args.length
+    function saucy(...args2) { // eslint-disable-line fp/no-rest-parameters
+      return curried.apply(this, mergeParams(args, args2))
+    }
+    // eslint-disable-next-line fp/no-mutation
+    saucy.toString = toString(fn, args)
     return (
       length >= fn.length ?
       fn.apply(this, args) :
-      function partialSauce(...args2) { // eslint-disable-line fp/no-rest-parameters
-        return curried.apply(this, mergeParams(args, args2))
-      }
+      saucy
     )
   }
-  // istanbul ignore next
   // eslint-disable-next-line fp/no-mutation
-  curried.toString = () => (
-    fn.name ? fn.name : fn.toString()
-  )
+  curried.toString = toString(fn)
   return curried
 }
 
@@ -106,7 +110,7 @@ export const curryPowder = (test) => (fn) => {
  * const divide = customCurry((a, b) => a / b)
  * const half = divide('butts', 2)
  */
-export const curryify = (test) => curryPowder(test, curryPowder)
+export const curryify = (test) => curryPowder(test)
 
 /**
  * curry a given function so that it takes multiple arguments (or a tuple of arguments)
