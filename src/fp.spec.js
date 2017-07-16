@@ -1,9 +1,9 @@
 import test from 'ava'
+import {$} from './placeholder'
 import {
-  curry,
-  PLACEHOLDER as $
+  curry
 } from './curry'
-import {stringable, pipe, compose} from './fn'
+import {stringable, pipe, compose} from './fp'
 
 const add = curry((a, b) => a + b)
 const subtract = curry((a, b) => a - b)

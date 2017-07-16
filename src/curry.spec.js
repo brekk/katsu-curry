@@ -1,9 +1,11 @@
 import test from 'ava'
 import {
-  PLACEHOLDER as $,
+  $,
+  test as symbolTest
+} from './placeholder'
+import {
   curryify,
-  curry,
-  symbolTest
+  curry
 } from './curry'
 
 test(`curryify allows you to add custom curried functions with placeholders`, (t) => {

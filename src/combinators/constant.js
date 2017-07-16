@@ -1,17 +1,4 @@
 /**
- * The identity combinator
- * @method I
- * @alias identity
- * @param {*} x - anything
- * @returns {*} x
- * @public
- * @example
- * import {I} from 'katsu-curry'
- * const five = I(5)
- */
-export const I = (x) => x
-
-/**
  * The constant combinator
  * @method K
  * @alias always
@@ -24,6 +11,3 @@ export const I = (x) => x
  * fiveFn() * twoFn() // 10
  */
 export const K = (x) => () => x
-
-export const always = K
-export const identity = I
