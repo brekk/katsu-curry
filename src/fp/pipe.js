@@ -1,4 +1,5 @@
-import {curry} from './curry'
+import {curry} from '../curry/katsu'
+import {stringable} from '../fp/meta'
 
 /**
  * A function which takes a list of arguments and returns an argument-reducer function
@@ -7,7 +8,7 @@ import {curry} from './curry'
  * @return {function} a partially applied function which knows about args
  * @private
 */
-const innerpipe = curry(
+export const innerpipe = curry(
   (args) =>
   /**
   * reducer wrapper
@@ -29,16 +30,6 @@ const innerpipe = curry(
     x
   )
 )
-/**
- * @method stringable
- * @param {string} prefix - some prefix
- * @param {string[]} args - arguments list
- * @returns {string} toString summary
- * @private
- */
-export const stringable = curry((prefix, args) => () =>
-  prefix + `(` + args.map((a) => a.toString()).join(`,`) + `)`
-)
 
 /**
  * compose functions, left to right
@@ -55,22 +46,4 @@ export const pipe = (...args) => {
   // eslint-disable-next-line fp/no-mutation
   piped.toString = stringable(`pipe`, args)
   return piped
-}
-
-/**
- * compose functions, right to left
- * @method compose
- * @param {...function} args - a list of function arguments
- * @returns {function} - a composed function
- * @public
- * @example
- * compose(f, g)(a) === f(g(a))
- */
-/* istanbul ignore next */
-// eslint-disable-next-line fp/no-rest-parameters
-export const compose = (...args) => {
-  const composed = innerpipe(args.reverse()) // eslint-disable-line fp/no-mutating-methods
-  // eslint-disable-next-line fp/no-mutation
-  composed.toString = stringable(`compose`, args)
-  return composed
 }

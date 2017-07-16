@@ -1,7 +1,9 @@
 export * from './curry'
-export * from './curry-object'
+export * from './object'
+export * from './placeholder'
+import * as fp from './fp'
 export * from './combinators'
-import {pipe as p, compose as c} from './fn'
 
+const {pipe: p, compose: c} = fp
 export const pipe = p
 export const compose = c

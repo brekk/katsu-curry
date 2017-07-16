@@ -6,18 +6,21 @@ import {
   curryObjectN,
   curryObjectK,
   curryObjectKN
-} from './curry-object'
+} from './object'
 
 import {
   pipe
-} from './fn'
+} from './fp'
+
+import {
+  length
+} from './utils/length'
 
 import {
   keys,
   values,
-  length,
   merge
-} from './utils'
+} from './utils/object'
 
 test(`merge should be object assign + curry`, (t) => {
   const rando = (x) => Math.round(Math.random() * x)
