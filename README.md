@@ -1,4 +1,4 @@
-![curry sviggies](https://cdn.rawgit.com/brekk/katsu-curry/9e097df0/logo.svg)
+![curry sviggies](https://cdn.rawgit.com/brekk/katsu-curry/09c7d12/logo.svg)
 
 > 🍛 for everyone
 
@@ -99,7 +99,7 @@ return whether the all the given keys exist on an object
 -   `list` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** some iterable
 -   `o` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** some object
 
-Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
 
 ## matchingKeys
 
