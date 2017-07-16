@@ -1,4 +1,4 @@
-![curry sviggies](https://cdn.rawgit.com/brekk/katsu-curry/9e097df0/logo.svg)
+![curry sviggies](https://cdn.rawgit.com/brekk/katsu-curry/09c7d12/logo.svg)
 
 > 🍛 for everyone
 
@@ -47,26 +47,6 @@ const twoOver = divide(2)
 
 Returns **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** a curried function
 
-## curryObjectByCondition
-
-Take some arguments, test them, and then either return a partially applied function or the answer
-
-**Parameters**
-
--   `comparison` **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** function to compare arguments
--   `x` **any** input
--   `fn` **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** function to be curried
-
-**Examples**
-
-```javascript
-import {curryObjectByCondition} from 'katsu-curry'
-const expectNArgs = (size, args) => length(args) >= size
-const curryObjectN = curryObjectByCondition(expectNArgs)
-```
-
-Returns **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** invoked function or partially applied function
-
 ## curryObjectK
 
 Given object and expected keys, continually curry until expected keys are met
@@ -89,28 +69,6 @@ abcProps({a: 1, b: 2, c: 3, optional: 10}) // 0.6
 ```
 
 Returns **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** invoked function or partially applied function
-
-## matchingKeyCount
-
-return whether the all the given keys exist on an object
-
-**Parameters**
-
--   `list` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** some iterable
--   `o` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** some object
-
-Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
-
-## matchingKeys
-
-returns keys which are included in object
-
-**Parameters**
-
--   `list` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** some iterable
--   `o` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** some object
-
-Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;booleans>** array of matches
 
 ## curryObjectKN
 

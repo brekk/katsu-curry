@@ -4,6 +4,7 @@
  * @alias always
  * @param {*} x - anything
  * @returns {function} - a function which eventually returns x
+ * @public
  * @example
  * import {K} from 'katsu-curry'
  * const fiveFn = K(5)

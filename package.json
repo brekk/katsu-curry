@@ -46,6 +46,7 @@
     ]
   },
   "scripts": {
+    "docs": "nps docs",
     "dependencies": "nps dependencies",
     "readme": "nps readme",
     "lint": "nps lint",

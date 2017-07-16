@@ -10,3 +10,5 @@ import {curry} from '../curry/katsu'
  * @private
  */
 export const delegatee = curry((method, arg, x) => (x[method](arg)))
+
+// NB: the above premise is taken to its maximums in the `entrust` library

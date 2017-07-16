@@ -9,6 +9,7 @@ import {matchingKeys} from './matching-keys'
  * @param {Array} list - some iterable
  * @param {Object} o - some object
  * @returns {boolean}
+ * @private
  */
 export const matchingKeyCount = curry(
   (list, o) => pipe(

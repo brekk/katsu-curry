@@ -9,6 +9,7 @@ import {keys} from './object'
  * @param {Array} list - some iterable
  * @param {Object} o - some object
  * @returns {booleans[]} array of matches
+ * @private
  */
 export const matchingKeys = curry(
   (list, o) => filter(

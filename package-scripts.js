@@ -50,6 +50,10 @@ module.exports = {
         script: `ava src/*.spec.js`
       }
     },
+    docs: {
+      description: `auto regen the docs`,
+      script: `documentation build src/** -f html -o docs -a private -a public -a protected`
+    },
     bundle: {
       description: `run the main bundle task`,
       script: `rollup -c config/rollup.config.main.js`
