@@ -17,8 +17,14 @@ const {
 module.exports = {
   scripts: {
     dependencies: {
-      script: `depcheck`,
-      description: `check dependencies`
+      check: {
+        script: `depcheck`,
+        description: `check dependencies`
+      },
+      graph: {
+        script: `madge src --image dependencies.svg`,
+        description: `generate a visual dependency graph`
+      }
     },
     readme: {
       script: `documentation readme README.md -s "API" src/index.js`,
