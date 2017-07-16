@@ -9,7 +9,7 @@ import {merge} from '../utils/object'
  * @param {*} x - input
  * @param {function} fn - function to be curried
  * @returns {function} - invoked function or partially applied function
- * @public
+ * @private
  * @example
  * import {curryObjectByCondition} from 'katsu-curry'
  * const expectNArgs = (size, args) => length(args) >= size

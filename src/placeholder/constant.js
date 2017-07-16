@@ -1,6 +1,7 @@
 /**
  * 🍛 The default placeholder value
  * @constant PLACEHOLDER
+ * @public
  * @alias $
  * @example
  * import {curry, PLACEHOLDER as $} from 'katsu-curry'
