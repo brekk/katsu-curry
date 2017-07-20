@@ -76,6 +76,7 @@
     "eslint-plugin-standard": "^2.0.1",
     "husky": "^0.14.2",
     "istanbul": "0.4.x",
+    "jayin": "^0.0.3",
     "locus": "^2.0.1",
     "madge": "^2.0.0",
     "nps": "^5.5.0",

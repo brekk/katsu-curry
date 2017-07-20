@@ -14,6 +14,15 @@ const {
   nps: allNPS
 } = all
 
+const filterSpecs = [
+  `jayin "_.toPairs(x)`,
+  `.map(([k, v]) => ([k,`,
+  `_.map(v, (y) => y.indexOf('node_modules') > -1 ? y.substr(y.indexOf('node_modules') + 13) : y)`,
+  `]))`,
+  `.filter(([k, v]) => !(k.indexOf('spec') > -1))`,
+  `.reduce((agg, [k, v]) => Object.assign({}, agg, {[k]: v}), {})"`
+].join(``)
+
 module.exports = {
   scripts: {
     dependencies: {
@@ -23,6 +32,10 @@ module.exports = {
       },
       graph: {
         script: `madge src --image dependencies.svg`,
+        description: `generate a visual dependency graph`
+      },
+      graph2: {
+        script: `madge src --json | ${filterSpecs} | madge --stdin --image dependencies.svg`,
         description: `generate a visual dependency graph`
       }
     },

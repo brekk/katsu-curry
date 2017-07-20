@@ -8,15 +8,12 @@
   "noDependencyColor": "#0c821d",
   "cyclicNodeColor": "#cc0000",
   "edgeColor": "#242424",
-  "layout": "fdp",
   "graphVizOptions": {
     "G": {
       "ranksep": 1.1,
       "size": "80 40",
       "overlap": false,
-      "packmode": "node",
-      "splines": "curved",
-      "outputorder": "nodesfirst"
+      "packmode": "node"
     },
     "E": {
       "weight": 20
