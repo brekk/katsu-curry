@@ -8,5 +8,5 @@ import {curry} from '../curry/katsu'
  * @private
  */
 export const stringable = curry((prefix, args) => () =>
-  prefix + `(` + args.map((a) => a.toString()).join(`,`) + `)`
+  prefix + `(` + args.map((a) => a.toString()).join(`, `) + `)`
 )

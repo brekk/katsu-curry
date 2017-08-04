@@ -6,3 +6,7 @@ custom.js
 .nyc_output
 docs
 lib
+combinators
+object
+placeholder
+utils
