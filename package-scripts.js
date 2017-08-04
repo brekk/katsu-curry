@@ -73,7 +73,7 @@ module.exports = {
     },
     build: {
       description: `convert files individually`,
-      script: `babel src -d . --ignore index.js,src/*.spec.js,src/index.js,curry/*.js,fp/*.js`
+      script: `babel src -d . --ignore index.js,src/*.spec.js`
     },
     care: {
       description: `run all the things`,

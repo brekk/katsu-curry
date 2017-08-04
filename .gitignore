@@ -10,3 +10,5 @@ combinators
 object
 placeholder
 utils
+curry
+fp

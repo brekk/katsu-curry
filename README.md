@@ -29,6 +29,7 @@ console.log(`z`, z) // 4
 -   _0.0.3_ - First working release, supports regular currying via `curry` and currying by object via `curryObjectK` and `curryObjectN` and `pipe` / `compose` to allow for easy composition.
 -   _0.0.6_ - Added `toString` methods to improve context when debugging
 -   _0.1.0_ - Updated API and privatized some existing methods
+-   _0.1.1_ - Fix solo exports
 
 # API
 
