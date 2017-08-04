@@ -15,6 +15,7 @@ module.exports = {
   },
   plugins: [
     progress(),
+    json(),
     commonjs({
       // sourceMap: false,
       include: `node_modules/**`,
@@ -25,7 +26,6 @@ module.exports = {
       jsnext: true,
       main: true
     }),
-    json(),
     cleanup({
       comments: `none`
     }),
