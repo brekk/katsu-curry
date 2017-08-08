@@ -55,7 +55,9 @@
     "care": "nps care",
     "precommit": "nps precommit"
   },
-  "dependencies": {},
+  "dependencies": {
+    "fast.js": "^0.1.1"
+  },
   "devDependencies": {
     "ava": "^0.20.0",
     "babel-cli": "^6.24.1",
