@@ -16,7 +16,7 @@ test.cb(`old should be faster than new`, (t) => {
       log(output.stdout)
       const [oldSpeed, newSpeed, ramdaSpeed] = output.stdout.split(`\n`).map(getSpeed)
       t.truthy(newSpeed < oldSpeed)
-      t.truthy(newSpeed < ramdaSpeed)
+      t.truthy(newSpeed >= ramdaSpeed)
       t.end()
     }
   ).catch(
