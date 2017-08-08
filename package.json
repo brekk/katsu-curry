@@ -58,6 +58,7 @@
   "dependencies": {},
   "devDependencies": {
     "ava": "^0.20.0",
+    "babel-cli": "^6.24.1",
     "babel-plugin-istanbul": "^4.1.4",
     "babel-plugin-transform-es2015-destructuring": "^6.23.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
@@ -74,10 +75,11 @@
     "eslint-plugin-import": "^2.6.1",
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-standard": "^2.0.1",
+    "execa": "^0.8.0",
     "husky": "^0.14.2",
     "istanbul": "0.4.x",
     "jayin": "^0.0.3",
-    "locus": "^2.0.1",
+    "katsu-curry": "^0.1.1",
     "madge": "^2.0.0",
     "nps": "^5.5.0",
     "nps-utils": "^1.2.0",
@@ -91,7 +93,8 @@
     "rollup-plugin-istanbul": "^1.1.0",
     "rollup-plugin-json": "^2.3.0",
     "rollup-plugin-node-resolve": "^3.0.0",
-    "rollup-plugin-progress": "^0.4.0"
+    "rollup-plugin-progress": "^0.4.0",
+    "testperf": "^2.0.3"
   },
   "repository": "https://github.com/brekk/katsu-curry",
   "author": "brekk"
