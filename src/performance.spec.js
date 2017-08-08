@@ -14,10 +14,9 @@ test.cb(`old should be faster than new`, (t) => {
   execa.shell(`${cwd}/node_modules/.bin/babel-node ${cwd}/src/performance.fixture.js`).then(
     (output) => {
       log(output.stdout)
-      const [oldSpeed, newSpeed] = output.stdout.split(`\n`)
-      const a = getSpeed(oldSpeed)
-      const b = getSpeed(newSpeed)
-      t.truthy(b < a)
+      const [oldSpeed, newSpeed, ramdaSpeed] = output.stdout.split(`\n`).map(getSpeed)
+      t.truthy(newSpeed < oldSpeed)
+      t.truthy(newSpeed < ramdaSpeed)
       t.end()
     }
   ).catch(

@@ -21,11 +21,11 @@ export const some = (f) => (xs) => xs.some(f)
  * @private
  */
 export const curryPowder = (test) => (fn) => {
-  const checkPlacehodlers = countNonPlaceholders(test)
+  const checkPlaceholders = countNonPlaceholders(test)
   const mergeParams = mergeParamsByTest(test)
   const hasSauce = some(test)
   function curried(...args) { // eslint-disable-line fp/no-rest-parameters
-    const length = hasSauce(args) ? checkPlacehodlers(args) : args.length
+    const length = hasSauce(args) ? checkPlaceholders(args) : args.length
     function saucy(...args2) { // eslint-disable-line fp/no-rest-parameters
       return curried.apply(this, mergeParams(args, args2))
     }
