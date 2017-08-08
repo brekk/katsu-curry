@@ -7,7 +7,7 @@
  * @returns {Array} - merged argument lists
  * @private
  */
-export const mergeParamsByTest = (test) => (a, b) => a.map(
+export const mergeParamsByTest = (test, a, b) => a.map(
   (y) => (
     test(y) && b[0] ?
     b.shift() : // eslint-disable-line fp/no-mutating-methods

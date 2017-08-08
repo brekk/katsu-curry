@@ -8,28 +8,16 @@ import {stringable} from '../fp/meta'
  * @return {function} a partially applied function which knows about args
  * @private
 */
-export const innerpipe = curry(
-  (args) =>
-  /**
-  * reducer wrapper
-  * @method innerpipe-wrapper
-  * @param {*} x - the initial value
-  * @returns {*} some value that is the result of multiple functions being applied in succession
-  * @private
-  */
-  (x) => args.reduce(
-    /**
-    * the reducer function
-    * @method innerpipe-reducer
-    * @param {*} current - the current value
-    * @param {function} next - the next function
-    * @returns {*} the result of the next function being given the current value
-    * @private
-    */
-    (current, next) => next(current),
-    x
-  )
-)
+export const innerpipe = (args) => (x) => {
+    // (current, next) => next(current),
+    // x
+  const [first, ...rest] = args
+  let current = first(x)
+  for (let a = 0; a < rest.length; a++) {
+    current = rest[a](current)
+  }
+  return current
+}
 
 /**
  * compose functions, left to right
@@ -44,6 +32,6 @@ export const innerpipe = curry(
 export const pipe = (...args) => {
   const piped = innerpipe(args)
   // eslint-disable-next-line fp/no-mutation
-  piped.toString = stringable(`pipe`, args)
+  // piped.toString = stringable(`pipe`, args)
   return piped
 }

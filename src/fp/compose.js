@@ -15,6 +15,6 @@ import {stringable} from './meta'
 export const compose = (...args) => {
   const composed = innerpipe(args.reverse()) // eslint-disable-line fp/no-mutating-methods
   // eslint-disable-next-line fp/no-mutation
-  composed.toString = stringable(`compose`, args)
+  // composed.toString = stringable(`compose`, args)
   return composed
 }
