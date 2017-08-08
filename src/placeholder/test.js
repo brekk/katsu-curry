@@ -6,4 +6,4 @@
  * @returns {boolean} - whether the two symbols match
  * @private
  */
-export const test = (x) => (y) => Symbol.for(y) === Symbol.for(x)
+export const test = (x) => (y) => y === x
