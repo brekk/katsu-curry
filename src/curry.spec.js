@@ -1,4 +1,4 @@
-import test from 'ava'
+/* global test */
 import {
   $,
   test as symbolTest
@@ -7,8 +7,9 @@ import {
   curryify,
   curry
 } from './curry'
+import {t} from './testing-helper'
 
-test(`curryify allows you to add custom curried functions with placeholders`, (t) => {
+test(`curryify allows you to add custom curried functions with placeholders`, () => {
   t.plan(2)
   const divide = (a, b) => a / b
   const fire = `🔥`
@@ -21,7 +22,7 @@ test(`curryify allows you to add custom curried functions with placeholders`, (t
   t.is(fraction(100), 1 / 100)
 })
 
-test(`curry allows you to curry functions, with a curry emoji as a placeholder`, (t) => {
+test(`curry allows you to curry functions, with a curry emoji as a placeholder`, () => {
   t.plan(2)
   const divide = (a, b) => a / b
   const over = curry(divide)

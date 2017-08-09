@@ -197,14 +197,14 @@ const half = divide($, 2)
 
 compose functions, right to left
 
-**Parameters**
-
--   `args` **...[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** a list of function arguments
-
 **Examples**
 
 ```javascript
-compose(f, g)(a) === f(g(a))
+import {compose} from 'katsu-curry'
+const f = (x) => x * 2
+const g = (x) => x / 2
+const a = Math.round(Math.random() * 10)
+compose(f, g)(a) === f(g(a)) // true
 ```
 
 Returns **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** a composed function
@@ -213,14 +213,14 @@ Returns **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Ref
 
 compose functions, left to right
 
-**Parameters**
-
--   `args` **...[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** a list of function arguments
-
 **Examples**
 
 ```javascript
-pipe(f, g)(a) === g(f(a))
+import {pipe} from 'katsu-curry'
+const f = (x) => x * 2
+const g = (x) => x / 2
+const a = Math.round(Math.random() * 10)
+pipe(f, g)(a) === g(f(a)) // true
 ```
 
 Returns **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** a composed function
