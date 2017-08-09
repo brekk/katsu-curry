@@ -1,17 +1,4 @@
-import {mergeParamsByTest} from '../placeholder/merge-params'
-import {countNonPlaceholders} from '../placeholder/count'
-// import {toString} from './to-string'
 import fastSome from 'fast.js/array/some'
-
-/**
- * manually curried Array.prototype.some
- * @method some
- * @param {function} f - function to pass to [some]
- // * @param {Array} xs - an Array or something with [some] method
- * @returns {boolean} - the result
- * @private
- */
-export const some = (f, xs) => fastSome(xs, f)
 
 /**
  * The core currying function. You shouldn't import this directly, instead use `curryify`.
@@ -22,22 +9,38 @@ export const some = (f, xs) => fastSome(xs, f)
  * @private
  */
 export const curryPowder = (test) => (fn) => {
-  // const checkPlaceholders = countNonPlaceholders(test)
-  // const hasSauce = some(test)
-  return function curried(...args) { // eslint-disable-line fp/no-rest-parameters
-    const length = some(test, args) ? countNonPlaceholders(test, args) : args.length
-    function saucy(...args2) { // eslint-disable-line fp/no-rest-parameters
-      return curried.apply(this, mergeParamsByTest(test, args, args2))
+  return function curried() {
+    const argLength = arguments.length
+    const args = new Array(argLength)
+    for (let i = 0; i < argLength; ++i) {
+      args[i] = arguments[i]
     }
-    // eslint-disable-next-line fp/no-mutation
-    // saucy.toString = toString(fn, args)
+    const countNonPlaceholders = (toCount) => {
+      let count = toCount.length
+      while (!test(toCount[count])) {
+        count--
+      }
+      return count
+    }
+    const length = fastSome(args, test) ? countNonPlaceholders(args) : args.length
     return (
       length >= fn.length ?
       fn.apply(this, args) :
-      saucy
+      function saucy() { // eslint-disable-line fp/no-rest-parameters
+        const arg2Length = arguments.length
+        const args2 = new Array(arg2Length)
+        for (let j = 0; j < arg2Length; ++j) {
+          args2[j] = arguments[j]
+        }
+        // return curried.apply(this, mergeParamsByTest(test, args, args2))
+        return curried.apply(this, args.map(
+          (y) => (
+            test(y) && args2[0] ?
+            args2.shift() : // eslint-disable-line fp/no-mutating-methods
+            y
+          )
+        ).concat(args2))
+      }
     )
   }
-  // eslint-disable-next-line fp/no-mutation
-  // curried.toString = toString(fn)
-  // return curried
 }
