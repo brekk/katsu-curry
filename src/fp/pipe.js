@@ -1,5 +1,5 @@
 import {curry} from '../curry/katsu'
-import {stringable} from '../fp/meta'
+// import {stringable} from '../fp/meta'
 
 /**
  * A function which takes a list of arguments and returns an argument-reducer function
@@ -22,16 +22,21 @@ export const innerpipe = (args) => (x) => {
 /**
  * compose functions, left to right
  * @method pipe
- * @param {...function} args - a list of function arguments
  * @returns {function} - a composed function
  * @public
  * @example
- * pipe(f, g)(a) === g(f(a))
+ * import {pipe} from 'katsu-curry'
+ * const f = (x) => x * 2
+ * const g = (x) => x / 2
+ * const a = Math.round(Math.random() * 10)
+ * pipe(f, g)(a) === g(f(a)) // true
  */
 // eslint-disable-next-line fp/no-rest-parameters
-export const pipe = (...args) => {
-  const piped = innerpipe(args)
-  // eslint-disable-next-line fp/no-mutation
-  // piped.toString = stringable(`pipe`, args)
-  return piped
+export function pipe() {
+  const argLength = arguments.length
+  const args = new Array(argLength)
+  for (let i = 0; i < argLength; ++i) {
+    args[i] = arguments[i]
+  }
+  return innerpipe(args)
 }

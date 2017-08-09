@@ -1,5 +1,8 @@
-import test from 'ava'
+/* global test */
 import execa from 'execa'
+import {t} from './testing-helper'
+
+global.Promise = require.requireActual(`bluebird`) // eslint-disable-line fp/no-mutation
 
 // 0  1  2    3     4     5
 // // => name took: speed milliseconds.
@@ -8,42 +11,33 @@ const getSpeed = (x) => {
   const speed = parseFloat(parts[5])
   return [parts[2], speed]
 }
-// const oldSpeed = getSpeed(oldTime)
-// const newSpeed = getSpeed(newTime)
 const cwd = process.cwd()
-const {log: _log} = console
-const log = _log.bind(console)
+// const {log: _log} = console
+// const log = _log.bind(console)
 
-test.cb(`katsu-curry should be faster than ramda.curry according to perftest`, (t) => {
-  execa.shell(`${cwd}/node_modules/.bin/babel-node ${cwd}/src/performance.fixture.js`).then(
-    (output) => {
-      log(output.stdout)
-      const lines = output.stdout.split(`\n`)
-      const {newSpeed, ramdaSpeed} = lines.map(getSpeed).reduce((agg, [k, v]) => {
-        return Object.assign({}, agg, {[`${k}Speed`]: v})
-      }, {})
-      t.is(typeof newSpeed, `number`)
-      t.is(typeof ramdaSpeed, `number`)
-      t.truthy(newSpeed < ramdaSpeed)
-      t.end()
-    }
-  ).catch(
-    t.fail
-  )
-})
-
-test.cb(`katsu-curry should be slower than ramda.curry according to benchmark`, (t) => {
-  execa.shell(`${cwd}/node_modules/.bin/babel-node ${cwd}/src/performance2.fixture.js`).then(
-    (output) => {
-      log(output.stdout)
-      const lines = output.stdout.split(`\n`)
-      // const {newSpeed, ramdaSpeed} = lines.map(getSpeed).reduce((agg, [k, v]) => {
-      //   return Object.assign({}, agg, {[`${k}Speed`]: v})
-      // }, {})
-      t.is(lines[2], `Fastest is ramda.curry`)
-      t.end()
-    }
-  ).catch(
-    t.fail
-  )
+test(`katsu-curry should be faster than ramda.curry according to perftest`, (done) => {
+  t.plan(3)
+  return new global.Promise((resolve, reject) => {
+    setImmediate(() => {
+      execa.shell(`${cwd}/node_modules/.bin/babel-node ${cwd}/src/performance.fixture.js`).then(
+        (output) => {
+          // log(output.stdout)
+          const lines = output.stdout.split(`\n`)
+          const speeds = lines.map(getSpeed).reduce((agg, [k, v]) => {
+            return Object.assign({}, agg, {[`${k}Speed`]: v})
+          }, {})
+          // log(speeds)
+          const {newSpeed, ramdaSpeed} = speeds
+          t.is(typeof newSpeed, `number`)
+          t.is(typeof ramdaSpeed, `number`)
+          const faster = newSpeed < ramdaSpeed
+          t.truthy(faster)
+          resolve(faster)
+          done()
+        }
+      ).catch(
+        reject
+      )
+    })
+  })
 })

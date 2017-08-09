@@ -8,7 +8,7 @@ const curryAdd = curry(add)
 
 const random = () => Math.round(Math.random() * 1e3)
 
-const suite = new Benchmark.Suite()
+const suite = new Benchmark.Suite(`KATSU-COMPARE`)
 suite.add(
   `katsu-curry.curry`,
   () => {
@@ -26,4 +26,4 @@ suite.add(
 .on(`complete`, function onComplete() {
   console.log(`Fastest is ` + this.filter(`fastest`).map(`name`))  // eslint-disable-line no-console
 })
-.run({ 'async': true })
+.run({ async: false })

@@ -1,4 +1,4 @@
-import test from 'ava'
+/* global test */
 import map from 'ramda/src/map'
 import filter from 'ramda/src/filter'
 import reject from 'ramda/src/reject'
@@ -7,6 +7,7 @@ import {
   curryObjectK,
   curryObjectKN
 } from './object'
+import {t} from './testing-helper'
 
 import {
   pipe
@@ -22,13 +23,13 @@ import {
   merge
 } from './utils/object'
 
-test(`merge should be object assign + curry`, (t) => {
+test(`merge should be object assign + curry`, () => {
   const rando = (x) => Math.round(Math.random() * x)
   const [a, b, c] = [rando(), rando(), rando()]
   t.deepEqual({a, b, c}, merge({a, b}, {c}))
 })
 
-test(`curryObjectN should allow unary functions that use key-length as arity`, (t) => {
+test(`curryObjectN should allow unary functions that use key-length as arity`, () => {
   const takes3 = curryObjectN(3, (x) => {
     return values(x).reduce((_, y) => _ + y, 0)
   })
@@ -66,7 +67,7 @@ const isFunction = (x) => typeof x === `function`
 const functionProps = filter(isFunction)
 const noFnProps = reject(isFunction)
 const totalFunctionProperties = pipe(functionProps, keys, length)
-test(`curryObjectN should return functions when key length has not been met`, (t) => {
+test(`curryObjectN should return functions when key length has not been met`, () => {
   const divideThenSum = curryObjectN(3, (obj) => {
     const [A, B, C] = values(obj)
     return B + C / A
@@ -102,7 +103,7 @@ test(`curryObjectN should return functions when key length has not been met`, (t
   })
   t.deepEqual(totalFunctionProperties(outputs2), 14)
 })
-test(`curryObjectK should return functions when explicit keys have not been met`, (t) => {
+test(`curryObjectK should return functions when explicit keys have not been met`, () => {
   const divideThenSum = curryObjectK([`a`, `b`, `c`], (obj) => {
     const [A, B, C] = values(obj)
     return B + C / A
@@ -125,7 +126,7 @@ test(`curryObjectK should return functions when explicit keys have not been met`
   })
   t.deepEqual(totalFunctionProperties(outputs2), 20)
 })
-test(`curryObjectKN should behave like both other morphisms`, (t) => {
+test(`curryObjectKN should behave like both other morphisms`, () => {
   t.plan(6)
   t.is(typeof curryObjectKN, `function`)
   const input = {a: 1, b: 2, c: 3}

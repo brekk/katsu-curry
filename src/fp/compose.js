@@ -1,20 +1,22 @@
 import {innerpipe} from './pipe'
-import {stringable} from './meta'
 
 /**
  * compose functions, right to left
  * @method compose
- * @param {...function} args - a list of function arguments
  * @returns {function} - a composed function
  * @public
  * @example
- * compose(f, g)(a) === f(g(a))
+ * import {compose} from 'katsu-curry'
+ * const f = (x) => x * 2
+ * const g = (x) => x / 2
+ * const a = Math.round(Math.random() * 10)
+ * compose(f, g)(a) === f(g(a)) // true
  */
-/* istanbul ignore next */
-// eslint-disable-next-line fp/no-rest-parameters
-export const compose = (...args) => {
-  const composed = innerpipe(args.reverse()) // eslint-disable-line fp/no-mutating-methods
-  // eslint-disable-next-line fp/no-mutation
-  // composed.toString = stringable(`compose`, args)
-  return composed
+export function compose() {
+  const argLength = arguments.length
+  const args = new Array(argLength)
+  for (let i = 0; i < argLength; ++i) {
+    args[i] = arguments[i]
+  }
+  return innerpipe(args.reverse())
 }
