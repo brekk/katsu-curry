@@ -1,6 +1,8 @@
-/* global test */
+/* global test, jasmine */
 import execa from 'execa'
 import {t} from './testing-helper'
+
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 15e3 // eslint-disable-line fp/no-mutation
 
 global.Promise = require.requireActual(`bluebird`) // eslint-disable-line fp/no-mutation
 
