@@ -1,14 +1,15 @@
 const base = require(`./rollup.config.base`)
+const path = require(`path`)
 /* eslint-disable fp/no-mutating-assign */
 module.exports = Object.assign(base, {
-  entry: `src/index.js`,
-  targets: [
+  input: path.resolve(__dirname, `../src/index.js`),
+  output: [
     {
-      dest: `katsu-curry.js`,
+      file: `katsu-curry.js`,
       format: `cjs`
     },
     {
-      dest: `katsu-curry.es.js`,
+      file: `katsu-curry.es.js`,
       format: `es`
     }
   ]

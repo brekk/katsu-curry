@@ -1,3 +1,4 @@
+declare const CURRY = '🍛'
 /**
  * 🍛 The default placeholder value
  * @constant PLACEHOLDER
@@ -9,5 +10,7 @@
  * const divide = curry((a, b) => a / b)
  * const half = divide($, 2)
  */
-export const PLACEHOLDER = `🍛`
-export const $ = PLACEHOLDER
+declare module 'Placeholder/index' {
+  export const PLACEHOLDER: typeof CURRY
+  export const $: typeof CURRY
+}

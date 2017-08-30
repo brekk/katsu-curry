@@ -1,6 +1,6 @@
-import {length} from '../utils/length'
-import {matchingKeyCount} from '../utils/matching-key-count'
-import {curryObjectByCondition} from './by-condition'
+import {length} from '@utils/length'
+import {matchingKeyCount} from '@utils/matching-key-count'
+import {curryObjectByCondition} from '@object/by-condition'
 
 export const expectKArgs = (expected, args) => matchingKeyCount(expected, args) >= length(expected)
 

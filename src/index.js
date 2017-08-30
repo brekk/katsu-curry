@@ -1,9 +1,10 @@
-import pkg from '../package.json'
-export * from './curry'
-export * from './object'
-import * as placeholder from './placeholder'
-import * as fp from './fp'
-export * from './combinators'
+import * as placeholder from '@placeholder/index'
+import * as fp from '@fp/index'
+import * as pkg from '../package.json'
+
+export {K, I} from '@combinators/index'
+export * from '@curry/index'
+export * from '@object/index'
 
 const {pipe: p, compose: c} = fp
 export const pipe = p

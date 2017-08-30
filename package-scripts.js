@@ -1,5 +1,6 @@
 // const curry = require(`ramda/src/curry`)
 const utils = require(`nps-utils`)
+console.log(`<CONFIG>${JSON.stringify(process.env)}</CONFIG>`) // eslint-disable-line no-console
 // const {version} = require(`./package.json`)
 
 // const prepend = curry((toPrepend, file) => `echo "${toPrepend} $(cat ${file})" > ${file}`)
@@ -22,6 +23,22 @@ const filterSpecs = [
   `.filter(([k, v]) => !(k.indexOf('spec') > -1))`,
   `.reduce((agg, [k, v]) => Object.assign({}, agg, {[k]: v}), {})"`
 ].join(``)
+
+const jestOptions = `--` + [
+  `runInBand`,
+  `ci`,
+  `testResultsProcessor="./node_modules/jest-junit-reporter"`,
+  `coverage`,
+  `coveragePathIgnorePatterns testing-helper.js`
+].join(` --`)
+
+const babelDoNotConvertThesePlz = `--ignore ${[
+  `index.ts`,
+  `index.js`,
+  `src/*.spec.js`,
+  `*.fixture.js`,
+  `testing-helper.js`
+].join(`,`)}`
 
 module.exports = {
   scripts: {
@@ -58,9 +75,9 @@ module.exports = {
     test: {
       description: `run all tests with coverage`,
       script: `jest src/*.spec.js --coverage --coveragePathIgnorePatterns testing-helper.js`,
-      unit: {
-        description: `run unit tests`,
-        script: `jest src/*.spec.js`
+      ci: {
+        description: `run circle tests`,
+        script: `jest ${jestOptions}`
       }
     },
     docs: {
@@ -68,12 +85,20 @@ module.exports = {
       script: `documentation build src/** -f html -o docs -a private -a public -a protected`
     },
     bundle: {
-      description: `run the main bundle task`,
-      script: `rollup -c config/rollup.config.main.js`
+      description: `build with rollup or webpack`,
+      script: `nps bundle.rollup`,
+      rollup: {
+        description: `run the main bundle task`,
+        script: `rollup -c config/rollup.config.main.js`
+      },
+      webpack: {
+        description: `pack it up with webpack`,
+        script: `webpack --config webpack.config.js src/index.js --verbose --display-error-details`
+      }
     },
     build: {
       description: `convert files individually`,
-      script: `babel src -d . --ignore index.js,src/*.spec.js,*.fixture.js`
+      script: `babel src -d . ${babelDoNotConvertThesePlz}`
     },
     care: {
       description: `run all the things`,

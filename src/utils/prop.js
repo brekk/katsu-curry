@@ -1,4 +1,4 @@
-import {curry} from '../curry/katsu'
+import {curry} from '@curry/katsu'
 
 /**
  * Grab a property, but delegatee last

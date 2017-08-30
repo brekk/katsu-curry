@@ -1,4 +1,4 @@
-import {curry} from '../curry/katsu'
+import {curry} from '@curry/katsu'
 
 /**
  * Grab a method, and invoke it with a parameter
