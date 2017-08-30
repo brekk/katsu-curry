@@ -1,13 +1,8 @@
-import pkg from '../package.json'
-export * from './curry'
-export * from './object'
-import * as placeholder from './placeholder'
-import * as fp from './fp'
-export * from './combinators'
-
-const {pipe: p, compose: c} = fp
-export const pipe = p
-export const compose = c
-export const {version} = pkg
-export const {$} = placeholder
-export const PLACEHOLDER = $
+export {$, PLACEHOLDER} from '@placeholder/index'
+export {compose} from '@fp/compose'
+export {pipe} from '@fp/pipe'
+export {version} from '../package.json'
+export {K, I} from '@combinators/index'
+export {curry} from '@curry/katsu'
+export {curryify} from '@curry/ify'
+export {curryObjectK, curryObjectN, curryObjectKN} from '@object/index'

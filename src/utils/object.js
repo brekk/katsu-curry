@@ -1,4 +1,4 @@
-import {curry} from '../curry/katsu'
+import {curry} from '@curry/katsu'
 const {assign: _assign, keys: _keys, freeze: _freeze} = Object
 
 export const keys = _keys

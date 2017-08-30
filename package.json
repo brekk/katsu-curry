@@ -4,6 +4,42 @@
   "description": "curry functions with placeholders or in object form",
   "license": "ISC",
   "main": "katsu-curry.js",
+  "module": "katsu-curry.es.js",
+  "types": "custom.d.ts",
+  "files": [
+    "katsu-curry.es.js",
+    "index.d.ts"
+  ],
+  "jest": {
+    "modulePaths": [
+      "src"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
+    "coveragePathIgnorePatterns": [
+      "testing-helper.js",
+      "length.js"
+    ],
+    "mapCoverage": true,
+    "moduleNameMapper": {
+      "@combinators/(.*)\\.(.*)": "<rootDir>/src/combinators/$1.$2",
+      "@curry/(.*)\\.(.*)": "<rootDir>/src/curry/$1.$2",
+      "@fp/(.*)\\.(.*)": "<rootDir>/src/fp/$1.$2",
+      "@object/(.*)\\.(.*)": "<rootDir>/src/object/$1.$2",
+      "@placeholder/(.*)\\.(.*)": "<rootDir>/src/placeholder/$1.$2",
+      "@utils/(.*)\\.(.*)": "<rootDir>/src/utils/$1.$2"
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "json"
+    ],
+    "testMatch": [
+      "**/*.spec.(ts|tsx|js)"
+    ]
+  },
   "reveal": true,
   "ava": {
     "require": [
@@ -61,11 +97,21 @@
     "fast.js": "^0.1.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
+    "@types/jest": "^20.0.8",
+    "awesome-typescript-loader": "^3.2.3",
+    "babel-cli": "^6.26.0",
+    "babel-jest": "^20.0.3",
+    "babel-loader": "^7.1.2",
     "babel-plugin-istanbul": "^4.1.4",
+    "babel-plugin-module-alias": "^1.6.0",
+    "babel-plugin-module-resolver": "^2.7.1",
     "babel-plugin-transform-es2015-destructuring": "^6.23.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-env": "^1.6.0",
     "babel-preset-es2015": "^6.24.1",
+    "babel-preset-fbjs": "^2.1.4",
+    "babel-preset-node6": "^11.0.0",
+    "babel-preset-stage-2": "^6.24.1",
     "babel-register": "^6.24.1",
     "benchmark": "^2.1.4",
     "bluebird": "^3.5.0",
@@ -73,18 +119,24 @@
     "documentation": "^4.0.0-rc.1",
     "eslint": "^3.12.2",
     "eslint-config-standard": "^6.2.1",
+    "eslint-import-resolver-babel-module": "^3.0.0",
+    "eslint-import-resolver-webpack": "^0.8.3",
     "eslint-plugin-babel": "^4.1.1",
     "eslint-plugin-better": "^0.1.5",
     "eslint-plugin-eslint-comments": "^1.0.2",
     "eslint-plugin-fp": "^2.3.0",
-    "eslint-plugin-import": "^2.6.1",
+    "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-standard": "^2.0.1",
     "execa": "^0.8.0",
+    "germs": "^0.1.9",
     "husky": "^0.14.2",
     "istanbul": "0.4.x",
     "jayin": "^0.0.3",
-    "jest": "^20.0.4",
+    "jest": "^21.0.1",
+    "jest-alias-preprocessor": "^1.1.1",
+    "jest-cli": "^20.0.4",
+    "jest-junit-reporter": "^1.1.0",
     "katsu-curry": "^0.1.1",
     "madge": "^2.0.0",
     "microtime": "^2.1.6",
@@ -92,7 +144,9 @@
     "nps-utils": "^1.2.0",
     "nyc": "^11.0.3",
     "ramda": "^0.24.1",
-    "rollup": "^0.43.0",
+    "rollup": "^0.49.2",
+    "rollup-plugin-alias": "^1.3.1",
+    "rollup-plugin-babel-minify": "^3.1.2",
     "rollup-plugin-babili": "^3.1.0",
     "rollup-plugin-buble": "^0.15.0",
     "rollup-plugin-cleanup": "^1.0.1",
@@ -101,7 +155,18 @@
     "rollup-plugin-json": "^2.3.0",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-progress": "^0.4.0",
-    "testperf": "^2.0.3"
+    "rollup-plugin-ts": "^0.1.0",
+    "rollup-plugin-typescript2": "^0.5.2",
+    "testperf": "^2.0.3",
+    "ts-jest": "^21.0.0",
+    "tslib": "^1.7.1",
+    "tslint": "^5.7.0",
+    "tslint-eslint-rules": "^4.1.1",
+    "typescript": "^2.5.2",
+    "typescript-babel-jest": "^1.0.5",
+    "typescript-eslint-parser": "^7.0.0",
+    "wallaby-webpack": "^0.0.39",
+    "webpack": "2.2.x"
   },
   "repository": "https://github.com/brekk/katsu-curry",
   "author": "brekk"

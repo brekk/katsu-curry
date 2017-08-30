@@ -1,6 +1,6 @@
-import {pipe} from '../fp/pipe'
-import {prop} from './prop'
-import {keys} from './object'
+import {pipe} from '@fp/pipe'
+import {prop} from '@utils/prop'
+import {keys} from '@utils/object'
 
 /**
  * returns .length if it exists on an input
@@ -9,7 +9,7 @@ import {keys} from './object'
  * @returns {number} length
  * @private
  */
-const propLength = prop(`length`)
+export const propLength = prop(`length`)
 
 /**
  * returns total keys in an object
@@ -18,7 +18,7 @@ const propLength = prop(`length`)
  * @returns {number} length
  * @private
  */
-const objectLength = pipe(keys, propLength)
+export const objectLength = pipe(keys, propLength)
 
 /**
  * returns .length or total keys in an object
@@ -27,4 +27,5 @@ const objectLength = pipe(keys, propLength)
  * @returns {number} length
  * @private
  */
-export const length = (x) => propLength(x) || objectLength(x)
+/* istanbul ignore next */
+export const length = (x) => (typeof x === `object` ? objectLength(x) : propLength(x))

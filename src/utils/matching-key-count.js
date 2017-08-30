@@ -1,7 +1,7 @@
-import {pipe} from '../fp/pipe'
-import {curry} from '../curry/katsu'
-import {length} from './length'
-import {matchingKeys} from './matching-keys'
+import {pipe} from '@fp/pipe'
+import {curry} from '@curry/katsu'
+import {length} from '@utils/length'
+import {matchingKeys} from '@utils/matching-keys'
 
 /**
  * return whether the all the given keys exist on an object

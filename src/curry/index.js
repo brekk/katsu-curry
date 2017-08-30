@@ -1,2 +1,2 @@
-export * from './ify'
-export * from './katsu'
+export {curry} from '@curry/katsu'
+export {curryify} from '@curry/ify'

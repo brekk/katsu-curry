@@ -18,6 +18,12 @@
     "*.js",
     "forge-ui.*"
   ],
+  "settings": {
+    "import/resolver": "webpack",
+    "import/parsers": {
+      "typescript-eslint-parser": [ ".ts", ".tsx" ]
+    }
+  },
   "rules": {
     "complexity": [1, 4],
     "max-params": [1, {"max": 5}],

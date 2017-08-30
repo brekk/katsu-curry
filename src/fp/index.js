@@ -1,3 +1,3 @@
-export * from './compose'
-export * from './pipe'
-export * from './filter'
+export {compose} from '@fp/compose'
+export {pipe} from '@fp/pipe'
+export {filter} from '@fp/filter'

@@ -1,6 +1,6 @@
-import {curryObjectByCondition} from './by-condition'
-import {expectKArgs} from './by-keys'
-import {expectNArgs} from './by-number-of-keys'
+import {curryObjectByCondition} from '@object/by-condition'
+import {expectKArgs} from '@object/by-keys'
+import {expectNArgs} from '@object/by-number-of-keys'
 
 /**
  * Given object and expected keys, continually curry until expected keys are met
@@ -14,13 +14,6 @@ import {expectNArgs} from './by-number-of-keys'
  * @public
  * @example
  * import {curryObjectKN} from 'katsu-curry'
- * const abcProps = curryObjectK([`a`, `b`, `c`], ({a, b, c, optional = 1}) => {
- *  return a + b + c / optional
- * })
- * abcProps({a: 1, b: 2, c: 3}) // 6
- * abcProps({a: 1, b: 2}) // function expecting one more param
- * abcProps({a: 1, b: 2})({c: 3}) // 6
- * abcProps({a: 1, b: 2, c: 3, optional: 10}) // 0.6
  */
 export const curryObjectKN = curryObjectByCondition(
   ({n, k}, args) => expectKArgs(k, args) || expectNArgs(n, args)
