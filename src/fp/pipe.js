@@ -1,11 +1,8 @@
-// import {curry} from '@curry/katsu'
-// import {stringable} from '../fp/meta'
-
 /**
  * A function which takes a list of arguments and returns an argument-reducer function
  * @method innerpipe
  * @param {Array} args - arguments Array
- * @return {function} a partially applied function which knows about args
+ * @returns {function} a partially applied function which knows about args
  * @private
 */
 export const innerpipe = (args) => (x) => {
