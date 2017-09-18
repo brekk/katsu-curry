@@ -5,6 +5,7 @@
     "allowJs": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "noImplicitAny": true,
     "lib": [
       "dom",
       "es2015.collection",
@@ -38,7 +39,6 @@
   },
   "files": [
     "src/typings.d.ts",
-    "src/index.ts",
     "src/curry/index.d.ts",
     "src/combinators/index.d.ts",
     "src/placeholder/index.d.ts",
