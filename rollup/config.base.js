@@ -40,7 +40,8 @@ module.exports = {
     // rollupAlias({tslib: `node_modules/tslib/tslib.es6.js`}),
     ts({
       typescript,
-      tsconfig: tsconfig.compilerOptions
+      tsconfig: tsconfig.compilerOptions,
+      useTsconfigDeclarationDir: true
     }),
     commonjs({
       extensions: [`.js`],

@@ -19,3 +19,4 @@ placeholder
 utils
 !src/utils
 .rpt2_cache
+.DS_Store
