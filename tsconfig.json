@@ -39,14 +39,21 @@
   },
   "files": [
     "src/typings.d.ts",
-    "src/curry/index.d.ts",
-    "src/combinators/index.d.ts",
-    "src/placeholder/index.d.ts",
-    "src/fp/index.d.ts",
-    "src/object/index.d.ts",
-    "src/utils/index.d.ts"
+    "custom.d.ts",
+    "src/combinators/*",
+    "src/curry/*",
+    "src/fp/*",
+    "src/object/*",
+    "src/placeholder/*",
+    "src/utils/*",
+    "src/*.js"
   ],
   "exclude": [
+    "*.spec.*",
     "node_modules"
-  ]
+  ],
+  "awesomeTypescriptLoaderOptions": {
+    "useBabel": true,
+    "useWebpackText": true
+  }
 }

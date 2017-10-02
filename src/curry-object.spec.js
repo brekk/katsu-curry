@@ -1,4 +1,5 @@
 /* global test */
+import {t} from 'germs'
 import map from 'ramda/src/map'
 import filter from 'ramda/src/filter'
 import reject from 'ramda/src/reject'
@@ -7,7 +8,6 @@ import {
   curryObjectK,
   curryObjectKN
 } from './object'
-import {t} from './testing-helper'
 
 import {
   pipe

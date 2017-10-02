@@ -1,4 +1,5 @@
 /* global test */
+import {t} from 'germs'
 import {
   $
 } from './placeholder'
@@ -6,7 +7,6 @@ import {
   curryify,
   curry
 } from './curry'
-import {t} from './testing-helper'
 
 const symbolTest = (x) => (y) => x === y
 
