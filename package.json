@@ -1,6 +1,6 @@
 {
   "name": "katsu-curry",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "curry functions with placeholders or in object form",
   "license": "ISC",
   "main": "katsu-curry.js",
