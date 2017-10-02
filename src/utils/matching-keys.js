@@ -1,7 +1,7 @@
-import {curry} from '../curry/katsu'
-import {filter} from '../fp/filter'
-import {flipIncludes} from './array'
-import {keys} from './object'
+import {curry} from '@curry/katsu'
+import {filter} from '@fp/filter'
+import {flipIncludes} from '@utils/array'
+import {keys} from '@utils/object'
 
 /**
  * returns keys which are included in object

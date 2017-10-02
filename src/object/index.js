@@ -1,3 +1,3 @@
-export {curryObjectK} from './by-keys'
-export * from './by-keys-or-number'
-export {curryObjectN} from './by-number-of-keys'
+export {curryObjectK} from '@object/by-keys'
+export {curryObjectN} from '@object/by-number-of-keys'
+export {curryObjectKN} from '@object/by-keys-or-number'

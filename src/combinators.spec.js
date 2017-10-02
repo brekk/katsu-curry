@@ -1,5 +1,5 @@
 /* global test */
-import {t} from './testing-helper'
+import {t} from 'germs'
 import {I} from './combinators/identity'
 import {K} from './combinators/constant'
 
