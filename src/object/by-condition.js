@@ -1,6 +1,6 @@
-import {curry} from '../curry/katsu'
-import {pipe} from '../fp/pipe'
-import {merge} from '../utils/object'
+import {curry} from '@curry/katsu'
+import {pipe} from '@fp/pipe'
+import {merge} from '@utils/object'
 
 /**
  * Take some arguments, test them, and then either return a partially applied function or the answer

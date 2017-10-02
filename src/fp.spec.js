@@ -1,5 +1,5 @@
 /* global test */
-import {t} from './testing-helper'
+import {t} from 'germs'
 import {$} from './placeholder'
 import {
   curry

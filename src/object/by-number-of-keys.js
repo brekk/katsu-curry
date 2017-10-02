@@ -1,5 +1,5 @@
-import {length} from '../utils/length'
-import {curryObjectByCondition} from './by-condition'
+import {length} from '@utils/length'
+import {curryObjectByCondition} from '@object/by-condition'
 
 export const expectNArgs = (size, args) => length(args) >= size
 

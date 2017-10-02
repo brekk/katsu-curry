@@ -1,4 +1,4 @@
-import {innerpipe} from './pipe'
+import {innerpipe} from '@fp/pipe'
 
 /**
  * compose functions, right to left
@@ -15,8 +15,14 @@ import {innerpipe} from './pipe'
 export function compose() {
   const argLength = arguments.length
   const args = new Array(argLength)
+  /* eslint-disable fp/no-let */
+  /* eslint-disable fp/no-loops */
+  /* eslint-disable fp/no-mutation */
   for (let i = 0; i < argLength; ++i) {
     args[i] = arguments[i]
   }
-  return innerpipe(args.reverse())
+  /* eslint-enable fp/no-let */
+  /* eslint-enable fp/no-loops */
+  /* eslint-enable fp/no-mutation */
+  return innerpipe(args.reverse()) // eslint-disable-line fp/no-mutating-methods
 }

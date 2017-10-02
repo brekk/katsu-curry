@@ -1,2 +1,2 @@
-export * from './constant'
-export * from './test'
+export const PLACEHOLDER = `🍛`
+export const $ = PLACEHOLDER
