@@ -26,6 +26,16 @@ console.log(`z`, z) // 4
 
 # Changelog
 
+-   _0.5.0_ - API changes, added `remap` and `remapArray`
+-   _0.4.1_ - streamlined build with `germs`
+-   _0.4.0_ - improvements in testing
+-   _0.3.1_ - improvements for speed
+-   _0.1.1_ - fix exports
+-   _0.1.0_ - API changes
+-   _0.0.8_ - modularized the codebase
+-   _0.0.7_ - .npmignore fixes
+-   _0.0.6_ - adjustments to toString functionality (now deprecated)
+-   _0.0.4_ - Logo
 -   _0.0.3_ - First working release, supports regular currying via `curry` and currying by object via `curryObjectK` and `curryObjectN` and `pipe` / `compose` to allow for easy composition.
 -   _0.0.6_ - Added `toString` methods to improve context when debugging
 -   _0.1.0_ - Updated API and privatized some existing methods
@@ -50,7 +60,7 @@ import {I} from 'katsu-curry'
 const five = I(5)
 ```
 
-Returns **any** x
+Returns **any** x - whatever was given
 
 ## K
 
