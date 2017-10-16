@@ -1,4 +1,4 @@
-import {curry} from '@curry/katsu'
+import {curry} from '@params/curry'
 import {pipe} from '@fp/pipe'
 import {merge} from '@utils/object'
 

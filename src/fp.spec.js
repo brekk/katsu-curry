@@ -3,7 +3,7 @@ import {t} from 'germs'
 import {$} from './placeholder'
 import {
   curry
-} from './curry'
+} from './params'
 import {pipe, compose} from './fp'
 
 const add = curry((a, b) => a + b)

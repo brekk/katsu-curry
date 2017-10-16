@@ -8,8 +8,8 @@ docs
 lib
 combinators
 !src/combinators
-curry
-!src/curry
+params
+!src/params
 fp
 !src/fp
 object

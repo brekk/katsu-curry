@@ -13,7 +13,7 @@ module.exports = bundle({
   name: pkg.name,
   alias: {
     [`@combinators`]: local(`../src/combinators`),
-    [`@curry`]: local(`../src/curry`),
+    [`@params`]: local(`../src/params`),
     [`@fp`]: local(`../src/fp`),
     [`@object`]: local(`../src/object`),
     [`@placeholder`]: local(`../src/placeholder`),

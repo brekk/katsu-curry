@@ -184,3 +184,39 @@ const twoOver = divide(2)
 ```
 
 Returns **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** a curried function
+
+## remapArray
+
+easily remap an array by indices
+
+**Parameters**
+
+-   `indices` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** an array of indices to remap
+-   `arr` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** an input array
+
+**Examples**
+
+```javascript
+import {remapArray} from 'katsu-curry'
+remapArray([2,1,0], [`up`, `is`, `what`]).join(` `) // "what is up"
+```
+
+Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** remapped array
+
+## remap
+
+reframe any function with the arguments as you want, plus curry
+
+**Parameters**
+
+-   `indices` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** an array of indices to remap
+-   `fn` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** a function
+
+**Examples**
+
+```javascript
+import {remap} from 'katsu-curry'
+const quaternaryFunction = (a, b, c, d) => ((a + b + c) / d)
+const quaternaryFunctionLastShuffle = remap([1, 2, 3, 0], quaternaryFunction)
+quaternaryFunctionLastShuffle(1, 2, 3, 4) === ((2 + 3 + 4) / 1)
+```

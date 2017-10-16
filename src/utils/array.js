@@ -1,4 +1,4 @@
-import {curry} from '@curry/katsu'
+import {curry} from '@params/curry'
 
 /**
  * curried form of Array.includes, but with the parameters not flipped as per the convention
