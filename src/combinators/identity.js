@@ -3,7 +3,7 @@
  * @method I
  * @alias identity
  * @param {*} x - anything
- * @returns {*} x
+ * @returns {*} x - whatever was given
  * @public
  * @example
  * import {I} from 'katsu-curry'
