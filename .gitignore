@@ -20,3 +20,5 @@ utils
 !src/utils
 .rpt2_cache
 .DS_Store
+.idea
+.tern-project
