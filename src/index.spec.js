@@ -10,7 +10,7 @@ const zort = (x) => x.sort() // eslint-disable-line fp/no-mutating-methods
 const sortKeys = (x) => zort(Object.keys(x))
 
 test(`katsu-curry exports`, () => {
-  t.deepEqual(sortKeys(KC), [
+  t.deepEqual(sortKeys(KC), zort([
     `$`,
     `I`,
     `K`,
@@ -22,8 +22,10 @@ test(`katsu-curry exports`, () => {
     `curryObjectN`,
     `curryify`,
     `pipe`,
+    `remap`,
+    `remapArray`,
     `version`
-  ])
+  ]))
 })
 
 test(`length grabs either object length or key length`, () => {

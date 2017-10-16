@@ -6,7 +6,7 @@ module.exports = {
     ],
     alias: {
       "@combinators": `${__dirname}/src/combinators`,
-      "@curry": `${__dirname}/src/curry`,
+      "@params": `${__dirname}/src/params`,
       "@fp": `${__dirname}/src/fp`,
       "@object": `${__dirname}/src/object`,
       "@placeholder": `${__dirname}/src/placeholder`,

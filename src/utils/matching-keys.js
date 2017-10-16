@@ -1,4 +1,4 @@
-import {curry} from '@curry/katsu'
+import {curry} from '@params/curry'
 import {filter} from '@fp/filter'
 import {flipIncludes} from '@utils/array'
 import {keys} from '@utils/object'

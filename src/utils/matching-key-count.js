@@ -1,5 +1,5 @@
 import {pipe} from '@fp/pipe'
-import {curry} from '@curry/katsu'
+import {curry} from '@params/curry'
 import {length} from '@utils/length'
 import {matchingKeys} from '@utils/matching-keys'
 

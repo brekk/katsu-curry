@@ -9,7 +9,7 @@
       "alias": {
         "@katsu": "./src",
         "@combinators": "./src/combinators",
-        "@curry": "./src/curry",
+        "@params": "./src/params",
         "@fp": "./src/fp",
         "@object": "./src/object",
         "@placeholder": "./src/placeholder",
