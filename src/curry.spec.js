@@ -51,6 +51,13 @@ test(`curry returns an error when given a non-function, up front`, () => {
   t.throws(() => curry({}), impatientExpectation)
 })
 
+test(`curry(fn).toString returns useful curry info`, () => {
+  const add = (a, b) => a + b
+  const sum = curry(add)
+  t.is(sum.toString(), `curry(add)`)
+  t.is(sum(5).toString(), `curry(add)(5)`)
+})
+
 test(`remapArray should allow for expressive array remapping`, () => {
   const identity = [0, 1, 2]
   const swapLast = [0, 2, 1]

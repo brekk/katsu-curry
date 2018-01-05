@@ -20,10 +20,11 @@ suite.add(
     curryAdd(random(), random(), random())
   }
 )
-.on(`cycle`, (event) => {
-  console.log(String(event.target)) // eslint-disable-line no-console
-})
-.on(`complete`, function onComplete() {
-  console.log(`Fastest is ` + this.filter(`fastest`).map(`name`))  // eslint-disable-line no-console
-})
-.run({ async: false })
+  .on(`cycle`, (event) => {
+    console.log(String(event.target)) // eslint-disable-line no-console
+  })
+  .on(`complete`, function onComplete() {
+    // eslint-disable-next-line no-console
+    console.log(`Fastest is ` + this.filter(`fastest`).map(`name`))
+  })
+  .run({ async: true })

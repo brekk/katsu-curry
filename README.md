@@ -79,7 +79,7 @@ const twoFn = K(2)
 fiveFn() * twoFn() // 10
 ```
 
-Returns **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** a function which eventually returns x
+Returns **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** a function which eventually returns x
 
 ## curryObjectK
 
@@ -87,8 +87,8 @@ Given object and expected keys, continually curry until expected keys are met
 
 **Parameters**
 
--   `expected` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** expected keys
--   `fn` **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** function to be curried
+-   `expected` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** expected keys
+-   `fn` **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** function to be curried
 
 **Examples**
 
@@ -102,7 +102,7 @@ abcProps({a: 1, b: 2}) // function expecting one more param
 abcProps({a: 1, b: 2, c: 3, optional: 10}) // 0.6
 ```
 
-Returns **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** invoked function or partially applied function
+Returns **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** invoked function or partially applied function
 
 ## curryObjectN
 
@@ -110,8 +110,8 @@ Given object with n keys, continually curry until n keys are met
 
 **Parameters**
 
--   `n` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** total expected keys
--   `fn` **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** function to be curried
+-   `n` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** total expected keys
+-   `fn` **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** function to be curried
 
 **Examples**
 
@@ -122,7 +122,7 @@ threeKeyProps({a: 1, b: 2, c: 3}) // [`a`, `b`, `c`]
 threeKeyProps({a: 1, b: 2}) // function expecting one more param
 ```
 
-Returns **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** invoked function or partially applied function
+Returns **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** invoked function or partially applied function
 
 ## curryObjectKN
 
@@ -130,11 +130,11 @@ Given object and expected keys, continually curry until expected keys are met
 
 **Parameters**
 
--   `expected` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** expected object
-    -   `expected.n` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** minimum expected keys
-    -   `expected.k` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** expected keys
--   `expected` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** expected object
--   `fn` **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** function to be curried
+-   `expected` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** expected object
+    -   `expected.n` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** minimum expected keys
+    -   `expected.k` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** expected keys
+-   `expected` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** expected object
+-   `fn` **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** function to be curried
 
 **Examples**
 
@@ -142,7 +142,7 @@ Given object and expected keys, continually curry until expected keys are met
 import {curryObjectKN} from 'katsu-curry'
 ```
 
-Returns **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** invoked function or partially applied function
+Returns **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** invoked function or partially applied function
 
 ## compose
 
@@ -158,7 +158,7 @@ const a = Math.round(Math.random() * 10)
 compose(f, g)(a) === f(g(a)) // true
 ```
 
-Returns **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** a composed function
+Returns **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** a composed function
 
 ## pipe
 
@@ -174,7 +174,7 @@ const a = Math.round(Math.random() * 10)
 pipe(f, g)(a) === g(f(a)) // true
 ```
 
-Returns **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** a composed function
+Returns **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** a composed function
 
 ## curry
 
@@ -182,7 +182,7 @@ curry a given function so that it takes multiple arguments (or a tuple of argume
 
 **Parameters**
 
--   `fn` **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** any function
+-   `fn` **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** any function
 
 **Examples**
 
@@ -193,7 +193,7 @@ const half = divide($, 2)
 const twoOver = divide(2)
 ```
 
-Returns **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** a curried function
+Returns **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** a curried function
 
 ## remapArray
 
@@ -201,8 +201,8 @@ easily remap an array by indices
 
 **Parameters**
 
--   `indices` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** an array of indices to remap
--   `arr` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** an input array
+-   `indices` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** an array of indices to remap
+-   `arr` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** an input array
 
 **Examples**
 
@@ -211,7 +211,7 @@ import {remapArray} from 'katsu-curry'
 remapArray([2,1,0], [`up`, `is`, `what`]).join(` `) // "what is up"
 ```
 
-Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** remapped array
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** remapped array
 
 ## remap
 
@@ -219,8 +219,8 @@ reframe any function with the arguments as you want, plus curry
 
 **Parameters**
 
--   `indices` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** an array of indices to remap
--   `fn` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** a function
+-   `indices` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** an array of indices to remap
+-   `fn` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** a function
 
 **Examples**
 

@@ -1,7 +1,7 @@
 /* global test */
 import {t} from 'germs'
-import {I} from './combinators/identity'
-import {K} from './combinators/constant'
+import {I} from '@combinators/identity'
+import {K} from '@combinators/constant'
 
 test(`I should always return what it is given`, () => {
   t.is(typeof I, `function`)

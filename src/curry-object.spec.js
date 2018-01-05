@@ -7,7 +7,7 @@ import {
   curryObjectN,
   curryObjectK,
   curryObjectKN
-} from './object'
+} from './object/index'
 
 import {
   pipe
@@ -143,4 +143,10 @@ test(`curryObjectKN should behave like both other morphisms`, () => {
   t.is(doit(input3), 11.5)
   t.is(doit(input4), 1.5)
   t.is(doit(input5), 3)
+})
+test(`curryObjectK(fn).toString() should return useful curry info`, () => {
+  const add = ({a, b}) => a + b
+  const sum = curryObjectK([`a`, `b`], add)
+  t.is(sum.toString(), `curry(add)`)
+  t.is(sum({a: 4}).toString(), `curry(add)({a})`)
 })

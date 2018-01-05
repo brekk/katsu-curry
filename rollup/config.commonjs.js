@@ -1,28 +1,39 @@
 const pkg = require(`../package.json`)
-const path = require(`path`)
+// const commonjs = require(`rollup-plugin-commonjs`)
 const {bundle} = require(`germs`)
-
-const external = (
-  pkg && pkg.dependencies ?
-    Object.keys(pkg.dependencies) :
-    []
-).concat(`fs`)
-const local = (x) => path.resolve(__dirname, x)
+const aliases = require(`./aliases`)
 
 module.exports = bundle({
   name: pkg.name,
-  alias: {
-    [`@combinators`]: local(`../src/combinators`),
-    [`@params`]: local(`../src/params`),
-    [`@fp`]: local(`../src/fp`),
-    [`@object`]: local(`../src/object`),
-    [`@placeholder`]: local(`../src/placeholder`),
-    [`@utils`]: local(`../src/utils`)
-  },
-  external,
+  alias: aliases,
   input: `src/index.js`,
   output: {
+    name: `katsuCurry`,
     file: `./${pkg.name}.js`,
-    format: `cjs`
+    format: `umd`
   }
+  // alterPlugins: (plug) => {
+  //   plug[3] = commonjs({
+  //     extensions: [`.js`],
+  //     include: `node_modules/**`,
+  //     namedExports: {
+  //       'node_modules/katsu-curry/katsu-curry.js': [
+  //         `pipe`,
+  //         `compose`,
+  //         `$`,
+  //         `PLACEHOLDER`,
+  //         `curryify`,
+  //         `curry`,
+  //         `curryObjectK`,
+  //         `curryObjectN`,
+  //         `curryObjectKN`,
+  //         `remap`,
+  //         `remapArray`,
+  //         `K`,
+  //         `I`
+  //       ]
+  //     }
+  //   })
+  //   return plug
+  // }
 })
