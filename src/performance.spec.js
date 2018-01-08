@@ -11,28 +11,33 @@ global.Promise = require.requireActual(`bluebird`) // eslint-disable-line fp/no-
 const getSpeed = (x) => {
   const parts = x.split(` `)
   const speed = parseFloat(parts[5])
+  // console.log(`parts`, parts)
   return [parts[2], speed]
 }
 const cwd = process.cwd()
 
-test(`katsu-curry should be faster than ramda.curry according to perftest`, (done) => {
-  t.plan(3)
+test(`katsu-curry shouldn't be that much slower than ramda.curry`, (done) => {
+  t.plan(6)
   return new global.Promise((resolve, reject) => {
     setImmediate(() => {
       execa.shell(`${cwd}/node_modules/.bin/babel-node ${cwd}/src/performance.fixture.js`).then(
         (output) => {
-          // log(output.stdout)
+          // console.log(output.stdout)
           const lines = output.stdout.split(`\n`)
           const speeds = lines.map(getSpeed).reduce((agg, [k, v]) => {
             return Object.assign({}, agg, {[`${k}Speed`]: v})
           }, {})
-          const {newSpeed, ramdaSpeed} = speeds
-          t.is(typeof newSpeed, `number`)
+          const {katsuSpeed, ramdaSpeed, lodashSpeed} = speeds
+          t.is(typeof katsuSpeed, `number`)
           t.is(typeof ramdaSpeed, `number`)
-          const under150 = Boolean(Math.abs(newSpeed - ramdaSpeed) < 150)
-          // console.log(`katsu-curry vs. ramda.curry`, speeds, newSpeed - ramdaSpeed)
-          t.truthy(under150)
-          resolve(under150)
+          t.is(typeof lodashSpeed, `number`)
+          const diff = Math.abs(katsuSpeed - ramdaSpeed)
+          const under = Boolean(diff < 200)
+          console.log(`katsu-curry vs. others`, speeds, diff, `< 200?`, under)
+          t.truthy(lodashSpeed > ramdaSpeed)
+          t.truthy(lodashSpeed > katsuSpeed)
+          t.truthy(under)
+          resolve(under)
           done()
         }
       ).catch(
