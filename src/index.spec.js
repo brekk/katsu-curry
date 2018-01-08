@@ -1,5 +1,5 @@
 /* global test */
-import {t} from 'germs'
+import {t} from 'jest-t-assert'
 import {length, objectLength, propLength} from '@utils/length'
 import {values, merge} from '@utils/object'
 import {K} from '@combinators/constant'

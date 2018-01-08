@@ -1,7 +1,7 @@
 const germs = require(`germs`)
 const pkg = require(`./package.json`)
 const utils = require(`nps-utils`)
-// const allNPS = utils.concurrent.nps
+const allNPS = utils.concurrent.nps
 //
 const built = [
   `del coverage`,
@@ -11,10 +11,6 @@ const built = [
 
 const GERMS = germs.build(pkg.name, {
   readme: `documentation readme -s API src/*.js`,
-  bundleDebug: {
-    script: `rollup -c rollup/debug.commonjs.js`,
-    description: `generate debug version`
-  },
   prepublishOnly: `nps care`,
   clean: utils.concurrent(built),
   scrub: utils.concurrent(built.concat([
@@ -24,6 +20,15 @@ const GERMS = germs.build(pkg.name, {
     `del node_modules`
   ]))
 })
+GERMS.scripts.bundle = {
+  ...GERMS.scripts.bundle,
+  debug: {
+    script: `rollup -c rollup/debug.commonjs.js`,
+    description: `generate debug version`
+  }
+}
+
+GERMS.scripts.bundle.script = allNPS(`bundle.commonjs`, `bundle.es6`, `bundle.debug`)
 
 GERMS.scripts.lint.jsdoc = `echo "documentation lint"`
 

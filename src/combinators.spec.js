@@ -1,5 +1,5 @@
 /* global test */
-import {t} from 'germs'
+import {t} from 'jest-t-assert'
 import {I} from '@combinators/identity'
 import {K} from '@combinators/constant'
 

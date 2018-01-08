@@ -136,6 +136,7 @@
     "jest-alias-preprocessor": "^1.1.1",
     "jest-cli": "^21.2.1",
     "jest-junit-reporter": "^1.1.0",
+    "jest-t-assert": "^0.2.0",
     "katsu-curry": "^0.1.1",
     "madge": "^2.0.0",
     "microtime": "^2.1.6",

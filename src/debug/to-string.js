@@ -8,13 +8,15 @@ const joinArgs = (joiner) => (args) => {
 const toStringJoiner = joinArgs((x) => `(${x.join(`,`)})`)
 const toObjectStringJoiner = joinArgs((x) => `({${x.join(`,`)}})`)
 
-const makeRemainder = (str) => (length) => `(` + (
-  str
-).repeat(length).split(``).join(`,`) + `)`
-const makeObjectRemainder = (objectKeys, argKeys) => {
+export const makeRemainder = (str) => (length) => (
+  length > 0 ?
+    `(` + str.repeat(length).split(``).join(`,`) + `)` :
+    ``
+)
+export const makeObjectRemainder = (objectKeys = [], argKeys = []) => {
   const filteredKeys = objectKeys.filter((y) => !argKeys.includes(y))
   return `({` + (
-    filteredKeys.join(`:?,`) + `:?`
+    filteredKeys.join(`:?,`) + (filteredKeys.length > 0 ? `:?` : ``)
   ) + `})`
 }
 const LAMDA_REMAINDER = `?`
@@ -25,11 +27,9 @@ export const toString = (fn, args = []) => () => {
   )
   return `curry(${(fn.name || `fn`)})${argString}${remainder}`
 }
-const OBJECT_LAMDA_REMAINDER = `?`
-export const toObjectString = (fn, objectKeys, args = {}) => () => {
+export const toObjectString = (fn, objectKeys = [], args = {}) => () => {
   const argKeys = Object.keys(args)
   const argString = toObjectStringJoiner(argKeys)
-  console.log(`ARGKEYS`, argKeys, objectKeys, argString)
   const remainder = makeObjectRemainder(objectKeys, argKeys)
   return `curry(${(fn.name || `fn`)})${argString}${remainder}`
 }
