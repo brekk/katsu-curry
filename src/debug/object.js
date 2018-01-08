@@ -26,7 +26,7 @@ const curryObjectByCondition = curry(
           joined
       )
     }
-    curried.toString = toObjectString(curried, keys)
+    curried.toString = toObjectString(fn, keys)
     return curried
   }
 )

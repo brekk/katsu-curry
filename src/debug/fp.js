@@ -13,5 +13,5 @@ export function pipe() {
 }
 export function compose() {
   const args = Array.from(arguments).reverse()
-  return composedToString(innerpipe(args), args)
+  return composedToString(innerpipe(args), args, `compose`)
 }

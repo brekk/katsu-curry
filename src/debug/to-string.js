@@ -13,7 +13,23 @@ export const makeRemainder = (str) => (length) => (
     `(` + str.repeat(length).split(``).join(`,`) + `)` :
     ``
 )
+const slice = (x) => {
+  const list = []
+  while (x > 0) {
+    list.push(--x)
+  }
+  return list.reverse()
+}
 export const makeObjectRemainder = (objectKeys = [], argKeys = []) => {
+  if (objectKeys.k && objectKeys.n) {
+    objectKeys = objectKeys.k
+  }
+  if (!Array.isArray(objectKeys)) {
+    if (typeof objectKeys === `number`) {
+      return `({${slice(objectKeys - argKeys.length).join(`,`)}})`
+    }
+    return `({})`
+  }
   const filteredKeys = objectKeys.filter((y) => !argKeys.includes(y))
   return `({` + (
     filteredKeys.join(`:?,`) + (filteredKeys.length > 0 ? `:?` : ``)
@@ -25,11 +41,13 @@ export const toString = (fn, args = []) => () => {
   const remainder = makeRemainder(LAMDA_REMAINDER)(
     fn.length - args.length
   )
-  return `curry(${(fn.name || `fn`)})${argString}${remainder}`
+  const name = fn && fn.name || `fn`
+  return `curry(${name})${argString}${remainder}`
 }
 export const toObjectString = (fn, objectKeys = [], args = {}) => () => {
   const argKeys = Object.keys(args)
   const argString = toObjectStringJoiner(argKeys)
   const remainder = makeObjectRemainder(objectKeys, argKeys)
-  return `curry(${(fn.name || `fn`)})${argString}${remainder}`
+  const name = fn && fn.name || `fn`
+  return `curry(${name})${argString}${remainder}`
 }

@@ -12,8 +12,7 @@ export {curryObjectK, curryObjectN, curryObjectKN} from '@object/index'
 
 import {
   pipe as _pipe,
-  compose as _compose,
-  filter as _filter
+  compose as _compose
 } from './fp'
 import {
   curryObjectK as _curryObjectK,
@@ -32,7 +31,6 @@ export {K, I} from '@combinators/index'
 
 export const pipe = _pipe
 export const compose = _compose
-export const filter = _filter
 export const curryObjectK = _curryObjectK
 export const curryObjectKN = _curryObjectKN
 export const curryObjectN = _curryObjectN
@@ -40,3 +38,4 @@ export const curry = _curry
 export const curryify = _curryify
 export const remap = _remap
 export const remapArray = _remapArray
+export const version = `debug`

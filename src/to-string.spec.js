@@ -39,4 +39,5 @@ test(`makeObjectRemainder`, () => {
   t.is(makeObjectRemainder(`xyz`.split(``), []), `({x:?,y:?,z:?})`)
   t.is(makeObjectRemainder([], [`a`]), `({})`)
   t.is(makeObjectRemainder(), `({})`)
+  t.is(makeObjectRemainder(`butts`), `({})`)
 })
