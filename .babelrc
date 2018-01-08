@@ -13,7 +13,8 @@
         "@fp": "./src/fp",
         "@object": "./src/object",
         "@placeholder": "./src/placeholder",
-        "@utils": "./src/utils"
+        "@utils": "./src/utils",
+        "@debug": "./src/debug"
       }
     }]
   ],

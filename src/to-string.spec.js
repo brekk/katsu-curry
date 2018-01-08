@@ -3,7 +3,7 @@ import {t} from 'germs'
 import {
   toString,
   toObjectString
-} from './params/to-string'
+} from './debug/to-string'
 
 test(`toString`, () => {
   const cool = () => {}

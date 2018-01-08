@@ -1,7 +1,6 @@
 import {curry} from '@params/curry'
 import {pipe} from '@fp/pipe'
 import {merge} from '@utils/object'
-import {toObjectString} from '@params/to-string'
 
 /**
  * Take some arguments, test them, and then either return a partially applied function or the answer
@@ -18,19 +17,16 @@ import {toObjectString} from '@params/to-string'
  */
 export const curryObjectByCondition = curry(
   (comparison, x, fn) => {
-    function curriedL(args) {
+    return function curriedL(args) {
       const joined = pipe(
         merge(args),
         curriedL
       )
-      joined.toString = toObjectString(fn, args)
       return (
         comparison(x, args) ?
           fn(args) :
           joined
       )
     }
-    curriedL.toString = toObjectString(fn)
-    return curriedL
   }
 )

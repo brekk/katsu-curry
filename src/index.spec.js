@@ -1,9 +1,9 @@
 /* global test */
+import {t} from 'germs'
 import {length, objectLength, propLength} from '@utils/length'
 import {values, merge} from '@utils/object'
 import {K} from '@combinators/constant'
 import {I} from '@combinators/identity'
-import {t} from 'germs'
 import * as KC from './index'
 
 const zort = (x) => x.sort() // eslint-disable-line fp/no-mutating-methods

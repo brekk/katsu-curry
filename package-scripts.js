@@ -11,6 +11,10 @@ const built = [
 
 const GERMS = germs.build(pkg.name, {
   readme: `documentation readme -s API src/*.js`,
+  bundleDebug: {
+    script: `rollup -c rollup/debug.commonjs.js`,
+    description: `generate debug version`
+  },
   prepublishOnly: `nps care`,
   clean: utils.concurrent(built),
   scrub: utils.concurrent(built.concat([

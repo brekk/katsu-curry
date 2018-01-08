@@ -4,12 +4,12 @@ const {bundle} = require(`germs`)
 const aliases = require(`./aliases`)
 
 module.exports = bundle({
-  name: pkg.name,
+  name: `debug`,
   alias: aliases,
-  input: `src/index.js`,
+  input: `src/debug/index.js`,
   output: {
-    name: `katsuCurry`,
-    file: `./${pkg.name}.js`,
+    name: `katsuCurryDebug`,
+    file: `./debug.js`,
     format: `umd`
   }
 })
