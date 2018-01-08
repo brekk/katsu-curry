@@ -14,7 +14,7 @@ test(`katsu-curry/debug.curry is slow but useful`, (done) => {
         (output) => {
           const lines = output.stdout.split(`\n`)
           console.log(output.stdout)
-          t.is(lines[2], `Fastest is katsu-curry`)
+          t.is(lines[3], `Fastest is katsu-curry.curry`)
           resolve()
           done()
         }

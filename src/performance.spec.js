@@ -32,8 +32,9 @@ test(`katsu-curry shouldn't be that much slower than ramda.curry`, (done) => {
           t.is(typeof ramdaSpeed, `number`)
           t.is(typeof lodashSpeed, `number`)
           const diff = Math.abs(katsuSpeed - ramdaSpeed)
-          const under = Boolean(diff < 200)
-          console.log(`katsu-curry vs. others`, speeds, diff, `< 200?`, under)
+          const MAX = 300
+          const under = Boolean(diff < MAX)
+          console.log(`katsu-curry vs. others`, speeds, diff, `< MAX?`, under)
           t.truthy(lodashSpeed > ramdaSpeed)
           t.truthy(lodashSpeed > katsuSpeed)
           t.truthy(under)
