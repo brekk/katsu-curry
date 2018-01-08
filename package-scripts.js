@@ -20,13 +20,16 @@ const GERMS = germs.build(pkg.name, {
     `del node_modules`
   ]))
 })
-GERMS.scripts.bundle = {
-  ...GERMS.scripts.bundle,
-  debug: {
-    script: `rollup -c rollup/debug.commonjs.js`,
-    description: `generate debug version`
+GERMS.scripts.bundle = Object.assign(
+  {},
+  GERMS.scripts.bundle,
+  {
+    debug: {
+      script: `rollup -c rollup/debug.commonjs.js`,
+      description: `generate debug version`
+    }
   }
-}
+)
 
 GERMS.scripts.bundle.script = allNPS(`bundle.commonjs`, `bundle.es6`, `bundle.debug`)
 
