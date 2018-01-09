@@ -10,13 +10,87 @@ import {
   curryify
 } from './debug/params'
 import {
+  toString,
+  makeRemainder,
+  toObjectString,
+  makeObjectRemainder
+} from './debug/to-string'
+import {
   curryObjectK,
   curryObjectKN,
   curryObjectN
 } from './debug/object'
 
+test(`toObjectString`, () => {
+  const cool = ({a, b, c}) => a + b + c
+  const x = toObjectString(cool, `abc`.split(``), [])
+  t.is(x(), `curry(cool)({a:?,b:?,c:?})`)
+  const y = toObjectString(cool, `abc`.split(``), {a: 1, c: 3})
+  t.is(y(), `curry(cool)({a,c})({b:?})`)
+  const z = toObjectString(({j, k, l}) => j + k + l, `jkl`.split(``), {j: 1})
+  t.is(z(), `curry(fn)({j})({k:?,l:?})`)
+  const xx = toObjectString(({j, k, l}) => j + k + l)
+  t.is(xx(), `curry(fn)({})`)
+})
+test(`curryObjectK`, () => {
+  const addO = curryObjectK(
+    `abc`.split(``),
+    function addObject({a, b, c}) { return a + b + c }
+  )
+  t.is(addO.toString(), `curry(addObject)({a:?,b:?,c:?})`)
+  t.is(addO({a: 5}).toString(), `curry(addObject)({a})({b:?,c:?})`)
+  t.is(addO({a: 5, b: 20}).toString(), `curry(addObject)({a,b})({c:?})`)
+  t.is(addO({a: 1, b: 2, c: 3}), 6)
+})
+test(`curryObjectKN`, () => {
+  const addO = curryObjectKN(
+    {k: `abc`.split(``), n: 4},
+    function addObject({a, b, c, d = 200}) { return a + b + c + d }
+  )
+  t.is(addO.toString(), `curry(addObject)({a:?,b:?,c:?})`)
+  t.is(addO({a: 5}).toString(), `curry(addObject)({a})({b:?,c:?})`)
+  t.is(addO({a: 5, b: 20}).toString(), `curry(addObject)({a,b})({c:?})`)
+  t.is(addO({a: 5, b: 20, c: 2, d: 100}), 127)
+  t.is(addO({a: 5, b: 20, c: 2, whatever: 100}), 227)
+})
+test(`curryObjectN`, () => {
+  const addO = curryObjectN(
+    4,
+    function addObject({a, b, c, d}) { return a + b + c + d }
+  )
+  t.is(addO.toString(), `curry(addObject)({0:?,1:?,2:?,3:?})`)
+  t.is(addO({a: 5}).toString(), `curry(addObject)({0})({1:?,2:?,3:?})`)
+  t.is(addO({a: 5, b: 20}).toString(), `curry(addObject)({0,1})({2:?,3:?})`)
+  t.is(addO({a: 5, b: 20, c: 2}).toString(), `curry(addObject)({0,1,2})({3:?})`)
+  t.is(addO({a: 1, b: 2, c: 3, d: 0}), 6)
+})
+
 const sum = curry(function add(a, b) { return a + b })
-const less = curry(function subtract(a, b) { return a + b })
+const less = curry(function subtract(a, b) { return b - a })
+
+test(`makeRemainder`, () => {
+  t.is(makeRemainder(`x`)(3), `(x,x,x)`)
+  t.is(makeRemainder(`x`)(0), ``)
+})
+test(`makeObjectRemainder`, () => {
+  t.is(makeObjectRemainder(`xyz`.split(``), [`x`]), `({y:?,z:?})`)
+  t.is(makeObjectRemainder(`xyz`.split(``), [`z`]), `({x:?,y:?})`)
+  t.is(makeObjectRemainder(`xyz`.split(``), []), `({x:?,y:?,z:?})`)
+  t.is(makeObjectRemainder([], [`a`]), `({})`)
+  t.is(makeObjectRemainder(), `({})`)
+})
+
+test(`toString`, () => {
+  const cool = (j, k, l) => j + k + l
+  const a = toString(cool)
+  t.is(a(), `curry(cool)(?,?,?)`)
+  const b = toString(cool, [1])
+  t.is(b(), `curry(cool)(1)(?,?)`)
+  const c = toString(cool, [1, 2])
+  t.is(c(), `curry(cool)(1,2)(?)`)
+  const d = toString((x, y, z) => z, [`a`, `b`])
+  t.is(d(), `curry(fn)(a,b)(?)`)
+})
 
 test(`composedToString`, () => {
   const x = composedToString()
@@ -56,38 +130,6 @@ test(`curry`, () => {
   t.is(curriedAdd(1).toString(), `curry(add)(1)(?,?)`)
   t.is(curriedAdd(1, 2).toString(), `curry(add)(1,2)(?)`)
   t.is(curriedAdd(1, 2, 3), 6)
-})
-test(`curryObjectK`, () => {
-  const addO = curryObjectK(
-    `abc`.split(``),
-    function addObject({a, b, c}) { return a + b + c }
-  )
-  t.is(addO.toString(), `curry(addObject)({a:?,b:?,c:?})`)
-  t.is(addO({a: 5}).toString(), `curry(addObject)({a})({b:?,c:?})`)
-  t.is(addO({a: 5, b: 20}).toString(), `curry(addObject)({a,b})({c:?})`)
-  t.is(addO({a: 1, b: 2, c: 3}), 6)
-})
-test(`curryObjectKN`, () => {
-  const addO = curryObjectKN(
-    {k: `abc`.split(``), n: 4},
-    function addObject({a, b, c, d = 200}) { return a + b + c + d }
-  )
-  t.is(addO.toString(), `curry(addObject)({a:?,b:?,c:?})`)
-  t.is(addO({a: 5}).toString(), `curry(addObject)({a})({b:?,c:?})`)
-  t.is(addO({a: 5, b: 20}).toString(), `curry(addObject)({a,b})({c:?})`)
-  t.is(addO({a: 5, b: 20, c: 2, d: 100}), 127)
-  t.is(addO({a: 5, b: 20, c: 2, whatever: 100}), 227)
-})
-test(`curryObjectN`, () => {
-  const addO = curryObjectN(
-    4,
-    function addObject({a, b, c, d}) { return a + b + c + d }
-  )
-  t.is(addO.toString(), `curry(addObject)({0:?,1:?,2:?,3:?})`)
-  t.is(addO({a: 5}).toString(), `curry(addObject)({0})({1:?,2:?,3:?})`)
-  t.is(addO({a: 5, b: 20}).toString(), `curry(addObject)({0,1})({2:?,3:?})`)
-  t.is(addO({a: 5, b: 20, c: 2}).toString(), `curry(addObject)({0,1,2})({3:?})`)
-  t.is(addO({a: 1, b: 2, c: 3, d: 0}), 6)
 })
 test(`curry returns an error when given a non-function, up front`, () => {
   t.plan(4)
