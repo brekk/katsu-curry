@@ -16,8 +16,11 @@ export const curryify = (test) => (fn) => {
   function curried() {
     const args = Array.from(arguments)
     const countNonPlaceholders = (toCount) => {
+      // eslint-disable-next-line fp/no-let
       let count = toCount.length
+      // eslint-disable-next-line fp/no-loops
       while (!test(toCount[count])) {
+        // eslint-disable-next-line fp/no-mutation
         count--
       }
       return count
@@ -37,6 +40,7 @@ export const curryify = (test) => (fn) => {
         )
       ).concat(args2))
     }
+    // eslint-disable-next-line fp/no-mutation
     saucy.toString = toString(fn, args)
     return (
       length >= fn.length ?
@@ -44,6 +48,7 @@ export const curryify = (test) => (fn) => {
         saucy
     )
   }
+  // eslint-disable-next-line fp/no-mutation
   curried.toString = toString(fn)
   return curried
 }

@@ -39,6 +39,7 @@ doStuff(`katsu-curry shouldn't be that much slower than ramda.curry`, (done) => 
           const diff = Math.abs(katsuSpeed - ramdaSpeed)
           const MAX = 300
           const under = Boolean(diff < MAX)
+          // eslint-disable-next-line no-console
           console.log(`katsu-curry vs. others`, speeds, diff, `< MAX?`, under)
           t.truthy(lodashSpeed > ramdaSpeed)
           t.truthy(lodashSpeed > katsuSpeed)

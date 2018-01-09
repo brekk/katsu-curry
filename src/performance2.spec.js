@@ -19,6 +19,7 @@ doStuff(`katsu-curry/debug.curry is slow but useful`, (done) => {
       execa.shell(`node ${cwd}/src/performance2.fixture.js`).then(
         (output) => {
           const lines = output.stdout.split(`\n`)
+          // eslint-disable-next-line no-console
           console.log(output.stdout)
           t.is(lines[lines.length - 1], `Fastest is lodash.curry`)
           resolve()

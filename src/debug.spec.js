@@ -19,18 +19,14 @@ const sum = curry(function add(a, b) { return a + b })
 const less = curry(function subtract(a, b) { return a + b })
 
 test(`composedToString`, () => {
-  const piped = () => {}
-  const x = composedToString(piped)
-  t.is(x.toString(), `pipe()`)
-  const piped2 = () => {}
-  const y = composedToString(piped2, `abc`.split(``), `butts`)
-  t.is(y.toString(), `butts(a, b, c)`)
-  const piped2point5 = () => {}
-  const y2 = composedToString(piped2point5, [0, false, null], `butts`)
-  t.is(y2.toString(), `butts(fn, fn, fn)`)
-  const piped3 = () => {}
-  const z = composedToString(piped3, [sum(1), less(1)])
-  t.is(z.toString(), `pipe(curry(add)(1)(?), curry(subtract)(1)(?))`)
+  const x = composedToString()
+  t.is(x(), `pipe()`)
+  const y = composedToString(`abc`.split(``), `butts`)
+  t.is(y(), `butts(a, b, c)`)
+  const y2 = composedToString([0, false, null], `butts`)
+  t.is(y2(), `butts(fn, fn, fn)`)
+  const z = composedToString([sum(1), less(1)])
+  t.is(z(), `pipe(curry(add)(1)(?), curry(subtract)(1)(?))`)
 })
 
 test(`pipe / compose .toString()`, () => {
@@ -84,13 +80,14 @@ test(`curryObjectKN`, () => {
 })
 test(`curryObjectN`, () => {
   const addO = curryObjectN(
-    3,
-    function addObject({a, b, c}) { return a + b + c }
+    4,
+    function addObject({a, b, c, d}) { return a + b + c + d }
   )
-  t.is(addO.toString(), `curry(addObject)({0,1,2})`)
-  t.is(addO({a: 5}).toString(), `curry(addObject)({a})({0,1})`)
-  t.is(addO({a: 5, b: 20}).toString(), `curry(addObject)({a,b})({0})`)
-  t.is(addO({a: 1, b: 2, c: 3}), 6)
+  t.is(addO.toString(), `curry(addObject)({0:?,1:?,2:?,3:?})`)
+  t.is(addO({a: 5}).toString(), `curry(addObject)({0})({1:?,2:?,3:?})`)
+  t.is(addO({a: 5, b: 20}).toString(), `curry(addObject)({0,1})({2:?,3:?})`)
+  t.is(addO({a: 5, b: 20, c: 2}).toString(), `curry(addObject)({0,1,2})({3:?})`)
+  t.is(addO({a: 1, b: 2, c: 3, d: 0}), 6)
 })
 test(`curry returns an error when given a non-function, up front`, () => {
   t.plan(4)

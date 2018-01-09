@@ -19,6 +19,7 @@ const curryObjectByCondition = curry(
         merge(args),
         curried
       )
+      // eslint-disable-next-line fp/no-mutation
       joined.toString = toObjectString(fn, keys, args)
       return (
         comparison(keys, args) ?
@@ -26,6 +27,7 @@ const curryObjectByCondition = curry(
           joined
       )
     }
+    // eslint-disable-next-line fp/no-mutation
     curried.toString = toObjectString(fn, keys)
     return curried
   }
