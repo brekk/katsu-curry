@@ -11,7 +11,8 @@
     "object",
     "params",
     "placeholder",
-    "utils"
+    "utils",
+    "debug"
   ],
   "jest": {
     "modulePaths": [
@@ -22,8 +23,6 @@
       "src"
     ],
     "coveragePathIgnorePatterns": [
-      "testing-helper.js",
-      "length.js"
     ],
     "mapCoverage": true,
     "moduleNameMapper": {
@@ -65,7 +64,6 @@
       "src/**/index.js",
       "src/index.js",
       "src/combinators.js",
-      "src/testing-helper.js",
       "katsu-curry.js",
       "katsu-curry.es.js"
     ],
@@ -94,8 +92,6 @@
     "fast.js": "^0.1.1"
   },
   "devDependencies": {
-    "@types/jest": "^20.0.8",
-    "awesome-typescript-loader": "^3.2.3",
     "babel-cli": "^6.26.0",
     "babel-jest": "^20.0.3",
     "babel-loader": "^7.1.2",
@@ -131,14 +127,12 @@
     "fpo": "^6.1.6",
     "germs": "^0.1.9",
     "husky": "^0.14.2",
-    "istanbul": "0.4.x",
     "jayin": "^0.0.3",
     "jest": "^21.2.1",
     "jest-alias-preprocessor": "^1.1.1",
     "jest-cli": "^21.2.1",
     "jest-junit-reporter": "^1.1.0",
     "jest-t-assert": "^0.2.0",
-    "katsu-curry": "^0.1.1",
     "lodash": "^4.17.4",
     "madge": "^2.0.0",
     "microtime": "^2.1.6",
@@ -159,16 +153,7 @@
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-prepack": "^1.0.0",
     "rollup-plugin-progress": "^0.4.0",
-    "rollup-plugin-ts": "^0.1.0",
-    "rollup-plugin-typescript2": "^0.5.2",
     "testperf": "^2.0.3",
-    "ts-jest": "^21.0.0",
-    "tslib": "^1.7.1",
-    "tslint": "^5.7.0",
-    "tslint-eslint-rules": "^4.1.1",
-    "typescript": "^2.5.2",
-    "typescript-babel-jest": "^1.0.5",
-    "typescript-eslint-parser": "^7.0.0",
     "wallaby-webpack": "^0.0.39",
     "webpack": "2.2.x"
   },

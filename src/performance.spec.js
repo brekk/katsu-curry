@@ -15,8 +15,13 @@ const getSpeed = (x) => {
   return [parts[2], speed]
 }
 const cwd = process.cwd()
+const doStuff = (
+  process.env.TEST_PERFORMANCE ?
+    test :
+    test.skip
+)
 
-test(`katsu-curry shouldn't be that much slower than ramda.curry`, (done) => {
+doStuff(`katsu-curry shouldn't be that much slower than ramda.curry`, (done) => {
   t.plan(6)
   return new global.Promise((resolve, reject) => {
     setImmediate(() => {
