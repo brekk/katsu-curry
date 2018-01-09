@@ -1,12 +1,19 @@
 const Benchmark = require(`benchmark`)
-// const curry = require(`ramda/src/curry`)
 const katsu = require(`../katsu-curry`)
 const debug = require(`../debug`)
+const fpo = require(`fpo`)
+
+const R = require(`ramda/src/curry`)
+const _ = require(`lodash/fp/curry`)
 
 const add = (a, b, c) => a + b + c
+const addO = ({a, b, c}) => a + b + c
 const katsuAdd = katsu.curry(add)
-const katsuAddO = katsu.curryObjectK(`abc`.split(``), ({a, b, c}) => a + b + c)
+const katsuAddO = katsu.curryObjectK(`abc`.split(``), addO)
+const fpoAdd = fpo.curry({n: 3, fn: addO})
 const debugAdd = debug.curry(add)
+const ramdaAdd = R(add)
+const lodashAdd = _(add)
 
 const random = () => Math.round(Math.random() * 1e3)
 
@@ -23,9 +30,31 @@ suite.add(
     }
   )
   .add(
+    `ramda.curry`,
+    () => {
+      ramdaAdd(random(), random(), random())
+    }
+  )
+  .add(
+    `lodash.curry`,
+    () => {
+      lodashAdd(random(), random(), random())
+    }
+  )
+  .add(
     `katsu-curry.curryObjectK`,
     () => {
       katsuAddO({
+        a: random(),
+        b: random(),
+        c: random()
+      })
+    }
+  )
+  .add(
+    `fpo`,
+    () => {
+      fpoAdd({
         a: random(),
         b: random(),
         c: random()

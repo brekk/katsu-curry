@@ -128,6 +128,7 @@
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-standard": "^2.0.1",
     "execa": "^0.8.0",
+    "fpo": "^6.1.6",
     "germs": "^0.1.9",
     "husky": "^0.14.2",
     "istanbul": "0.4.x",
