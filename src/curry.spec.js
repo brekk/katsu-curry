@@ -42,7 +42,8 @@ test(`curry allows you to curry functions, with a curry emoji as a placeholder`,
   t.is(fraction(100), 1 / 100)
 })
 
-test(`curry returns an error when given a non-function, up front`, () => {
+// deprecated! functionality moved to debug.spec.js
+test.skip(`curry returns an error when given a non-function, up front`, () => {
   t.plan(4)
   const impatientExpectation = `Expected to be given a function to curry!`
   t.throws(() => curry(``), impatientExpectation)

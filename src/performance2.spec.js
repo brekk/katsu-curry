@@ -6,7 +6,13 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 40e3 // eslint-disable-line fp/no-mutation
 global.Promise = require.requireActual(`bluebird`) // eslint-disable-line fp/no-mutation
 const cwd = process.cwd()
 
-test(`katsu-curry/debug.curry is slow but useful`, (done) => {
+const doStuff = (
+  process.env.TEST_PERFORMANCE ?
+    test :
+    test.skip
+)
+
+doStuff(`katsu-curry/debug.curry is slow but useful`, (done) => {
   t.plan(1)
   return new global.Promise((resolve, reject) => {
     setImmediate(() => {

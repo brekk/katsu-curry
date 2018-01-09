@@ -30,6 +30,16 @@ suite.add(
     }
   )
   .add(
+    `katsu-curry.curryObjectK`,
+    () => {
+      katsuAddO({
+        a: random(),
+        b: random(),
+        c: random()
+      })
+    }
+  )
+  .add(
     `ramda.curry`,
     () => {
       ramdaAdd(random(), random(), random())
@@ -39,16 +49,6 @@ suite.add(
     `lodash.curry`,
     () => {
       lodashAdd(random(), random(), random())
-    }
-  )
-  .add(
-    `katsu-curry.curryObjectK`,
-    () => {
-      katsuAddO({
-        a: random(),
-        b: random(),
-        c: random()
-      })
     }
   )
   .add(

@@ -14,12 +14,8 @@ import fastSome from 'fast.js/array/some'
  * const twoOver = divide(2)
  */
 export const curry = (fn) => {
-  if (typeof fn !== `function`) {
-    // eslint-disable-next-line fp/no-throw
-    throw new TypeError(`Expected to be given a function to curry!`)
-  }
   const test = (x) => x === PLACEHOLDER
-  function curried() {
+  return function curried() {
     const argLength = arguments.length
     const args = new Array(argLength)
 
@@ -36,7 +32,11 @@ export const curry = (fn) => {
       }
       return count
     }
-    const length = fastSome(args, test) ? countNonPlaceholders(args) : args.length
+    const length = (
+      fastSome(args, test) ?
+        countNonPlaceholders(args) :
+        args.length
+    )
     function saucy() {
       const arg2Length = arguments.length
       const args2 = new Array(arg2Length)
@@ -61,5 +61,4 @@ export const curry = (fn) => {
         saucy
     )
   }
-  return curried
 }

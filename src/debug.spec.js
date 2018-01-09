@@ -92,3 +92,11 @@ test(`curryObjectN`, () => {
   t.is(addO({a: 5, b: 20}).toString(), `curry(addObject)({a,b})({0})`)
   t.is(addO({a: 1, b: 2, c: 3}), 6)
 })
+test(`curry returns an error when given a non-function, up front`, () => {
+  t.plan(4)
+  const impatientExpectation = `Expected to be given a function to curry!`
+  t.throws(() => curry(``), impatientExpectation)
+  t.throws(() => curry(null), impatientExpectation)
+  t.throws(() => curry(100), impatientExpectation)
+  t.throws(() => curry({}), impatientExpectation)
+})
