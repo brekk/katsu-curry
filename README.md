@@ -6,6 +6,8 @@ This module gives you the ability to curry functions with custom placeholders, o
 
 ## What is `curry`?
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/brekk/katsu-curry.svg)](https://greenkeeper.io/)
+
 Currying is a way of modifying a given function which takes multiple arguments into a sequence of unary functions.
 
 ```js
