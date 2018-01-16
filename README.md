@@ -26,6 +26,8 @@ console.log(`z`, z) // 4
 
 # Changelog
 
+-   _0.7.0_ - Split out a `debug` version of the codebase
+-   _0.6.0_ - API changes, fixed publication
 -   _0.5.0_ - API changes, added `remap` and `remapArray`
 -   _0.4.1_ - streamlined build with `germs`
 -   _0.4.0_ - improvements in testing

@@ -6,10 +6,17 @@ const allNPS = utils.concurrent.nps
 const built = [
   `del coverage`,
   `del lib`,
-  `del docs`
+  `del docs`,
+  `del combinators`,
+  `del fp`,
+  `del object`,
+  `del params`,
+  `del placeholder`,
+  `del utils`
 ]
 
 const GERMS = germs.build(pkg.name, {
+  build: `babel src -d . --ignore *.fixture.js,*.spec.js,index.js,debug/*`,
   readme: `documentation readme -s API src/*.js`,
   prepublishOnly: `nps care`,
   clean: utils.concurrent(built),
