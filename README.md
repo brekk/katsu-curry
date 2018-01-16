@@ -8,9 +8,13 @@ This module gives you the ability to curry functions with custom placeholders, o
 
 Currying is a way of modifying a given function which takes multiple arguments into a sequence of unary functions.
 
+Specifically, in JS, it means that you can manipulate arguments, their order, and other facets of a passed in function.
+
+Here's the barest bones version:
+
 ```js
 import {curry} from 'katsu-curry'
-const add = (a, b, c) => a + b + c
+const add = curry((a, b, c) => a + b + c)
 // all of these are equivalent
 add(1)(2)(3) // 6
 add(1, 2)(3) // 6
@@ -22,6 +26,39 @@ const [x, y, z] = [1, 2, 3].map(increment)
 console.log(`x`, x) // 2
 console.log(`y`, y) // 3
 console.log(`z`, z) // 4
+```
+
+(A greater explanation can be found [here](https://drboolean.gitbooks.io/mostly-adequate-guide/ch4.html))
+
+### Benchmark
+
+There are other, faster implementations than this library if you want to use them:
+
+-   `katsu-curry`.curry        x 5,511,328 ops/sec ±1.07% (86 runs sampled)
+-   `katsu-curry/debug`.curry  x 904,393   ops/sec ±0.91% (82 runs sampled)
+-   `katsu-curry`.curryObjectK x 170,684   ops/sec ±0.85% (87 runs sampled)
+-   `ramda`.curry              x 5,425,960 ops/sec ±1.31% (85 runs sampled)
+-   `lodash`.curry             x 6,476,294 ops/sec ±1.08% (85 runs sampled)
+-   `fpo`                      x 2,580,887 ops/sec ±1.03% (85 runs sampled)
+
+(See [this file](<>) to see the tests, augment or run yourself.)
+
+### Debug mode
+
+However, part of the utility of this implementation is the debug mode:
+
+```js
+import {curry} from 'katsu-curry/debug' // identical API!
+```
+
+In debug mode, all currying functions (and in addition, all uses of `pipe` / `compose`) are augmented to produce a `.toString` function which is hopefully very helpful:
+
+```js
+import {curry} from 'katsu-curry/debug'
+const add = (a, b) => a + b
+const sum = curry(add)
+console.log(sum.toString()) // curry(add)(?,?)
+console.log(sum(4).toString()) // curry(add)(4)(?)
 ```
 
 # Changelog
