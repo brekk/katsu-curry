@@ -5,7 +5,7 @@ export {remap, remapArray} from '@params/remap'
  */
 import {PLACEHOLDER} from '@placeholder/index'
 import fastSome from 'fast.js/array/some'
-import {remapFunction, remapParameters} from '@params/remap'
+import {remapParameters} from '@params/remap'
 import {toString} from './to-string'
 
 export const curryify = (test) => (fn) => {
@@ -54,4 +54,11 @@ export const curryify = (test) => (fn) => {
 }
 export const curry = curryify((x) => x === PLACEHOLDER)
 export const remapArray = curry(remapParameters)
-export const remap = curry(remapFunction)
+export const remap = curry((indices, fn) => {
+  const remapArgs = remapArray(indices)
+  const curried = curry(fn)
+  return function remappedFn() {
+    const args = remapArgs(Array.from(arguments))
+    return curried.apply(null, args)
+  }
+})

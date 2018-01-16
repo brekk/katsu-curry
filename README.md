@@ -175,7 +175,15 @@ Given object and expected keys, continually curry until expected keys are met
 **Examples**
 
 ```javascript
+// import {curryObjectKN} from 'katsu-curry/debug'
 import {curryObjectKN} from 'katsu-curry'
+const setTheTable = curryObjectKN({
+  k: [`knives`, `forks`, `spoons`],
+  n: 4
+}, ({knives, forks, spoons, drinks = [`wine`]}) => (
+  `${knives} x ${forks} + ${spoons} + ${drinks}`
+))
+const setTheForks = setTheTable({forks: [0,1,2,3]}) // partial-application!
 ```
 
 Returns **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** invoked function or partially applied function
