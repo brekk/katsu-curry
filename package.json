@@ -1,6 +1,6 @@
 {
   "name": "katsu-curry",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "curry functions with placeholders or in object form",
   "license": "ISC",
   "main": "katsu-curry.js",
@@ -22,8 +22,7 @@
       "node_modules",
       "src"
     ],
-    "coveragePathIgnorePatterns": [
-    ],
+    "coveragePathIgnorePatterns": [],
     "mapCoverage": true,
     "moduleNameMapper": {
       "@combinators/(.*)\\.(.*)": "<rootDir>/src/combinators/$1.$2",
