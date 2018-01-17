@@ -1,37 +1,18 @@
 const pkg = require(`./package.json`)
-// const webpackConfig = require(`./webpack.config`)
-// const wallabyWebpack = require(`wallaby-webpack`)
-// const wallabyPost = wallabyWebpack({
-//   resolve: {
-//     extensions: [`.js`, `.json`],
-//     modules: [
-//       `./node_modules`
-//     ],
-//     alias: {
-//       "@combinators": `./src/combinators`,
-//       "@params": `./src/curry`,
-//       "@fp": `./src/fp`,
-//       "@object": `./src/object`,
-//       "@placeholder": `./src/placeholder`,
-//       "@utils": `./src/utils`
-//     }
-//   }
-// })
 
 module.exports = function configureWallaby(wallaby) {
   return {
     name: pkg.name,
-    // debug: true,
+    debug: true,
     files: [
-      {pattern: `src/*.js`, load: false},
-      {pattern: `src/*/*.js`, load: false},
-      `!src/*.spec.js`,
-      `!src/*/*.spec.js`
+      `src/*.js`,
+      `src/**/*.js`,
+      `!src/*.spec.js`
     ],
 
     tests: [
       `src/*.spec.js`,
-      // wallaby doesn't know about these yet
+      // wallaby doesn't know about this yet
       `!src/performance.spec.js`,
       `!src/performance2.spec.js`
     ],
@@ -53,29 +34,37 @@ module.exports = function configureWallaby(wallaby) {
     //     }
     //   )
     // },
-    // postprocessor: wallabyPost,
 
     testFramework: `jest`,
 
     setup: function setup(w) {
-      require(`babel-polyfill`)
-      w.testFramework.configure({
-        "modulePaths": [
-          `src`
-        ],
-        "moduleDirectories": [
-          `node_modules`,
-          `src`
-        ],
-        "mapCoverage": true,
-        "moduleFileExtensions": [
-          `js`,
-          `json`
-        ],
-        "testMatch": [
-          `**/*.spec.(jsx|js)`
-        ]
-      })
+      // require(`babel-polyfill`) // eslint-disable-line fp/no-unused-expression
+      // w.testFramework.configure({
+      //   "modulePaths": [
+      //     `src`
+      //   ],
+      //   "moduleDirectories": [
+      //     `node_modules`,
+      //     `src`
+      //   ],
+      //   "mapCoverage": true,
+      //   "moduleFileExtensions": [
+      //     `js`,
+      //     `json`
+      //   ],
+      //   "testMatch": [
+      //     `**/*.spec.(jsx|js)`
+      //   ]
+      // })
+      /* eslint-disable */
+      let jestConfig = require(`./package.json`).jest
+      for (let p in jestConfig.moduleNameMapper) {
+        jestConfig.moduleNameMapper[p] = jestConfig.moduleNameMapper[p].replace(
+          `<rootDir>`, w.projectCacheDir
+        )
+      }
+      w.testFramework.configure(jestConfig)
+      /* eslint-enable */
     },
     filesWithNoCoverageCalculated: [
       // `src/core/fs.js`

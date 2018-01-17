@@ -14,10 +14,6 @@ import fastSome from 'fast.js/array/some'
  * const twoOver = divide(2)
  */
 export const curry = (fn) => {
-  if (typeof fn !== `function`) {
-    // eslint-disable-next-line fp/no-throw
-    throw new TypeError(`Expected to be given a function to curry!`)
-  }
   const test = (x) => x === PLACEHOLDER
   return function curried() {
     const argLength = arguments.length
@@ -36,28 +32,33 @@ export const curry = (fn) => {
       }
       return count
     }
-    const length = fastSome(args, test) ? countNonPlaceholders(args) : args.length
-    return (
-      length >= fn.length ?
-      fn.apply(this, args) :
-      function saucy() {
-        const arg2Length = arguments.length
-        const args2 = new Array(arg2Length)
-        for (let j = 0; j < arg2Length; ++j) {
-          args2[j] = arguments[j]
-        }
-        /* eslint-enable fp/no-mutation */
-        /* eslint-enable fp/no-let */
-        /* eslint-enable fp/no-loops */
-        // return curried.apply(this, mergeParamsByTest(test, args, args2))
-        return curried.apply(this, args.map(
-          (y) => (
-            test(y) && args2[0] ?
+    const length = (
+      fastSome(args, test) ?
+        countNonPlaceholders(args) :
+        args.length
+    )
+    function saucy() {
+      const arg2Length = arguments.length
+      const args2 = new Array(arg2Length)
+      for (let j = 0; j < arg2Length; ++j) {
+        args2[j] = arguments[j]
+      }
+      /* eslint-enable fp/no-mutation */
+      /* eslint-enable fp/no-let */
+      /* eslint-enable fp/no-loops */
+      // return curried.apply(this, mergeParamsByTest(test, args, args2))
+      return curried.apply(this, args.map(
+        (y) => (
+          test(y) && args2[0] ?
             args2.shift() : // eslint-disable-line fp/no-mutating-methods
             y
-          )
-        ).concat(args2))
-      }
+        )
+      ).concat(args2))
+    }
+    return (
+      length >= fn.length ?
+        fn.apply(this, args) :
+        saucy
     )
   }
 }

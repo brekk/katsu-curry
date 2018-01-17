@@ -1,5 +1,5 @@
 /* global test */
-import {t} from 'germs'
+import {t} from 'jest-t-assert'
 import map from 'ramda/src/map'
 import filter from 'ramda/src/filter'
 import reject from 'ramda/src/reject'

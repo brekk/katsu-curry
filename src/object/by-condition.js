@@ -16,14 +16,17 @@ import {merge} from '@utils/object'
  * const curryObjectN = curryObjectByCondition(expectNArgs)
  */
 export const curryObjectByCondition = curry(
-  (comparison, x, fn) => function curriedL(args) {
-    return (
-      comparison(x, args) ?
-      fn(args) :
-      pipe(
+  (comparison, x, fn) => {
+    return function curriedL(args) {
+      const joined = pipe(
         merge(args),
         curriedL
       )
-    )
+      return (
+        comparison(x, args) ?
+          fn(args) :
+          joined
+      )
+    }
   }
 )

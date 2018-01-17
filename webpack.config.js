@@ -10,7 +10,8 @@ module.exports = {
       "@fp": `${__dirname}/src/fp`,
       "@object": `${__dirname}/src/object`,
       "@placeholder": `${__dirname}/src/placeholder`,
-      "@utils": `${__dirname}/src/utils`
+      "@utils": `${__dirname}/src/utils`,
+      "@debug": `${__dirname}/src/debug`
     }
   }
 }

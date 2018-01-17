@@ -18,11 +18,12 @@ export function compose() {
   /* eslint-disable fp/no-let */
   /* eslint-disable fp/no-loops */
   /* eslint-disable fp/no-mutation */
-  for (let i = 0; i < argLength; ++i) {
+  for (let i = argLength - 1; i > -1; --i) {
     args[i] = arguments[i]
   }
   /* eslint-enable fp/no-let */
   /* eslint-enable fp/no-loops */
   /* eslint-enable fp/no-mutation */
-  return innerpipe(args.reverse()) // eslint-disable-line fp/no-mutating-methods
+  // const reversed = args.reverse()
+  return innerpipe(args)
 }

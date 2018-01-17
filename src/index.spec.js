@@ -1,9 +1,10 @@
 /* global test */
+import {t} from 'jest-t-assert'
 import {length, objectLength, propLength} from '@utils/length'
 import {values, merge} from '@utils/object'
 import {K} from '@combinators/constant'
 import {I} from '@combinators/identity'
-import {t} from 'germs'
+import * as DEBUG from './debug/index'
 import * as KC from './index'
 
 const zort = (x) => x.sort() // eslint-disable-line fp/no-mutating-methods
@@ -26,6 +27,7 @@ test(`katsu-curry exports`, () => {
     `remapArray`,
     `version`
   ]))
+  t.deepEqual(sortKeys(KC), sortKeys(DEBUG))
 })
 
 test(`length grabs either object length or key length`, () => {

@@ -4,10 +4,14 @@
 // import * as kNew from './index'
 const testPerf = require(`testperf`)
 const curry = require(`ramda/src/curry`)
+const _curry = require(`lodash/fp/curry`)
 // const kLegacy = require(`katsu-curry`)
 const kNew = require(`../katsu-curry`)
 
-const testCurry = (currier) => () => currier((a, b, c) => a + b + c)(0, 1, 2)
-testPerf(`new v.0.1.2`, testCurry(kNew.curry))
-// testPerf(`old v.${kLegacy.version}`, testCurry(kLegacy.curry))
+const random = () => Math.round(Math.random() * 10)
+
+const testCurry = (currier) => () => currier((a, b, c) => a + b + c)(random(), random(), random())
+
+testPerf(`katsu v.0.6.0`, testCurry(kNew.curry))
 testPerf(`ramda v.0.24.1`, testCurry(curry))
+testPerf(`lodash v.4.17.4`, testCurry(_curry))
