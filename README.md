@@ -48,21 +48,38 @@ console.log(hey.brekk.beers) // 1
 Part of the utility of this implementation is the debug mode, available from `katsu-curry/debug`:
 
 ```js
-import {curry} from 'katsu-curry/debug' // identical API!
 // const {curry} = require('katsu-curry/debug')
+import {curry} from 'katsu-curry/debug' // identical API!
 ```
 
 In debug mode, all currying functions (and in addition, all uses of `pipe` / `compose`) are augmented to produce a `.toString` function which is hopefully very helpful:
 
 ```js
-import {curry} from 'katsu-curry/debug'
+// const {curry, pipe} = require('katsu-curry/debug')
+import {curry, pipe} from 'katsu-curry/debug'
 const add = (a, b) => a + b
+const divide = (a, b) => b / a
+const multiply = (a, b) => b * a
 const sum = curry(add)
+const over = curry(divide)
+const product = curry(multiply)
 console.log(sum.toString()) // curry(add)(?,?)
 console.log(sum(4).toString()) // curry(add)(4)(?)
+const markupCost = pipe(
+  sum(2),
+  product(1.05)
+)
+console.log(markupCost.toString()) // pipe(curry(add)(2)(?), curry(multiply)(1.05)(?))
+/*
+we can see from the toString (which has to be single-line) what our pipe is made of:
+pipe(
+  curry(add)(2)(?),
+  curry(multiply)(1.05)(?)
+)
+ */
 ```
 
-This helpfulness comes at the cost of speed, however. The idea is that you can use the debug mode when trying to ascertain why something is broken or in places where speed is not a concern. See [the benchmark](#benchmark) below.
+This helpfulness comes at the [cost of speed](#benchmark), however. The idea is that you can use the debug mode when trying to ascertain why something is broken or in places where speed is not a concern. See [the benchmark](#benchmark) below.
 
 ### Object-style curry
 
@@ -71,7 +88,6 @@ Inspired by [this book](http://fljsbook.com/) and [this library](https://github.
 ```js
 // const {curryObjectK} = require('katsu-curry')
 import {curryObjectK} from 'katsu-curry'
-const {curry} = require('katsu-curry')
 const lens = curryObjectK(
   [`prop`, `fn`, `obj`],
   ({prop, fn, obj}) => {
@@ -90,7 +106,7 @@ console.log(hey.brekk.beers) // 1
 
 See also the [`curryObjectKN`](#curryobjectkn) and [`curryObjectN`](#curryobjectn) functions in the [API](#api) below.
 
-This library's implementation isn't as performant as it could be, but again, it has greater utility in debug mode:
+This library's implementation isn't [as performant](#benchmark) as it could be, but again, it has greater utility in debug mode:
 
 ```js
 // const {curryObjectK} = require('katsu-curry/debug')
