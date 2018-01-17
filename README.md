@@ -183,7 +183,7 @@ const setTheTable = curryObjectKN({
 }, ({knives, forks, spoons, drinks = [`wine`]}) => (
   `${knives} x ${forks} + ${spoons} + ${drinks}`
 ))
-const setTheForks = setTheTable({forks: [0,1,2,3]}) // partial-application!
+const setTheKnivesAndSpoons = setTheTable({forks: [0,1,2,3]}) // partial-application!
 ```
 
 Returns **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** invoked function or partially applied function
