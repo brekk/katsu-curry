@@ -20,35 +20,36 @@ add(1)(2)(3) // 6
 add(1, 2)(3) // 6
 add(1, 2, 3) // 6
 add(1)(2, 3) // 6
-// we provide 0 + 1 (as a + b above) and the returning function expects the c value, above
-const increment = add(0, 1)
-const [x, y, z] = [1, 2, 3].map(increment)
-console.log(`x`, x) // 2
-console.log(`y`, y) // 3
-console.log(`z`, z) // 4
 ```
 
-(A greater explanation can be found [here](https://drboolean.gitbooks.io/mostly-adequate-guide/ch4.html))
+(A greater explanation of currying generally can be found  [here](https://drboolean.gitbooks.io/mostly-adequate-guide/ch4.html))
 
-### Benchmark
+Here's an example of currying being slightly more useful:
 
-There are other, faster implementations than this library if you want to use them:
+```js
+// const {curry} = require('katsu-curry')
+import {curry} from 'katsu-curry'
 
--   `katsu-curry`.curry        x 5,511,328 ops/sec ±1.07% (86 runs sampled)
--   `katsu-curry/debug`.curry  x 904,393   ops/sec ±0.91% (82 runs sampled)
--   `katsu-curry`.curryObjectK x 170,684   ops/sec ±0.85% (87 runs sampled)
--   `ramda`.curry              x 5,425,960 ops/sec ±1.31% (85 runs sampled)
--   `lodash`.curry             x 6,476,294 ops/sec ±1.08% (85 runs sampled)
--   `fpo`                      x 2,580,887 ops/sec ±1.03% (85 runs sampled)
-
-(See [this file](<>) to see the tests, augment or run yourself.)
+const lens = curry((property, fn, obj) => {
+  obj[property] = fn(obj[property])
+  return obj
+})
+const increment = (x) => ++x
+const hey = {
+  brekk: {name: `brekk`, beers: 0},
+  you: {name: `you`, beers: 0},
+}
+[hey.brekk, hey.you].map(lens(`beers`, increment))
+console.log(hey.brekk.beers) // 1
+```
 
 ### Debug mode
 
-However, part of the utility of this implementation is the debug mode:
+Part of the utility of this implementation is the debug mode, available from `katsu-curry/debug`:
 
 ```js
 import {curry} from 'katsu-curry/debug' // identical API!
+// const {curry} = require('katsu-curry/debug')
 ```
 
 In debug mode, all currying functions (and in addition, all uses of `pipe` / `compose`) are augmented to produce a `.toString` function which is hopefully very helpful:
@@ -61,9 +62,66 @@ console.log(sum.toString()) // curry(add)(?,?)
 console.log(sum(4).toString()) // curry(add)(4)(?)
 ```
 
+This helpfulness comes at the cost of speed, however. The idea is that you can use the debug mode when trying to ascertain why something is broken or in places where speed is not a concern. See [the benchmark](#benchmark) below.
+
+### Object-style curry
+
+Inspired by [this book](http://fljsbook.com/) and [this library](https://github.com/getify/fpo), you can also use _object-style_ curried functions:
+
+```js
+// const {curryObjectK} = require('katsu-curry')
+import {curryObjectK} from 'katsu-curry'
+const {curry} = require('katsu-curry')
+const lens = curryObjectK(
+  [`prop`, `fn`, `obj`],
+  ({prop, fn, obj}) => {
+    obj[prop] = fn(obj[prop])
+    return obj
+  }
+)
+const increment = (x) => ++x
+const hey = {
+  brekk: {name: `brekk`, beers: 0},
+  you: {name: `you`, beers: 0},
+}
+[{obj: hey.brekk}, {obj: hey.you}].map(lens({prop: `beers`, fn: increment}))
+console.log(hey.brekk.beers) // 1
+```
+
+See also the [`curryObjectKN`](#curryobjectkn) and [`curryObjectN`](#curryobjectn) functions in the [API](#api) below.
+
+This library's implementation isn't as performant as it could be, but again, it has greater utility in debug mode:
+
+```js
+// const {curryObjectK} = require('katsu-curry/debug')
+import {curryObjectK} from 'katsu-curry/debug'
+// in debug mode, named functions are extra helpful, as anonymous functions are, y'know, anonymous
+const _add = (a, b) => a + b
+const add = curryObjectK([`a`, `b`], _add)
+console.log(add.toString()) // curry(_add)({a:?,b:?})
+console.log(add({a: 2}).toString()) // curry(_add)({a:2})({b:?})
+console.log(add({a: 2, b: 5})) // 7
+// or if we misuse it in the future, the curry acts as a guard
+console.log(add({a: 2, c: 100, d: 400, e: 1e3}).toString()) // curry(_add)({a:2})({b:?})
+// and toString helps us identify the problem (no "b" param)
+```
+
+### Benchmark
+
+There are other, faster implementations of curry than this library:
+
+-   `katsu-curry`.curry        x 5,511,328 ops/sec ±1.07% (86 runs sampled)
+-   `katsu-curry/debug`.curry  x 904,393   ops/sec ±0.91% (82 runs sampled)
+-   `katsu-curry`.curryObjectK x 170,684   ops/sec ±0.85% (87 runs sampled)
+-   `ramda`.curry              x 5,425,960 ops/sec ±1.31% (85 runs sampled)
+-   `lodash`.curry             x 6,476,294 ops/sec ±1.08% (85 runs sampled)
+-   `fpo`                      x 2,580,887 ops/sec ±1.03% (85 runs sampled)
+
+(See [this file](https://github.com/brekk/katsu-curry/blob/master/src/performance2.fixture.js) to view the tests, augment or run yourself.)
+
 # Changelog
 
--   _0.7.0_ - Split out a `debug` version of the codebase
+-   _0.7.0_ - Split out a `debug` version of the codebase which is slower but more useful
 -   _0.6.0_ - API changes, fixed publication
 -   _0.5.0_ - API changes, added `remap` and `remapArray`
 -   _0.4.1_ - streamlined build with `germs`
