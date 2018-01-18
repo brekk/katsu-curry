@@ -16,7 +16,7 @@ doStuff(`katsu-curry/debug.curry is slow but useful`, (done) => {
   t.plan(1)
   return new global.Promise((resolve, reject) => {
     setImmediate(() => {
-      execa.shell(`node ${cwd}/src/performance2.fixture.js`).then(
+      execa.shell(`node ${cwd}/src/benchmark.fixture.js`).then(
         (output) => {
           const lines = output.stdout.split(`\n`)
           // eslint-disable-next-line no-console

@@ -25,7 +25,7 @@ doStuff(`katsu-curry shouldn't be that much slower than ramda.curry`, (done) => 
   t.plan(6)
   return new global.Promise((resolve, reject) => {
     setImmediate(() => {
-      execa.shell(`${cwd}/node_modules/.bin/babel-node ${cwd}/src/performance.fixture.js`).then(
+      execa.shell(`${cwd}/node_modules/.bin/babel-node ${cwd}/src/testperf.fixture.js`).then(
         (output) => {
           // console.log(output.stdout)
           const lines = output.stdout.split(`\n`)

@@ -27,5 +27,4 @@ export const objectLength = pipe(keys, propLength)
  * @returns {number} length
  * @private
  */
-/* istanbul ignore next */
 export const length = (x) => (typeof x === `object` ? objectLength(x) : propLength(x))
