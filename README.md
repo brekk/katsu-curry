@@ -221,14 +221,10 @@ Given object and expected keys, continually curry until expected keys are met
 
 **Parameters**
 
--   `$0` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-    -   `$0.k`  
-    -   `$0.n`  
--   `fn` **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** function to be curried
 -   `expected` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** expected object
-    -   `expected.n` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** minimum expected keys
     -   `expected.k` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** expected keys
--   `expected` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** expected object
+    -   `expected.n` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** minimum expected keys
+-   `fn` **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** function to be curried
 
 **Examples**
 

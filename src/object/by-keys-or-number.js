@@ -6,7 +6,6 @@ import {expectKArgs} from '@object/by-keys'
  * @param {Object} expected - expected object
  * @param {number} expected.n - minimum expected keys
  * @param {Array} expected.k - expected keys
- * @param {Array} expected - expected object
  * @param {function} fn - function to be curried
  * @returns {function} - invoked function or partially applied function
  * @public
