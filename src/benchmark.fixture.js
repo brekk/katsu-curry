@@ -9,10 +9,12 @@ const _ = require(`lodash/fp/curry`)
 const add = (a, b, c) => a + b + c
 const addO = ({a, b, c}) => a + b + c
 const katsuAdd = katsu.curry(add)
-const katsuAddOK = katsu.curryObjectK(`abc`.split(``), addO)
-const katsuAddON = katsu.curryObjectN(3, addO)
-const fpoAdd = fpo.curry({n: 3, fn: addO})
 const debugAdd = debug.curry(add)
+const katsuAddOK = katsu.curryObjectK(`abc`.split(``), addO)
+const debugAddOK = debug.curryObjectK(`abc`.split(``), addO)
+const katsuAddON = katsu.curryObjectN(3, addO)
+const debugAddON = debug.curryObjectN(3, addO)
+const fpoAdd = fpo.curry({n: 3, fn: addO})
 const ramdaAdd = R(add)
 const lodashAdd = _(add)
 
@@ -23,31 +25,39 @@ const objectHarness = (x) => () => x({a: random(), b: random(), c: random()})
 
 const suite = new Benchmark.Suite(`KATSU-VS-DEBUG`)
 suite.add(
-  `katsu-curry.curry`,
+  `katsu-curry.curry             `,
   regularHarness(katsuAdd)
 )
 .add(
-  `ramda.curry`,
+  `ramda.curry                   `,
   regularHarness(ramdaAdd)
 )
 .add(
-  `lodash.curry`,
+  `lodash.curry                  `,
   regularHarness(lodashAdd)
 )
 .add(
-  `katsu-curry/debug.curry`,
+  `katsu-curry/debug.curry       `,
   regularHarness(debugAdd)
 )
 .add(
-  `katsu-curry.curryObjectK`,
+  `katsu-curry.curryObjectK      `,
   objectHarness(katsuAddOK)
 )
 .add(
-  `katsu-curry.curryObjectN`,
+  `katsu-curry/debug.curryObjectK`,
+  objectHarness(debugAddOK)
+)
+.add(
+  `katsu-curry.curryObjectN      `,
   objectHarness(katsuAddON)
 )
 .add(
-  `fpo`,
+  `katsu-curry/debug.curryObjectN`,
+  objectHarness(debugAddON)
+)
+.add(
+  `fpo                           `,
   objectHarness(fpoAdd)
 )
 .on(`cycle`, (event) => {
@@ -55,6 +65,6 @@ suite.add(
 })
 .on(`complete`, function onComplete() {
   // eslint-disable-next-line no-console
-  console.log(`Fastest is ` + this.filter(`fastest`).map(`name`))
+  console.log((`Fastest is ` + this.filter(`fastest`).map(`name`)).trim())
 })
 .run({ async: true })

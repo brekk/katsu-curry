@@ -12,7 +12,7 @@ const doStuff = (
     test.skip
 )
 
-doStuff(`katsu-curry/debug.curry is slow but useful`, (done) => {
+doStuff(`katsu-curry.curryObjectN is surprisingly fast`, (done) => {
   t.plan(1)
   return new global.Promise((resolve, reject) => {
     setImmediate(() => {
@@ -21,7 +21,7 @@ doStuff(`katsu-curry/debug.curry is slow but useful`, (done) => {
           const lines = output.stdout.split(`\n`)
           // eslint-disable-next-line no-console
           console.log(output.stdout)
-          t.is(lines[lines.length - 1], `Fastest is lodash.curry`)
+          t.is(lines[lines.length - 1], `Fastest is katsu-curry.curryObjectN`)
           resolve()
           done()
         }

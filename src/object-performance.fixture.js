@@ -24,7 +24,7 @@ suite.add(
   `katsu-curry/debug.curryObjectK`,
   apTest(debugAddO)
 ).add(
-  `katsu-curry.curryObjectK`,
+  `katsu-curry.curryObjectK      `,
   apTest(katsuAddO)
 )
 .add(
@@ -32,11 +32,11 @@ suite.add(
   apTest(debugAddNO)
 )
 .add(
-  `katsu-curry.curryObjectN`,
+  `katsu-curry.curryObjectN      `,
   apTest(katsuAddNO)
 )
 .add(
-  `fpo`,
+  `fpo                           `,
   apTest(fpoAdd)
 )
 .on(`cycle`, (event) => {
@@ -44,6 +44,6 @@ suite.add(
 })
 .on(`complete`, function onComplete() {
   // eslint-disable-next-line no-console
-  console.log(`Fastest is ` + this.filter(`fastest`).map(`name`))
+  console.log((`Fastest is ` + this.filter(`fastest`).map(`name`)).trim())
 })
 .run({ async: true })

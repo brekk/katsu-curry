@@ -124,16 +124,19 @@ console.log(add({a: 2, c: 100, d: 400, e: 1e3}).toString()) // curry(_add)({a:2}
 
 ### Benchmark
 
-There are other, faster implementations of curry than this library:
+There are other implementations of standard curry which may be faster, though this implementation has a fast object-style function:
 
--   `katsu-curry`.curry        x 5,511,328 ops/sec ±1.07% (86 runs sampled)
--   `katsu-curry/debug`.curry  x 904,393   ops/sec ±0.91% (82 runs sampled)
--   `katsu-curry`.curryObjectK x 170,684   ops/sec ±0.85% (87 runs sampled)
--   `ramda`.curry              x 5,425,960 ops/sec ±1.31% (85 runs sampled)
--   `lodash`.curry             x 6,476,294 ops/sec ±1.08% (85 runs sampled)
--   `fpo`                      x 2,580,887 ops/sec ±1.03% (85 runs sampled)
+-   `katsu-curry`.curryObjectN       x 10,382,372 ops/sec ±1.02% (87 runs sampled)
+-   `lodash`.curry                   x 7,838,581 ops/sec ±0.56% (94 runs sampled)
+-   `katsu-curry`.curry              x 6,509,563 ops/sec ±1.02% (91 runs sampled)
+-   `ramda`.curry                    x 6,357,699 ops/sec ±0.41% (92 runs sampled)
+-   `katsu-curry/debug`.curryObjectN x 7,785,828 ops/sec ±0.86% (88 runs sampled)
+-   `fpo`.curry                      x 2,516,113 ops/sec ±1.18% (84 runs sampled)
+-   `katsu-curry`.curryObjectK       x 1,687,017 ops/sec ±0.67% (86 runs sampled)
+-   `katsu-curry/debug`.curry        x 887,734 ops/sec ±0.75% (89 runs sampled)
+-   `katsu-curry/debug`.curryObjectK x 187,462 ops/sec ±0.86% (87 runs sampled)
 
-(See [this file](https://github.com/brekk/katsu-curry/blob/master/src/performance2.fixture.js) to view the tests, augment or run yourself.)
+(See [this file](https://github.com/brekk/katsu-curry/blob/master/src/benchmark.fixture.js) to view the tests, augment or run yourself.)
 
 # Changelog
 
@@ -190,6 +193,58 @@ fiveFn() * twoFn() // 10
 ```
 
 Returns **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** a function which eventually returns x
+
+## curryObjectN
+
+Given object with n keys, continually curry until n keys are met
+
+**Parameters**
+
+-   `arity`  
+-   `fn` **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** function to be curried
+-   `n` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** total expected keys
+
+**Examples**
+
+```javascript
+import {curryObjectN} from 'katsu-curry'
+const threeKeyProps = curryObjectN(3, Object.keys)
+threeKeyProps({a: 1, b: 2, c: 3}) // [`a`, `b`, `c`]
+threeKeyProps({a: 1, b: 2}) // function expecting one more param
+```
+
+Returns **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** invoked function or partially applied function
+
+## curryObjectKN
+
+Given object and expected keys, continually curry until expected keys are met
+
+**Parameters**
+
+-   `$0` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+    -   `$0.k`  
+    -   `$0.n`  
+-   `fn` **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** function to be curried
+-   `expected` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** expected object
+    -   `expected.n` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** minimum expected keys
+    -   `expected.k` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** expected keys
+-   `expected` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** expected object
+
+**Examples**
+
+```javascript
+// import {curryObjectKN} from 'katsu-curry/debug'
+import {curryObjectKN} from 'katsu-curry'
+const setTheTable = curryObjectKN({
+  k: [`knives`, `forks`, `spoons`],
+  n: 4
+}, ({knives, forks, spoons, drinks = [`wine`]}) => (
+  `${knives} x ${forks} + ${spoons} + ${drinks}`
+))
+const setTheKnivesAndSpoons = setTheTable({forks: [0,1,2,3]}) // partial-application!
+```
+
+Returns **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** invoked function or partially applied function
 
 ## curryObjectK
 
@@ -300,55 +355,3 @@ const quaternaryFunction = (a, b, c, d) => ((a + b + c) / d)
 const quaternaryFunctionLastShuffle = remap([1, 2, 3, 0], quaternaryFunction)
 quaternaryFunctionLastShuffle(1, 2, 3, 4) === ((2 + 3 + 4) / 1)
 ```
-
-## curryObjectN
-
-Given object with n keys, continually curry until n keys are met
-
-**Parameters**
-
--   `arity`  
--   `fn` **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** function to be curried
--   `n` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** total expected keys
-
-**Examples**
-
-```javascript
-import {curryObjectN} from 'katsu-curry'
-const threeKeyProps = curryObjectN(3, Object.keys)
-threeKeyProps({a: 1, b: 2, c: 3}) // [`a`, `b`, `c`]
-threeKeyProps({a: 1, b: 2}) // function expecting one more param
-```
-
-Returns **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** invoked function or partially applied function
-
-## curryObjectKN
-
-Given object and expected keys, continually curry until expected keys are met
-
-**Parameters**
-
--   `$0` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-    -   `$0.k`  
-    -   `$0.n`  
--   `fn` **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** function to be curried
--   `expected` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** expected object
-    -   `expected.n` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** minimum expected keys
-    -   `expected.k` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** expected keys
--   `expected` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** expected object
-
-**Examples**
-
-```javascript
-// import {curryObjectKN} from 'katsu-curry/debug'
-import {curryObjectKN} from 'katsu-curry'
-const setTheTable = curryObjectKN({
-  k: [`knives`, `forks`, `spoons`],
-  n: 4
-}, ({knives, forks, spoons, drinks = [`wine`]}) => (
-  `${knives} x ${forks} + ${spoons} + ${drinks}`
-))
-const setTheKnivesAndSpoons = setTheTable({forks: [0,1,2,3]}) // partial-application!
-```
-
-Returns **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** invoked function or partially applied function
