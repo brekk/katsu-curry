@@ -1,7 +1,7 @@
 /* global test, jasmine */
 import execa from 'execa'
 import {t} from 'jest-t-assert'
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 40e3 // eslint-disable-line fp/no-mutation
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 45e3 // eslint-disable-line fp/no-mutation
 
 global.Promise = require.requireActual(`bluebird`) // eslint-disable-line fp/no-mutation
 const cwd = process.cwd()

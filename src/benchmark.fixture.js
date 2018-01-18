@@ -9,7 +9,8 @@ const _ = require(`lodash/fp/curry`)
 const add = (a, b, c) => a + b + c
 const addO = ({a, b, c}) => a + b + c
 const katsuAdd = katsu.curry(add)
-const katsuAddO = katsu.curryObjectK(`abc`.split(``), addO)
+const katsuAddOK = katsu.curryObjectK(`abc`.split(``), addO)
+const katsuAddON = katsu.curryObjectN(3, addO)
 const fpoAdd = fpo.curry({n: 3, fn: addO})
 const debugAdd = debug.curry(add)
 const ramdaAdd = R(add)
@@ -17,55 +18,43 @@ const lodashAdd = _(add)
 
 const random = () => Math.round(Math.random() * 1e3)
 
+const regularHarness = (x) => () => x(random(), random(), random())
+const objectHarness = (x) => () => x({a: random(), b: random(), c: random()})
+
 const suite = new Benchmark.Suite(`KATSU-VS-DEBUG`)
 suite.add(
   `katsu-curry.curry`,
-  () => {
-    katsuAdd(random(), random(), random())
-  })
-  .add(
-    `katsu-curry/debug.curry`,
-    () => {
-      debugAdd(random(), random(), random())
-    }
-  )
-  .add(
-    `katsu-curry.curryObjectK`,
-    () => {
-      katsuAddO({
-        a: random(),
-        b: random(),
-        c: random()
-      })
-    }
-  )
-  .add(
-    `ramda.curry`,
-    () => {
-      ramdaAdd(random(), random(), random())
-    }
-  )
-  .add(
-    `lodash.curry`,
-    () => {
-      lodashAdd(random(), random(), random())
-    }
-  )
-  .add(
-    `fpo`,
-    () => {
-      fpoAdd({
-        a: random(),
-        b: random(),
-        c: random()
-      })
-    }
-  )
-  .on(`cycle`, (event) => {
-    console.log(String(event.target)) // eslint-disable-line no-console
-  })
-  .on(`complete`, function onComplete() {
-    // eslint-disable-next-line no-console
-    console.log(`Fastest is ` + this.filter(`fastest`).map(`name`))
-  })
-  .run({ async: true })
+  regularHarness(katsuAdd)
+)
+.add(
+  `ramda.curry`,
+  regularHarness(ramdaAdd)
+)
+.add(
+  `lodash.curry`,
+  regularHarness(lodashAdd)
+)
+.add(
+  `katsu-curry/debug.curry`,
+  regularHarness(debugAdd)
+)
+.add(
+  `katsu-curry.curryObjectK`,
+  objectHarness(katsuAddOK)
+)
+.add(
+  `katsu-curry.curryObjectN`,
+  objectHarness(katsuAddON)
+)
+.add(
+  `fpo`,
+  objectHarness(fpoAdd)
+)
+.on(`cycle`, (event) => {
+  console.log(String(event.target)) // eslint-disable-line no-console
+})
+.on(`complete`, function onComplete() {
+  // eslint-disable-next-line no-console
+  console.log(`Fastest is ` + this.filter(`fastest`).map(`name`))
+})
+.run({ async: true })
