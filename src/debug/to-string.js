@@ -71,8 +71,9 @@ const without = curry(
     return y.filter((z) => !(x.indexOf(z) > -1))
   }
 )
+export const keysWhenKeyNumOrRaw = (x) => (x && x.k && x.n ? x.k : x)
 export const makeObjectRemainder = (objectKeys = [], argKeys = []) => pipe(
-  (x) => (x && x.k && x.n ? x.k : x),
+  keysWhenKeyNumOrRaw,
   without(argKeys),
   question,
   curlies,

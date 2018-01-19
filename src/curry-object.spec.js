@@ -102,6 +102,10 @@ test(`curryObjectN should return functions when key length has not been met`, ()
     bcz: 5.5
   })
   t.deepEqual(totalFunctionProperties(outputs2), 14)
+  const sum = curryObjectN(3, ({a, b, c}) => {
+    return a + b + c
+  })
+  t.is(typeof sum(), `function`)
 })
 test(`curryObjectK should return functions when explicit keys have not been met`, () => {
   const divideThenSum = curryObjectK([`a`, `b`, `c`], (obj) => {
@@ -125,9 +129,14 @@ test(`curryObjectK should return functions when explicit keys have not been met`
     abcz: 5
   })
   t.deepEqual(totalFunctionProperties(outputs2), 20)
+  const add = curryObjectK(`abc`.split(``), ({a, b, c}) => a + b + c)
+  t.is(typeof add({a: 4, b: 5})({}), `function`)
+  t.is(typeof add({a: 4, b: 5})({d: 200}), `function`)
+  t.is(add({a: 4})({b: 5})({})({c: 200}), 209)
+  t.is(add({})({})({a: 4, b: 200, c: 200}), 404)
 })
 test(`curryObjectKN should behave like both other morphisms`, () => {
-  t.plan(6)
+  // t.plan(6)
   t.is(typeof curryObjectKN, `function`)
   const input = {a: 1, b: 2, c: 3}
   const input2 = {a: 1, b: 2, c: 3, d: 4}
@@ -143,4 +152,14 @@ test(`curryObjectKN should behave like both other morphisms`, () => {
   t.is(doit(input3), 11.5)
   t.is(doit(input4), 1.5)
   t.is(doit(input5), 3)
+  const anotherOne = curryObjectKN(
+    {k: `abc`.split(``), n: 3},
+    ({a = 1, b = 1, c = 1}) => a + b + c
+  )
+  t.is(typeof anotherOne({}), `function`)
+  t.is(anotherOne({a: 5, b: 5, c: 5}), 15)
+  t.is(anotherOne({a: 5, b: 5, x: 5}), 11)
+  t.is(anotherOne({a: 5})({v: 2, x: 5}), 7)
+  t.is(anotherOne({a: 5})({a: 100, v: 2, x: 5}), 102)
+  t.is(anotherOne({xsdks: 100, v: 2, x: 5}), 3)
 })

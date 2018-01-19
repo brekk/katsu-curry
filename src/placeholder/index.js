@@ -1,2 +1,1 @@
-export const PLACEHOLDER = `🍛`
-export const $ = PLACEHOLDER
+export {$, PLACEHOLDER} from '@placeholder/constant'

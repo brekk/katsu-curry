@@ -1,8 +1,3 @@
-import {length} from '@utils/length'
-import {curryObjectByCondition} from '@object/by-condition'
-
-export const expectNArgs = (size, args) => length(args) >= size
-
 /**
  * Given object with n keys, continually curry until n keys are met
  * @method curryObjectN
@@ -16,6 +11,34 @@ export const expectNArgs = (size, args) => length(args) >= size
  * threeKeyProps({a: 1, b: 2, c: 3}) // [`a`, `b`, `c`]
  * threeKeyProps({a: 1, b: 2}) // function expecting one more param
  */
-export const curryObjectN = curryObjectByCondition(
-  expectNArgs
-)
+
+/*
+ export function curryObjectN(arity, fn) {
+   arity = Number(arity) // eslint-disable-line
+   return (function nextCurried(prevArgsObj) {
+     return function curried(nextArgsObj = {}) {
+       const allArgsObj = (Object.keys(nextArgsObj).length > 0) ?
+         Object.assign({}, prevArgsObj, nextArgsObj) :
+         prevArgsObj
+
+       if (Object.keys(allArgsObj).length >= arity) {
+         return fn(allArgsObj)
+       }
+
+       return nextCurried(allArgsObj)
+     }
+   })({})
+ }
+*/
+
+export function curryObjectN(arity, fn) {
+  return function λcurryObjectN(args) {
+    /* istanbul ignore next */
+    const joined = (z) => λcurryObjectN(Object.assign({}, args, z))
+    return (
+      args && Object.keys(args).length >= arity ?
+        fn(args) :
+        joined
+    )
+  }
+}

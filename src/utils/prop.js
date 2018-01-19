@@ -8,4 +8,4 @@ import {curry} from '@params/curry'
  * @returns {*} some property
  * @private
  */
-export const prop = curry((property, o) => o[property])
+export const prop = curry((property, o) => o && property && o[property])

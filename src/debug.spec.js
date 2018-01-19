@@ -15,7 +15,8 @@ import {
   toString,
   makeRemainder,
   toObjectString,
-  makeObjectRemainder
+  makeObjectRemainder,
+  keysWhenKeyNumOrRaw
 } from './debug/to-string'
 import {
   curryObjectK,
@@ -65,6 +66,8 @@ test(`curryObjectN`, () => {
   t.is(addO({a: 5, b: 20}).toString(), `curry(addObject)({0,1})({2:?,3:?})`)
   t.is(addO({a: 5, b: 20, c: 2}).toString(), `curry(addObject)({0,1,2})({3:?})`)
   t.is(addO({a: 1, b: 2, c: 3, d: 0}), 6)
+  t.is(addO({a: 1})({b: 2})({c: 3})({d: 0}), 6)
+  t.is(addO({a: 1})({b: 2})({c: 3})({}).toString(), `curry(addObject)({0,1,2})({3:?})`)
 })
 
 const sum = curry(function add(a, b) { return a + b })
@@ -200,4 +203,8 @@ test(`remap should allow for argument remapping`, () => {
   t.is(quaternaryFunctionLastFirst(1, 2, 3, 4), ((4 + 1 + 2) / 3))
   const quaternaryFunctionLastShuffle = remap([1, 2, 3, 0], quaternaryFunction)
   t.is(quaternaryFunctionLastShuffle(1, 2, 3, 4), ((2 + 3 + 4) / 1))
+})
+test(`keysWhenKeyNumOrRaw`, () => {
+  t.deepEqual(keysWhenKeyNumOrRaw({k: `abc`.split(``), n: 4}), `abc`.split(``))
+  t.deepEqual(keysWhenKeyNumOrRaw({butts: `yes`}), {butts: `yes`})
 })

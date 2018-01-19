@@ -4,35 +4,57 @@ export {curryObjectN} from '@object/by-number-of-keys'
 export {curryObjectKN} from '@object/by-keys-or-number'
 */
 
-import {expectNArgs} from '@object/by-number-of-keys'
+// import {expectNArgs} from '@object/by-number-of-keys'
+
 import {expectKArgs} from '@object/by-keys'
-import {expectKOrNArgs} from '@object/by-keys-or-number'
+// import {expectKOrNArgs} from '@object/by-keys-or-number'
 import {curry} from '@params/curry'
-import {pipe} from '@fp/pipe'
-import {merge} from '@utils/object'
+import {length} from '@utils/length'
 import {toObjectString} from './to-string'
 
-const curryObjectByCondition = curry(
-  (comparison, keys, fn) => {
-    function curried(args) {
-      const joined = pipe(
-        merge(args),
-        curried
-      )
-      // eslint-disable-next-line fp/no-mutation
-      joined.toString = toObjectString(fn, keys, args)
+export function curryObjectKN({k, n}, fn) {
+  function λcurryObjectKN(args) {
+    /* istanbul ignore next */
+    const joined = (z) => λcurryObjectKN(Object.assign({}, args, z))
+    joined.toString = toObjectString(fn, k, args) // eslint-disable-line
+    return (
+      expectKArgs(k, args) || length(args) >= n ?
+        fn(args) :
+        joined
+    )
+  }
+  λcurryObjectKN.toString = toObjectString(fn, k) // eslint-disable-line
+  return λcurryObjectKN
+}
+
+export const curryObjectK = curry(
+  (keys, fn) => {
+    function λcurryObjectK(args) {
+      /* istanbul ignore next */
+      const joined = (z) => λcurryObjectK(Object.assign({}, args, z))
+      joined.toString = toObjectString(fn, keys, args) // eslint-disable-line
       return (
-        comparison(keys, args) ?
+        expectKArgs(keys, args) ?
           fn(args) :
           joined
       )
     }
-    // eslint-disable-next-line fp/no-mutation
-    curried.toString = toObjectString(fn, keys)
-    return curried
+    λcurryObjectK.toString = toObjectString(fn, keys) // eslint-disable-line
+    return λcurryObjectK
   }
 )
 
-export const curryObjectK = curryObjectByCondition(expectKArgs)
-export const curryObjectN = curryObjectByCondition(expectNArgs)
-export const curryObjectKN = curryObjectByCondition(expectKOrNArgs)
+export function curryObjectN(arity, fn) {
+  function λcurryObjectN(args) {
+    /* istanbul ignore next */
+    const joined = (z) => λcurryObjectN(Object.assign({}, args, z))
+    joined.toString = toObjectString(fn, arity, args) // eslint-disable-line
+    return (
+      Object.keys(args).length >= arity ?
+        fn(args) :
+        joined
+    )
+  }
+  λcurryObjectN.toString = toObjectString(fn, arity) // eslint-disable-line
+  return λcurryObjectN
+}
