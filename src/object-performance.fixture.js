@@ -9,6 +9,8 @@ const katsuAddO = katsu.curryObjectK(abc, addO)
 const debugAddO = debug.curryObjectK(abc, addO)
 const katsuAddNO = katsu.curryObjectN(3, addO)
 const debugAddNO = debug.curryObjectN(3, addO)
+const katsuAddKNO = debug.curryObjectKN({k: abc, n: 4}, addO)
+const debugAddKNO = debug.curryObjectKN({k: abc, n: 4}, addO)
 const fpoAdd = fpo.curry({n: 3, fn: addO})
 
 const random = () => Math.round(Math.random() * 1e3)
@@ -21,23 +23,31 @@ const apTest = (fn) => () => fn({
 
 const suite = new Benchmark.Suite(`Object-style curry`)
 suite.add(
-  `katsu-curry/debug.curryObjectK`,
+  `katsu-curry/debug.curryObjectK  `,
   apTest(debugAddO)
 ).add(
-  `katsu-curry.curryObjectK      `,
+  `katsu-curry.curryObjectK        `,
   apTest(katsuAddO)
 )
 .add(
-  `katsu-curry/debug.curryObjectN`,
+  `katsu-curry/debug.curryObjectN  `,
   apTest(debugAddNO)
 )
 .add(
-  `katsu-curry.curryObjectN      `,
+  `katsu-curry.curryObjectN        `,
   apTest(katsuAddNO)
 )
 .add(
-  `fpo                           `,
+  `fpo.curry                       `,
   apTest(fpoAdd)
+)
+.add(
+  `katsu-curry.curryObjectKN       `,
+  apTest(katsuAddKNO)
+)
+.add(
+  `katsu-curry/debug.curryObjectKN `,
+  apTest(debugAddKNO)
 )
 .on(`cycle`, (event) => {
   console.log(String(event.target)) // eslint-disable-line no-console
