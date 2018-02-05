@@ -8,51 +8,143 @@ import fastSome from 'fast.js/array/some'
 import {remapParameters} from '@params/remap'
 import {toString} from './to-string'
 
-export const curryify = (test) => (fn) => {
-  if (typeof fn !== `function`) {
-    // eslint-disable-next-line fp/no-throw
-    throw new TypeError(`Expected to be given a function to curry!`)
-  }
-  function curried() {
-    const args = Array.from(arguments)
-    const countNonPlaceholders = (toCount) => {
-      // eslint-disable-next-line fp/no-let
-      let count = toCount.length
-      // eslint-disable-next-line fp/no-loops
-      while (!test(toCount[count])) {
-        // eslint-disable-next-line fp/no-mutation
-        count--
+const slice = Array.prototype.slice
+const isPlaceholder = (x) => x === PLACEHOLDER
+export const curryify = (testPlaceholder) => {
+  const hasPlaceholder = (a) => {
+    for(let y = 0; y < a.length; y++) {
+      if (testPlaceholder(a[y])) {
+        return true
       }
-      return count
     }
-    const length = fastSome(args, test) ? countNonPlaceholders(args) : args.length
-    function saucy() {
-      const args2 = Array.from(arguments)
-      /* eslint-enable fp/no-mutation */
-      /* eslint-enable fp/no-let */
-      /* eslint-enable fp/no-loops */
-      // return curried.apply(this, mergeParamsByTest(test, args, args2))
-      return curried.apply(this, args.map(
-        (y) => (
-          test(y) && args2[0] ?
-            args2.shift() : // eslint-disable-line fp/no-mutating-methods
-            y
-        )
-      ).concat(args2))
+    return false
+  }
+
+  function testArguments(initial, next, args, cursor, length) {
+    if (cursor === length) {
+      return next
     }
-    // eslint-disable-next-line fp/no-mutation
-    saucy.toString = toString(fn, args)
+    while (++cursor < length) {
+      next[cursor] = (
+        args.length && testPlaceholder(initial[cursor]) ?
+          args.shift() :
+          initial[cursor]
+      )
+      if (!args.length || testPlaceholder(a[cursor])) {
+        break
+      }
+    }
+    return next
+  }
+
+  function partial(
+    context,
+    fn,
+    initial,
+    next,
+    cursor,
+    length,
+    args
+  ) {
+    next = (
+      !args.length ?
+      next :
+      testArguments(initial, next, args, cursor, length)
+    )
+    function partiallyApplied() {
+      return partial(
+        context,
+        fn,
+        initial,
+        next,
+        next.length,
+        slice.apply(arguments)
+      )
+    }
     return (
-      length >= fn.length ?
-        fn.apply(this, args) :
-        saucy
+      next.length === length ?
+      fn.apply(context, next) :
+      partiallyApplied
     )
   }
-  // eslint-disable-next-line fp/no-mutation
-  curried.toString = toString(fn)
-  return curried
+
+  function curryWithPlaceholder(context, fn, initial) {
+    function partialWithPlaceholder() {
+      return partial(
+        context,
+        fn,
+        initial,
+        [],
+        0,
+        (
+          fn.length && !testPlaceholder(initial[initial.length - 1]) ?
+          fn.length :
+          initial.length
+        ),
+        slice.call(arguments)
+      )
+    }
+    partialWithPlaceholder.toString = toString(partialWithPlaceholder, initial)
+    return partialWithPlaceholder
+  }
+
+  return function curry(fn) {
+    const length = fn.length
+    let context = this || null
+    let initial
+    if (typeof fn === `function`) {
+      initial = (
+        arguments.length === 1 ?
+        [] :
+        slice.call(arguments, 1)
+      )
+    } else {
+      context = fn
+      fn = arguments[1]
+      initial = (
+        arguments.length === 2 ?
+        [] :
+        slice.call(arguments, 2)
+      )
+    }
+    function curried() {
+      const xLength = arguments.length
+      const ctx = context || this
+      if (initial.length + xLength !== length) {
+        return curry.apply(ctx, (
+          !xLength ?
+            [fn].concat(initial) :
+            [fn].concat(initial.concat(slice.call(arguments)))
+          )
+        )
+      }
+      if (!initial.length) {
+        return (
+          xLength === 1 ?
+            fn.call(ctx, arguments[0]) :
+            fn.apply(ctx, arguments)
+        )
+      } else {
+        return (
+          fn.apply(ctx, (
+            !xLength ?
+              initial :
+              initial.concat(slice.call(arguments))
+            )
+          )
+        )
+      }
+    }
+    curried.toString = toString(curried)
+    return (
+      hasPlaceholder(initial) ?
+      curryWithPlaceholder(context, fn, initial, 0, length) :
+      curried
+    )
+  }
 }
-export const curry = curryify((x) => x === PLACEHOLDER)
+export const curry = curryify(isPlaceholder)
+
 export const remapArray = curry(remapParameters)
 export const remap = curry((indices, fn) => {
   const remapArgs = remapArray(indices)
