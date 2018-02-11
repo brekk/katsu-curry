@@ -1,0 +1,49 @@
+adding 17 functions to harness...
+    instant-curry
+    ramda/src/curry
+    lodash/fp/curry
+    just-curry-it
+    light-curry
+    @ibrokethat/curry
+    @riim/curry
+    katsu-curry #curry
+    fjl-curry
+    dead-simple-curry
+    bloody-curry
+    curri
+    fj-curry
+    curry
+    katsu-curry/debug #curry
+    curry-d
+    auto-curry
+adding 6 functions to harness...
+    katsu-curry #curryObjectN
+    katsu-curry/debug #curryObjectN
+    fpo.curryMultiple
+    fpo.curry
+    katsu-curry #curryObjectK
+    katsu-curry/debug #curryObjectK
+instant-curry                    x 7,059,247 ops/sec ±4.83% (70 runs sampled)
+ramda/src/curry                  x 6,498,465 ops/sec ±4.62% (71 runs sampled)
+lodash/fp/curry                  x 8,873,327 ops/sec ±4.29% (76 runs sampled)
+just-curry-it                    x 4,601,812 ops/sec ±4.89% (74 runs sampled)
+light-curry                      x 3,925,772 ops/sec ±5.05% (71 runs sampled)
+@ibrokethat/curry                x 9,168,538 ops/sec ±6.90% (74 runs sampled)
+@riim/curry                      x 444,138 ops/sec ±7.84% (64 runs sampled)
+katsu-curry #curry               x 6,083,741 ops/sec ±6.39% (67 runs sampled)
+fjl-curry                        x 3,066,417 ops/sec ±5.52% (70 runs sampled)
+dead-simple-curry                x 2,823,668 ops/sec ±5.66% (72 runs sampled)
+bloody-curry                     x 3,174,576 ops/sec ±3.21% (77 runs sampled)
+curri                            x 2,634,989 ops/sec ±4.64% (77 runs sampled)
+fj-curry                         x 1,834,610 ops/sec ±6.94% (69 runs sampled)
+curry                            x 2,246,712 ops/sec ±5.29% (70 runs sampled)
+katsu-curry/debug #curry         x 867,879 ops/sec ±5.75% (70 runs sampled)
+curry-d                          x 1,573,489 ops/sec ±6.73% (70 runs sampled)
+auto-curry                       x 1,343,690 ops/sec ±3.79% (74 runs sampled)
+katsu-curry #curryObjectN        x 9,467,349 ops/sec ±5.69% (73 runs sampled)
+katsu-curry/debug #curryObjectN  x 3,679,708 ops/sec ±6.08% (73 runs sampled)
+fpo.curryMultiple                x 840,026 ops/sec ±3.42% (76 runs sampled)
+fpo.curry                        x 945,169 ops/sec ±4.40% (74 runs sampled)
+katsu-curry #curryObjectK        x 1,159,314 ops/sec ±5.70% (73 runs sampled)
+katsu-curry/debug #curryObjectK  x 178,968 ops/sec ±5.35% (71 runs sampled)
+Fastest is katsu-curry #curryObjectN
