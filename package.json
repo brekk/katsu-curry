@@ -7,6 +7,7 @@
   "module": "katsu-curry.mjs",
   "files": [
     "katsu-curry.*",
+    "debug.js",
     "fp",
     "object",
     "params",
