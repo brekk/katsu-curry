@@ -111,6 +111,7 @@
     "benchmark": "^2.1.4",
     "bloody-curry": "^1.0.1",
     "bluebird": "^3.5.0",
+    "cast-curry": "^1.0.0",
     "curri": "^1.0.0",
     "curry": "^1.2.0",
     "curry-d": "^0.6.0",

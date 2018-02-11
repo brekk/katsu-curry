@@ -52,6 +52,9 @@ const SUITE = new Benchmark.Suite(`KATSU-VS-OTHER-LIBRARIES`)
 // later maybe we could fix this so the whole thing could be map(require)'d earlier
 // eslint-disable-next-line fp/no-let
 let competitors = {
+  // cast-curry has been disqualified b/c it sniffs context and can't be applied tersely
+  // (and the placeholder functionality is broken)
+  // 'cast-curry': require(`cast-curry`),
   // instant-curry                    x 7,259,838 ops/sec ±1.27% (82 runs sampled)
   'instant-curry': require(`instant-curry`),
   // ramda/src/curry                  x 6,401,626 ops/sec ±1.60% (81 runs sampled)
@@ -108,6 +111,10 @@ const qualifier = CURRY(([placeholderTest, placeholder], name, competitor) => {
   }
   if (divide(1)(2) !== divide(1, 2)) {
     throw new Error(`${name}(1,2) !== ${name}(1)(2)`)
+  }
+  const mapping = [1, 2, 3].map(divide(2))
+  if (mapping[0] !== (2 / 1) || mapping[1] !== (2 / 2) || mapping[2] !== (2 / 3)) {
+    throw new Error(`${name} can't be partially apply tersely.`)
   }
   if (typeof placeholderTest === `function`) {
     if (!placeholderTest(placeholder, competitor)) {
