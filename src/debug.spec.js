@@ -44,8 +44,39 @@ test(`curryObjectK`, () => {
   t.is(addO({a: 5}).toString(), `curry(addObject)({a})({b:?,c:?})`)
   t.is(addO({a: 5, b: 20}).toString(), `curry(addObject)({a,b})({c:?})`)
   t.is(addO({a: 1, b: 2, c: 3}), 6)
+  t.is(addO({a: 1})({b: 2})({c: 3}), 6)
+  t.throws(
+    () => {
+      curryObjectK(null, null)
+    },
+    `curryObjectK expected an array of wanted keys.`
+  )
+  t.throws(
+    () => {
+      curryObjectK([], null)
+    },
+    `curryObjectK expected to be given a function to curry.`
+  )
 })
 test(`curryObjectKN`, () => {
+  t.throws(
+    () => {
+      curryObjectKN({k: null, n: null}, null)
+    },
+    `curryObjectKN expected an array of wanted keys.`
+  )
+  t.throws(
+    () => {
+      curryObjectKN({k: [`a`], n: null}, null)
+    },
+    `curryObjectKN expected to be given a number for arity.`
+  )
+  t.throws(
+    () => {
+      curryObjectKN({k: [`a`], n: 1}, null)
+    },
+    `curryObjectKN expected to be given a function to curry.`
+  )
   const addO = curryObjectKN(
     {k: `abc`.split(``), n: 4},
     function addObject({a, b, c, d = 200}) { return a + b + c + d }
@@ -55,8 +86,21 @@ test(`curryObjectKN`, () => {
   t.is(addO({a: 5, b: 20}).toString(), `curry(addObject)({a,b})({c:?})`)
   t.is(addO({a: 5, b: 20, c: 2, d: 100}), 127)
   t.is(addO({a: 5, b: 20, c: 2, whatever: 100}), 227)
+  t.is(addO({a: 5})({b: 20})({c: 2}), 227)
 })
 test(`curryObjectN`, () => {
+  t.throws(
+    () => {
+      curryObjectN(null, null)
+    },
+    `curryObjectN expected to be given a number for arity.`
+  )
+  t.throws(
+    () => {
+      curryObjectN(1, null)
+    },
+    `curryObjectN expected to be given a function to curry.`
+  )
   const addO = curryObjectN(
     4,
     function addObject({a, b, c, d}) { return a + b + c + d }
@@ -113,6 +157,20 @@ test(`pipe / compose .toString()`, () => {
   t.is(piped.toString(), `pipe(curry(add)(1)(?), curry(subtract)(1)(?))`)
   const composed = compose(sum(1), less(1))
   t.is(composed.toString(), `compose(curry(subtract)(1)(?), curry(add)(1)(?))`)
+})
+test(`pipe / compose throw`, () => {
+  t.throws(
+    () => {
+      pipe(null)
+    },
+    `pipe expected all arguments to be functions.`
+  )
+  t.throws(
+    () => {
+      compose(null)
+    },
+    `compose expected all arguments to be functions.`
+  )
 })
 test(`curryify`, () => {
   const divide = (a, b) => (b / a)
