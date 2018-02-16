@@ -1,6 +1,6 @@
 {
   "name": "katsu-curry",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "description": "curry functions with placeholders or in object form",
   "license": "ISC",
   "repository": "brekk/katsu-curry",
