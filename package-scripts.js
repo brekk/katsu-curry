@@ -27,6 +27,11 @@ const GERMS = germs.build(pkg.name, {
     `del node_modules`
   ]))
 })
+GERMS.scripts.lint.project = `clinton`
+GERMS.scripts.lint = {
+  ...GERMS.scripts.lint,
+  script: allNPS(`lint.src`, `lint.jsdoc`, `lint.project`)
+}
 GERMS.scripts.bundle = Object.assign(
   {},
   GERMS.scripts.bundle,
