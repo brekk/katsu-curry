@@ -3,81 +3,9 @@
   "version": "0.7.4",
   "description": "curry functions with placeholders or in object form",
   "license": "ISC",
+  "repository": "brekk/katsu-curry",
+  "author": "brekk",
   "main": "katsu-curry.js",
-  "module": "katsu-curry.mjs",
-  "files": [
-    "katsu-curry.*",
-    "debug.js",
-    "fp",
-    "object",
-    "params",
-    "placeholder",
-    "utils",
-    "debug"
-  ],
-  "jest": {
-    "modulePaths": [
-      "src"
-    ],
-    "moduleDirectories": [
-      "node_modules",
-      "src"
-    ],
-    "coveragePathIgnorePatterns": [],
-    "mapCoverage": true,
-    "moduleNameMapper": {
-      "@combinators/(.*)\\.(.*)": "<rootDir>/src/combinators/$1.$2",
-      "@params/(.*)\\.(.*)": "<rootDir>/src/params/$1.$2",
-      "@fp/(.*)\\.(.*)": "<rootDir>/src/fp/$1.$2",
-      "@object/(.*)\\.(.*)": "<rootDir>/src/object/$1.$2",
-      "@placeholder/(.*)\\.(.*)": "<rootDir>/src/placeholder/$1.$2",
-      "@utils/(.*)\\.(.*)": "<rootDir>/src/utils/$1.$2"
-    },
-    "moduleFileExtensions": [
-      "ts",
-      "js",
-      "json"
-    ],
-    "testMatch": [
-      "**/*.spec.(ts|tsx|js)"
-    ]
-  },
-  "reveal": true,
-  "nyc": {
-    "statements": 100,
-    "branches": 100,
-    "functions": 100,
-    "lines": 100,
-    "reporter": [
-      "lcov",
-      "json",
-      "html",
-      "text",
-      "text-summary"
-    ],
-    "exclude": [
-      "node_modules",
-      "config",
-      "coverage",
-      "src/*.spec.js",
-      "src/*.fixture.js",
-      "src/**/index.js",
-      "src/index.js",
-      "src/combinators.js",
-      "katsu-curry.js",
-      "katsu-curry.es.js"
-    ],
-    "include": [
-      "src/*.js",
-      "src/**/*.js",
-      "!src/*.spec.js"
-    ],
-    "all": true,
-    "check-coverage": true,
-    "require": [
-      "babel-register"
-    ]
-  },
   "scripts": {
     "docs": "nps docs",
     "dependencies": "nps dependencies",
@@ -88,6 +16,21 @@
     "care": "nps care",
     "precommit": "nps precommit"
   },
+  "files": [
+    "katsu-curry.*",
+    "debug.js",
+    "fp",
+    "object",
+    "params",
+    "placeholder",
+    "utils",
+    "debug"
+  ],
+  "keywords": [
+    "curry",
+    "object-style curry",
+    "partial application"
+  ],
   "dependencies": {
     "fast.js": "^0.1.1"
   },
@@ -113,6 +56,7 @@
     "bloody-curry": "^1.0.1",
     "bluebird": "^3.5.0",
     "cast-curry": "^1.0.0",
+    "clinton": "^0.13.0",
     "curri": "^1.0.0",
     "curry": "^1.2.0",
     "curry-d": "^0.6.0",
@@ -173,6 +117,109 @@
     "wallaby-webpack": "^0.0.39",
     "webpack": "2.2.x"
   },
-  "repository": "https://github.com/brekk/katsu-curry",
-  "author": "brekk"
+  "module": "katsu-curry.mjs",
+  "reveal": true,
+  "jest": {
+    "modulePaths": [
+      "src"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
+    "coveragePathIgnorePatterns": [],
+    "mapCoverage": true,
+    "moduleNameMapper": {
+      "@combinators/(.*)\\.(.*)": "<rootDir>/src/combinators/$1.$2",
+      "@params/(.*)\\.(.*)": "<rootDir>/src/params/$1.$2",
+      "@fp/(.*)\\.(.*)": "<rootDir>/src/fp/$1.$2",
+      "@object/(.*)\\.(.*)": "<rootDir>/src/object/$1.$2",
+      "@placeholder/(.*)\\.(.*)": "<rootDir>/src/placeholder/$1.$2",
+      "@utils/(.*)\\.(.*)": "<rootDir>/src/utils/$1.$2"
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "json"
+    ],
+    "testMatch": [
+      "**/*.spec.(ts|tsx|js)"
+    ]
+  },
+  "clinton": {
+    "inherit": false,
+    "rules": {
+      "cli": "error",
+      "editorconfig": "off",
+      "filename-case": [
+        "error",
+        {
+          "case": "kebabCase"
+        }
+      ],
+      "gulp": [
+        "error",
+        "optional"
+      ],
+      "keywords": "error",
+      "license": "ISC",
+      "max-depth": "warn",
+      "no-callback": "error",
+      "no-dup-keywords": "error",
+      "no-empty-keywords": "error",
+      "no-git-merge-conflict": "error",
+      "pkg-dependency-order": "error",
+      "pkg-description": "off",
+      "pkg-engine": "off",
+      "pkg-main": "error",
+      "pkg-name": "error",
+      "pkg-normalize": "warn",
+      "pkg-property-order": "error",
+      "pkg-schema": "error",
+      "pkg-shorthand-repository": "error",
+      "pkg-user-order": "error",
+      "readme": "error",
+      "test-script": "error",
+      "use-travis": "off",
+      "valid-version": "error",
+      "ava": "off",
+      "gitignore": "error",
+      "xo": "off"
+    }
+  },
+  "nyc": {
+    "statements": 100,
+    "branches": 100,
+    "functions": 100,
+    "lines": 100,
+    "reporter": [
+      "lcov",
+      "json",
+      "html",
+      "text",
+      "text-summary"
+    ],
+    "exclude": [
+      "node_modules",
+      "config",
+      "coverage",
+      "src/*.spec.js",
+      "src/*.fixture.js",
+      "src/**/index.js",
+      "src/index.js",
+      "src/combinators.js",
+      "katsu-curry.js",
+      "katsu-curry.es.js"
+    ],
+    "include": [
+      "src/*.js",
+      "src/**/*.js",
+      "!src/*.spec.js"
+    ],
+    "all": true,
+    "check-coverage": true,
+    "require": [
+      "babel-register"
+    ]
+  }
 }
