@@ -14,5 +14,5 @@ test:
   override:
     - yarn test
   post:
-    - mv coverage $CIRCLE_ARTIFACTS/.
     - coveralls < coverage/lcov.info
+    - mv coverage $CIRCLE_ARTIFACTS/.
