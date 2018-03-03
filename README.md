@@ -2,6 +2,8 @@
 
 > 🍛 for everyone
 
+[![Coverage Status](https://coveralls.io/repos/github/brekk/katsu-curry/badge.svg?branch=master)](https://coveralls.io/github/brekk/katsu-curry?branch=master)
+
 This module gives you the ability to curry functions with custom placeholders, or with object values.
 
 ## What is `curry`?
