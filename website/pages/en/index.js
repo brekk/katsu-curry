@@ -147,7 +147,7 @@ const FeatureCallout = () => (
       <li>
         <span>The parameter placeholder <code>$</code></span>
         <ul className="features sub">
-          <li>for specifying partial application with any combination of arguments</li>
+          <li>for partial application with any combination of arguments</li>
         </ul>
       </li>
       <li>A (completely-objective) super-useful debug-mode&trade;</li>
@@ -232,6 +232,10 @@ const Showcase = ({language}) => {
     </div>
   )
 }
+// <LearnHow />
+// <TryOut />
+// <Description />
+// <Showcase language={language} />
 
 const Index = ({language = ``}) => (
   <div>
@@ -239,10 +243,6 @@ const Index = ({language = ``}) => (
     <div className="mainContainer">
       <Features />
       <FeatureCallout />
-      <LearnHow />
-      <TryOut />
-      <Description />
-      <Showcase language={language} />
     </div>
   </div>
 )

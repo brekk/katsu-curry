@@ -80,6 +80,8 @@ pre code {
     position: relative;
     font-size: .8rem;
     line-height: 1.6rem;
+    box-shadow: none;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, .6);
 }
 
 .hljs-comment {
@@ -88,6 +90,10 @@ pre code {
 
 .mainContainer .wrapper p, .blockElement p {
     max-width: 100%;
+}
+
+footer .sitemap .nav-home {
+    width: 12.5rem;
 }
 
 @media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
