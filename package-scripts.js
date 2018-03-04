@@ -2,7 +2,6 @@ const germs = require(`germs`)
 const pkg = require(`./package.json`)
 const utils = require(`nps-utils`)
 const allNPS = utils.concurrent.nps
-//
 const built = [
   `del coverage`,
   `del lib`,
@@ -27,6 +26,7 @@ const GERMS = germs.build(pkg.name, {
     `del node_modules`
   ]))
 })
+/* eslint-disable fp/no-mutation */
 GERMS.scripts.lint.project = `clinton`
 GERMS.scripts.lint = Object.assign(
   {},
@@ -47,5 +47,6 @@ GERMS.scripts.bundle = Object.assign(
 GERMS.scripts.bundle.script = allNPS(`bundle.commonjs`, `bundle.es6`, `bundle.debug`)
 
 GERMS.scripts.lint.jsdoc = `echo "documentation lint"`
+/* eslint-enable fp/no-mutation */
 
 module.exports = GERMS

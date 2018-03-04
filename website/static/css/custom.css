@@ -1,0 +1,113 @@
+/* your custom css */
+
+html, body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+
+h2.headerTitle {
+    font-size: 1.2rem;
+    margin-left: .5rem;
+}
+
+.productShowcaseSection h2 {
+    padding: 0;
+    font-size: 1.3rem;
+    font-weight: bolder;
+}
+
+.homeContainer {
+    background-color: #60dafb;
+}
+
+.projectTitle {
+    font-size: 10rem;
+    margin-top: 0;
+}
+
+.projectTitle > span {
+    text-shadow: 0 1.25rem 0 rgba(0, 0, 0, .05);
+}
+
+.projectTitle > small {
+    font-size: 1.25rem;
+}
+
+.projectTitle > small span {
+    margin: 0 .25rem;
+}
+
+.projectTitle > small span.word-1 {
+    color: red;
+    text-shadow: 0 -2px 4px rgba(255, 255, 0, .3);
+}
+
+.container.paddingTop {
+    padding-top: 1rem;
+}
+
+.container.paddingBottom {
+    padding-bottom: 1rem;
+}
+
+ul.features {
+    list-style: disc;
+    text-align: left;
+    margin: 0 auto;
+    padding-left: 1rem;
+    display: inline-block;
+    margin-bottom: 4rem;
+}
+
+ul.features > li {
+    margin: .75rem 0;
+}
+
+ul.features.sub {
+    margin: 0;
+    display: block;
+}
+
+pre code {
+    text-align: left;
+    font-family: "Fira Code", "Fira Mono", monospace;
+    border-left: 0;
+    padding: 1rem !important;
+}
+
+.hljs.js {
+    background-color: #dedede;
+    min-height: 10rem;
+    position: relative;
+    font-size: .8rem;
+    line-height: 1.6rem;
+}
+
+.hljs-comment {
+    font-weight: bolder;
+}
+
+.mainContainer .wrapper p, .blockElement p {
+    max-width: 100%;
+}
+
+@media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
+}
+
+@media only screen and (min-width: 30rem) {
+    .projectTitle > small {
+        font-size: 2rem;
+    }
+
+    .blockContent > h2 > div > span > p {
+        font-size: 1.1rem;
+    }
+}
+
+@media only screen and (max-width: 1023px) {
+}
+
+@media only screen and (min-width: 1400px) {
+}
+
+@media only screen and (min-width: 1500px) {
+}
