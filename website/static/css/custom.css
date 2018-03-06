@@ -4,19 +4,80 @@ html, body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
 
+h2 {
+    text-align: center;
+}
+
 h2.headerTitle {
     font-size: 1.2rem;
     margin-left: .5rem;
 }
 
-.productShowcaseSection h2 {
-    padding: 0;
+.benchmark {
+    /* background-color: #001; *//* color: #c00; */
+    text-align: center;
+    font-size: .8rem;
+}
+
+.benchmark table {
+    margin: 0 auto;
+    width: 80%;
+    max-width: 50rem;
+}
+
+.benchmark table > tbody > tr > td:nth-child(3)::before {
+    content: "\00B1";
+    display: inline-block;
+    margin-right: .5rem;
+}
+
+.benchmark ul {
+    width: 40%;
+}
+
+.this {
+    float: right;
+    text-align: center;
+}
+
+.this::before {
+    background-color: rgba(0, 0, 0, .4);
+    color: white;
+    border-radius: 10rem;
+    margin: 0;
+    margin-left: .25rem;
+    height: .65rem;
+    width: .65rem;
+    padding: .2rem;
+    line-height: .8rem;
+    display: inline-block;
+    text-align: center;
+    content: '⭐️';
+    font-size: .5rem;
+    display: inline-block;
+    text-align: left;
+}
+
+i.times {
+    float: right;
+}
+
+.features-n-shit h2 {
+    padding-top: 2rem;
     font-size: 1.3rem;
-    font-weight: bolder;
+}
+
+.features-n-shit {
+    font-size: 1rem;
+    line-height: 1rem;
+}
+
+.button {
+    color: #ddd;
 }
 
 .homeContainer {
-    background-color: #60dafb;
+    background-color: #001;
 }
 
 .projectTitle {
@@ -25,7 +86,7 @@ h2.headerTitle {
 }
 
 .projectTitle > span {
-    text-shadow: 0 1.25rem 0 rgba(0, 0, 0, .05);
+    text-shadow: 0 1.25rem 0 rgba(255, 255, 255, .05);
 }
 
 .projectTitle > small {
@@ -38,7 +99,7 @@ h2.headerTitle {
 
 .projectTitle > small span.word-1 {
     color: red;
-    text-shadow: 0 -2px 4px rgba(255, 255, 0, .3);
+    text-shadow: 0 0 12px rgba(255, 255, 255, .3);
 }
 
 .container.paddingTop {
@@ -88,6 +149,14 @@ pre code {
     font-weight: bolder;
 }
 
+.hljs-number {
+    color: #c00;
+}
+
+.hljs-keyword {
+    color: #116;
+}
+
 .mainContainer .wrapper p, .blockElement p {
     max-width: 100%;
 }
@@ -96,7 +165,48 @@ footer .sitemap .nav-home {
     width: 12.5rem;
 }
 
+.mainContainer .wrapper .post article > div > span > ul:first-of-type > li {
+    font-size: .8rem;
+}
+
+.features-n-shit ul {
+    text-align: left;
+}
+
+a.module {
+    font-family: "Fira Code", "Fira Mono", monospace;
+}
+
+a.module:hover {
+    color: #001;
+}
+
 @media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
+}
+
+@media only screen and (min-width: 46rem) {
+    /* high af specificity */
+
+    .mainContainer .wrapper .post article > div > span > h3:first-of-type,
+    .mainContainer .wrapper .post article > div > span > ul:first-of-type {
+        position: fixed;
+        text-align: left;
+        left: 70%;
+        top: 4rem;
+        width: 12rem;
+    }
+
+    .mainContainer .wrapper .post article > div > span > ul:first-of-type {
+        clear: right;
+        width: 11rem;
+        margin-top: 3rem;
+        overflow-y: auto;
+        min-height: 20rem;
+        max-height: 40rem;
+        height: 80%;
+        font-size: 1rem;
+        /* background-color: rgba(0, 255, 0, .3); */
+    }
 }
 
 @media only screen and (min-width: 30rem) {

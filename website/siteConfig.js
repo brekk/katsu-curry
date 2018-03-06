@@ -12,13 +12,12 @@ const siteConfig = {
   title: `🍛` /* title for your website */,
   tagline: `curry for your functions`,
   url: `https://brekk.github.io/katsu-curry` /* your website url */,
-  baseUrl: `/test-site/` /* base url for your project */,
+  baseUrl: `/` /* base url for your project */,
   projectName: `🍛`,
   headerLinks: [
-    {doc: `doc1`, label: `Docs`},
-    {doc: `doc4`, label: `API`},
-    {page: `help`, label: `Help`},
-    {blog: true, label: `Blog`}
+    {doc: `API`, label: `API`},
+    {doc: `API-in-debug-mode`, label: `Debug-mode`},
+    {page: `help`, label: `Help`}
   ],
   users,
   /* path to images for header/footer */

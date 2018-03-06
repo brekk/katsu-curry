@@ -45,8 +45,20 @@ GERMS.scripts.bundle = Object.assign(
 )
 
 GERMS.scripts.bundle.script = allNPS(`bundle.commonjs`, `bundle.es6`, `bundle.debug`)
+GERMS.scripts.docs.script = `nps docs.api && nps docs.debugAPI && nps docs.rebuild && nps docs.serve`
+GERMS.scripts.docs.api = `documentation build -c documentation.yml src/index.js -f md -o docs/API.md -a public`
+GERMS.scripts.docs.debugAPI = [
+  `documentation build -c documentation.yml`,
+  `src/index.js`,
+  `src/debug/*.js`,
+  `src/placeholder/constant.js`,
+  `src/combinators/*.js`,
+  `-f md -o docs/API-in-debug-mode.md -a public --shallow`
+].join(` `)
+GERMS.scripts.docs.rebuild = `cd website && yarn docusaurus-build`
+GERMS.scripts.docs.serve = `cd website && yarn start`
 
-GERMS.scripts.lint.jsdoc = `echo "documentation lint"`
+// GERMS.scripts.lint.jsdoc = `echo "documentation lint"`
 /* eslint-enable fp/no-mutation */
 
 module.exports = GERMS

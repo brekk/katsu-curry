@@ -47,7 +47,7 @@ const SplashContainer = (props) => (
 const ProjectTitle = () => (
   <h2 className="projectTitle">
     <span>{siteConfig.title}</span>
-    <Logo primary="#ef0505" className="logo mega"/>
+    <Logo primary="#ef0505" secondary="#ffffff" className="logo mega"/>
     <small>
       {
         siteConfig.tagline.split(` `).map(
@@ -73,7 +73,7 @@ const HomeSplash = ({language = ``}) => (
       <PromoSection>
         <Button href="#try">Try It Out</Button>
         <Button href={docUrl(`explanation.html`, language)}>Read More</Button>
-        <Button href={docUrl(`api.html`, language)}>API</Button>
+        <Button href={docUrl(`API.html`, language)}>API</Button>
       </PromoSection>
     </div>
   </SplashContainer>
@@ -88,7 +88,7 @@ const Block = (props) => (
   </Container>
 )
 
-const Features = () => (
+const Details = () => (
   <Block layout="threeColumn">
     {[
       {
@@ -131,36 +131,95 @@ divide($,2).toString() // curry(over)(🍛,2)(?)
         // image: imgUrl(`logo.svg`),
         // imageAlign: `top`,
         title: `Use debug mode for additional clarity`
+      },
+      {
+        content: `
+\`\`\`js
+import {curryObjectN} from 'katsu-curry'
+const threeKeyProps = curryObjectN(3, Object.keys)
+threeKeyProps({a: 1, b: 2, c: 3}) // ['a', 'b', 'c']
+const oneMore = threeKeyProps({a: 1, b: 2}) // function expecting one more param
+const encase = (x) => ({[x]: x})
+'cdefghi'.split('').map(encase).map(oneMore)
+/*
+[ [ 'a', 'b', 'c' ],
+  [ 'a', 'b', 'd' ],
+  [ 'a', 'b', 'e' ],
+  [ 'a', 'b', 'f' ],
+  [ 'a', 'b', 'g' ],
+  [ 'a', 'b', 'h' ],
+  [ 'a', 'b', 'i' ] ]
+*/
+\`\`\``,
+        title: `Use object-mode with a specific arity`
+      },
+      {
+        content: `
+\`\`\`js
+import {curryObjectK} from 'katsu-curry'
+const abc = curryObjectK(['a', 'b', 'c'], Object.values)
+abc({a: 1, b: 2, c: 3}) // [1, 2, 3]
+const oneMore = abc({a: 1, b: 2}) // function expecting "c"
+const encase = (x) => ({[x]: x})
+'cdefghi'.split('').map(encase).map(oneMore)
+/*
+[ [ 1, 2, 3 ],
+  function,
+  function,
+  function,
+  function,
+  function,
+  function ]
+*/
+\`\`\``,
+        title: `Use object-mode with specific keys`
       }
     ]}
   </Block>
 )
 
-const FeatureCallout = () => (
+const Features = () => (
   <div
-    className="productShowcaseSection"
+    className="features-n-shit"
   >
     <h2>Features</h2>
-    <ul className="features">
-      <li>Traditional parameter currying</li>
-      <li>Object-style currying</li>
-      <li>
-        <span>The parameter placeholder <code>$</code></span>
-        <ul className="features sub">
-          <li>for partial application with any combination of arguments</li>
-        </ul>
-      </li>
-      <li>A (completely-objective) super-useful debug-mode&trade;</li>
-      <li>
-        <span>Utilities</span>
-        <ul className="features sub">
-          <li>for remapping parameters</li>
-          <li>for function composition</li>
-          <li>for functional constants <code>K</code></li>
-          <li>for functional identity <code>I</code></li>
-        </ul>
-      </li>
-    </ul>
+    <Block layout="threeColumn">
+      {[
+        {
+          key: `one`,
+          content: `
+  * Traditional parameter currying:
+    - \`curry\`
+  * Object-style currying:
+    - \`curryObjectK\`
+    - \`curryObjectN\`
+    - \`curryObjectKN\`
+          `
+          // image: imgUrl(`logo.svg`),
+          // imageAlign: `top`,
+        },
+        {
+          key: `two`,
+          content: `
+  * Partial application with any combination of arguments:
+    - \`$\` or \`PLACEHOLDER\`
+  * Utilities
+    - for remapping parameters: \`remap\` and \`remapArray\`
+    - for function composition: \`pipe\` and \`compose\`
+    - for function constants: \`K\`
+    - for functional identity: \`I\`
+          `
+        },
+        {
+          key: `three`,
+          content: `
+  * A (completely objectively) super-useful debug-mode&trade;
+    - \`import debug from 'katsu-curry/debug'\`
+    - or <span title="in the dirty pre-es6 world">\`require('katsu-curry/debug')\`</span>
+          `
+        }
+      ]}
+    </Block>
   </div>
 )
 
@@ -211,13 +270,12 @@ const Showcase = ({language}) => {
     .filter((user) => {
       return user.pinned
     })
-    .map((user, i) => {
-      return (
+    .map((user, i) => (
         <a href={user.infoLink} key={i}>
           <img src={user.image} title={user.caption} />
         </a>
       )
-    })
+    )
 
   return (
     <div className="productShowcaseSection">
@@ -237,12 +295,88 @@ const Showcase = ({language}) => {
 // <Description />
 // <Showcase language={language} />
 
+const benchmarkData = [
+  [ `katsu-curry #curryObjectN`, 9467349, 5.69, 73 ],
+  [ `@ibrokethat/curry`, 9168538, 6.9, 74 ],
+  [ `lodash/fp/curry`, 8873327, 4.29, 76 ],
+  [ `instant-curry`, 7059247, 4.83, 70 ],
+  [ `ramda/src/curry`, 6498465, 4.62, 71 ],
+  [ `katsu-curry #curry`, 6083741, 6.39, 67 ],
+  [ `just-curry-it`, 4601812, 4.89, 74 ],
+  [ `light-curry`, 3925772, 5.05, 71 ],
+  [ `katsu-curry/debug #curryObjectN`, 3679708, 6.08, 73 ],
+  [ `bloody-curry`, 3174576, 3.21, 77 ],
+  [ `fjl-curry`, 3066417, 5.52, 70 ],
+  [ `dead-simple-curry`, 2823668, 5.66, 72 ],
+  [ `curri`, 2634989, 4.64, 77 ],
+  [ `curry`, 2246712, 5.29, 70 ],
+  [ `fj-curry`, 1834610, 6.94, 69 ],
+  [ `curry-d`, 1573489, 6.73, 70 ],
+  [ `auto-curry`, 1343690, 3.79, 74 ],
+  [ `katsu-curry #curryObjectK`, 1159314, 5.7, 73 ],
+  [ `fpo.curry`, 945169, 4.4, 74 ],
+  [ `katsu-curry/debug #curry`, 867879, 5.75, 70 ],
+  [ `fpo.curryMultiple`, 840026, 3.42, 76 ],
+  [ `@riim/curry`, 444138, 7.84, 64 ],
+  [ `katsu-curry/debug #curryObjectK`, 178968, 5.35, 71 ]
+]
+
+const objectifiedData = benchmarkData.map(([name, ops, variance, samples]) => ({
+  name,
+  ops,
+  variance,
+  samples
+}))
+
+const numberWithCommas = (x) => {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, `,`)
+}
+
+const Benchpress = ({name, ops, variance, samples}) => (
+  <tr key={name}>
+    <td>
+      <a href="#" className="module">
+        {name}
+      </a>
+      {name.indexOf(`katsu`) > -1 && <b className="this"/>}
+    </td>
+    <td>{numberWithCommas(ops)}</td>
+    <td>{variance}</td>
+    <td>{samples}</td>
+  </tr>
+)
+
+const byOpsPerSecond = ({ops}, {ops: ops2}) => ops >= ops2 ? -1 : 1
+
+const Benchmark = () => (
+  <div className="benchmark">
+    <h1>Benchmark</h1>
+    <table className="features">
+      <thead>
+        <tr>
+        <td>{`module (function)`}</td>
+        <td>ops / second</td>
+        <td>variance</td>
+        <td>samples</td>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          // eslint-disable-next-line fp/no-mutating-methods
+          objectifiedData.sort(byOpsPerSecond).map(Benchpress)
+        }
+      </tbody>
+    </table>
+  </div>
+)
+
 const Index = ({language = ``}) => (
   <div>
     <HomeSplash language={language} />
     <div className="mainContainer">
       <Features />
-      <FeatureCallout />
+      <Details />
+      <Benchmark />
     </div>
   </div>
 )
