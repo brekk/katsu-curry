@@ -317,7 +317,7 @@ generate a string which represents the ongoing partial-application view
 
 Returns **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** a function which could be used as a `toString` function
 
-## PLACEHOLDER
+## $
 
 Use the placeholder to specify "gaps" in the partial application of a function.
 

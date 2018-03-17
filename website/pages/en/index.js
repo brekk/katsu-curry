@@ -213,7 +213,8 @@ const Features = () => (
         {
           key: `three`,
           content: `
-  * A (completely objectively) super-useful debug-mode&trade;
+  * An outrageously useful debug-mode&trade;
+    - add clarity when things aren&rsquo;t working (at the cost of speed)
     - \`import debug from 'katsu-curry/debug'\`
     - or <span title="in the dirty pre-es6 world">\`require('katsu-curry/debug')\`</span>
           `
