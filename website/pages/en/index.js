@@ -1,14 +1,15 @@
 const React = require(`react`)
-
+const cwd = process.cwd()
+const benchmarkData = require(`${cwd}/static/generated-benchmark`) // if this fails, re-run `nps docs.reserve`
 const {
   MarkdownBlock,
   Container,
   GridBlock
 } = require(`../../core/CompLibrary`)
 
-const Logo = require(process.cwd() + `/core/Logo`)
+const Logo = require(`${cwd}/core/Logo`)
 
-const siteConfig = require(process.cwd() + `/siteConfig.js`)
+const siteConfig = require(`${cwd}/siteConfig.js`)
 
 function imgUrl(img) {
   return siteConfig.baseUrl + `img/` + img
@@ -79,14 +80,21 @@ const HomeSplash = ({language = ``}) => (
   </SplashContainer>
 )
 
-const Block = (props) => (
-  <Container
-    padding={[`bottom`, `top`]}
-    id={props.id}
-    background={props.background}>
-    <GridBlock align="center" contents={props.children} layout={props.layout} />
-  </Container>
-)
+const Block = (props) => {
+  const {children} = props
+  const kids = children.map((x, i) => {
+    x.key = i
+    return x
+  })
+  return (
+    <Container
+      padding={[`bottom`, `top`]}
+      id={props.id}
+      background={props.background}>
+      <GridBlock align="center" contents={kids} layout={props.layout} />
+    </Container>
+  )
+}
 
 const Details = () => (
   <Block layout="threeColumn">
@@ -224,45 +232,6 @@ const Features = () => (
   </div>
 )
 
-const LearnHow = () => (
-  <Block background="light">
-    {[
-      {
-        content: `Talk about learning how to use this`,
-        image: imgUrl(`logo.svg`),
-        imageAlign: `right`,
-        title: `Learn How`
-      }
-    ]}
-  </Block>
-)
-
-const TryOut = () => (
-  <Block id="try">
-    {[
-      {
-        content: `Talk about trying this out`,
-        image: imgUrl(`logo.svg`),
-        imageAlign: `left`,
-        title: `Try it Out`
-      }
-    ]}
-  </Block>
-)
-
-const Description = () => (
-  <Block background="dark">
-    {[
-      {
-        content: `This is another description of how this project is useful`,
-        image: imgUrl(`logo.svg`),
-        imageAlign: `right`,
-        title: `Description`
-      }
-    ]}
-  </Block>
-)
-
 const Showcase = ({language}) => {
   if ((siteConfig.users || []).length === 0) {
     return null
@@ -296,32 +265,6 @@ const Showcase = ({language}) => {
 // <Description />
 // <Showcase language={language} />
 
-const benchmarkData = [
-  [ `katsu-curry #curryObjectN`, 9467349, 5.69, 73 ],
-  [ `@ibrokethat/curry`, 9168538, 6.9, 74 ],
-  [ `lodash/fp/curry`, 8873327, 4.29, 76 ],
-  [ `instant-curry`, 7059247, 4.83, 70 ],
-  [ `ramda/src/curry`, 6498465, 4.62, 71 ],
-  [ `katsu-curry #curry`, 6083741, 6.39, 67 ],
-  [ `just-curry-it`, 4601812, 4.89, 74 ],
-  [ `light-curry`, 3925772, 5.05, 71 ],
-  [ `katsu-curry/debug #curryObjectN`, 3679708, 6.08, 73 ],
-  [ `bloody-curry`, 3174576, 3.21, 77 ],
-  [ `fjl-curry`, 3066417, 5.52, 70 ],
-  [ `dead-simple-curry`, 2823668, 5.66, 72 ],
-  [ `curri`, 2634989, 4.64, 77 ],
-  [ `curry`, 2246712, 5.29, 70 ],
-  [ `fj-curry`, 1834610, 6.94, 69 ],
-  [ `curry-d`, 1573489, 6.73, 70 ],
-  [ `auto-curry`, 1343690, 3.79, 74 ],
-  [ `katsu-curry #curryObjectK`, 1159314, 5.7, 73 ],
-  [ `fpo.curry`, 945169, 4.4, 74 ],
-  [ `katsu-curry/debug #curry`, 867879, 5.75, 70 ],
-  [ `fpo.curryMultiple`, 840026, 3.42, 76 ],
-  [ `@riim/curry`, 444138, 7.84, 64 ],
-  [ `katsu-curry/debug #curryObjectK`, 178968, 5.35, 71 ]
-]
-
 const objectifiedData = benchmarkData.map(([name, ops, variance, samples]) => ({
   name,
   ops,
@@ -333,13 +276,32 @@ const numberWithCommas = (x) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, `,`)
 }
 
+const countSlashes = (x) => x.split(``).reduce((a, b) => b === `/` ? a + 1 : a, 0)
+
+const getNPMLink = (title) => {
+  const hashMark = title.indexOf(`#`)
+  const dotMark = title.indexOf(`.`)
+  const privateMark = title.indexOf(`@`) > -1
+  if (hashMark > -1) {
+    title = title.slice(0, hashMark)
+  }
+  if (dotMark > -1) {
+    title = title.slice(0, dotMark)
+  }
+  const slashes = countSlashes(title)
+  if (!privateMark && slashes > 0) {
+    title = title.slice(0, title.indexOf(`/`))
+  }
+  return `//npmjs.org/package/${title}`
+}
+
 const Benchpress = ({name, ops, variance, samples}) => (
   <tr key={name}>
     <td>
-      <a href="#" className="module">
+      <a href={getNPMLink(name)} className="module">
         {name}
       </a>
-      {name.indexOf(`katsu`) > -1 && <b className="this"/>}
+      {name.indexOf(`katsu`) > -1 && <b title="this library!" className="this-library"/>}
     </td>
     <td>{numberWithCommas(ops)}</td>
     <td>{variance}</td>
@@ -351,9 +313,9 @@ const byOpsPerSecond = ({ops}, {ops: ops2}) => ops >= ops2 ? -1 : 1
 
 const Benchmark = () => (
   <div className="benchmark">
-    <h1>Benchmark</h1>
-    <table className="features">
-      <thead>
+    <h2>Benchmark</h2>
+    <table>
+      <thead title="sorted by speed!">
         <tr>
         <td>{`module (function)`}</td>
         <td>ops / second</td>
@@ -368,6 +330,10 @@ const Benchmark = () => (
         }
       </tbody>
     </table>
+    <span className="benchmark__info">
+      Feel free to re-run the benchmark code <a href="//github.com/brekk/katsu-curry/blob/master/src/benchmark.fixture.js">here </a>
+      or submit a <a href="https://github.com/brekk/katsu-curry/pulls">PR</a>!
+    </span>
   </div>
 )
 

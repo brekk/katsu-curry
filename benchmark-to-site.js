@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const fs = require(`fs`)
 /* eslint-disable */
 fs.readFile(`./benchmark.log`, `utf8`, (e, data) => {
@@ -23,6 +25,18 @@ fs.readFile(`./benchmark.log`, `utf8`, (e, data) => {
       stripWordsAndMakeItGood(a)
     ])
     .sort(byOpsPerSecond)
+  const place = `${__dirname}/website/static/generated-benchmark.js`
   console.log(datum)
+  if (process.env.write) {
+    const content = `// this file was automatically created by katsu-curry/benchmark-to-site.js
+
+module.exports = ${JSON.stringify(datum, null, 2).replace(/"/g, `\``)}
+`
+    fs.writeFile(place, content, `utf8`, (e) => {
+      if (e) throw e
+      console.log(`wrote file to ${place}`)
+    })
+    return
+  }
 })
 /* eslint-enable */

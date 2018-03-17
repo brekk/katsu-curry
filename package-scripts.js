@@ -44,19 +44,42 @@ GERMS.scripts.bundle = Object.assign(
   }
 )
 
+const cleanUpTheTOC = (f) => ([
+  `node toc-to-site.js ${f} > ${f}.bak`,
+  `mv ${f}.bak ${f}`
+].join(` && `))
+
 GERMS.scripts.bundle.script = allNPS(`bundle.commonjs`, `bundle.es6`, `bundle.debug`)
-GERMS.scripts.docs.script = `nps docs.api && nps docs.debugAPI && nps docs.rebuild && nps docs.serve`
-GERMS.scripts.docs.api = `documentation build -c documentation.yml src/index.js -f md -o docs/API.md -a public`
-GERMS.scripts.docs.debugAPI = [
-  `documentation build -c documentation.yml`,
-  `src/index.js`,
-  `src/debug/*.js`,
-  `src/placeholder/constant.js`,
-  `src/combinators/*.js`,
-  `-f md -o docs/API-in-debug-mode.md -a public --shallow`
-].join(` `)
-GERMS.scripts.docs.rebuild = `cd website && yarn docusaurus-build`
-GERMS.scripts.docs.serve = `cd website && yarn start`
+GERMS.scripts.docs = {
+  script: `nps docs.api docs.debugAPI docs.build docs.cleanTOC docs.serve`,
+  api: `documentation build -c documentation.yml src/index.js -f md -o docs/API.md -a public`,
+  cleanTOC: {
+    regular: cleanUpTheTOC(`docs/API.md`),
+    debug: cleanUpTheTOC(`docs/API-in-debug-mode.md`),
+    script: allNPS(`docs.cleanTOC.regular`, `docs.cleanTOC.debug`)
+  },
+  debugAPI: [
+    `documentation build -c documentation.yml`,
+    `src/index.js`,
+    `src/debug/*.js`,
+    `src/placeholder/constant.js`,
+    `src/combinators/*.js`,
+    `-f md -o docs/API-in-debug-mode.md -a public --shallow`
+  ].join(` `),
+  build: {
+    script: `cd website && yarn docusaurus-build`,
+    benchmark: {
+      update: `write=true node ./benchmark-to-site.js`,
+      log: `echo "this will take a lil bit..." && node ./src/benchmark.fixture.js > benchmark.log`,
+      script: `nps docs.build.b.log docs.build.b.update`
+    },
+    full: `nps docs.build.benchmark docs.build`
+  },
+  serve: {
+    script: `cd website && yarn start`,
+    fresh: `nps docs.build docs.serve`
+  }
+}
 
 // GERMS.scripts.lint.jsdoc = `echo "documentation lint"`
 /* eslint-enable fp/no-mutation */
