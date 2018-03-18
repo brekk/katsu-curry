@@ -210,102 +210,6 @@ fiveFn() * twoFn() // 10
 
 Returns **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** a function which eventually returns x
 
-## curryObjectN
-
-Given object with n keys, continually curry until n keys are met
-
-**Parameters**
-
--   `arity` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** total expected keys
--   `fn` **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** function to be curried
-
-**Examples**
-
-```javascript
-import {curryObjectN} from 'katsu-curry'
-const threeKeyProps = curryObjectN(3, Object.keys)
-threeKeyProps({a: 1, b: 2, c: 3}) // [`a`, `b`, `c`]
-threeKeyProps({a: 1, b: 2}) // function expecting one more param
-```
-
-Returns **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** invoked function or partially applied function
-
-## curryObjectN
-
-Given object with n keys, continually curry until n keys are met
-
-**Parameters**
-
--   `arity` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** total expected keys
--   `fn` **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** function to be curried
-
-**Examples**
-
-```javascript
-import {curryObjectN} from 'katsu-curry/debug'
-const threeKeyProps = curryObjectN(3, Object.keys)
-threeKeyProps({a: 1, b: 2, c: 3}) // [`a`, `b`, `c`]
-threeKeyProps({a: 1, b: 2}) // function expecting one more param
-threeKeyProps({a: 1, b: 2}).toString() // curry(keys)({0,1})({2:?})
-```
-
-Returns **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** invoked function or partially applied function
-
-## curryObjectKN
-
-Given object and expected keys, continually curry until expected keys are met
-
-**Parameters**
-
--   `expected` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** expected object
-    -   `expected.k` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** expected keys
-    -   `expected.n` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** minimum expected keys
--   `fn` **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** function to be curried
-
-**Examples**
-
-```javascript
-// import {curryObjectKN} from 'katsu-curry/debug'
-import {curryObjectKN} from 'katsu-curry'
-const setTheTable = curryObjectKN({
-  k: [`knives`, `forks`, `spoons`],
-  n: 4
-}, ({knives, forks, spoons, drinks = [`wine`]}) => (
-  `${knives} x ${forks} + ${spoons} + ${drinks}`
-))
-const setTheKnivesAndSpoons = setTheTable({forks: [0,1,2,3]}) // partial-application!
-```
-
-Returns **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** invoked function or partially applied function
-
-## curryObjectKN
-
-Given object and expected keys, continually curry until expected keys are met
-
-**Parameters**
-
--   `expected` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** expected object
-    -   `expected.k` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** expected keys
-    -   `expected.n` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** minimum expected keys
--   `fn` **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** function to be curried
-
-**Examples**
-
-```javascript
-// import {curryObjectKN} from 'katsu-curry/debug'
-import {curryObjectKN} from 'katsu-curry/debug'
-const setTheTable = curryObjectKN({
-  k: [`knives`, `forks`, `spoons`],
-  n: 4
-}, function placeSet({knives, forks, spoons, drinks = [`wine`]}) (
-  `${knives} x ${forks} + ${spoons} + ${drinks}`
-))
-const setTheKnivesAndSpoons = setTheTable({forks: [0,1,2,3]}) // partial-application!
-setTheKnivesAndSpoons.toString() // curry(placeSet)({forks})({knives:?,spoons:?})
-```
-
-Returns **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** invoked function or partially applied function
-
 ## composedToString
 
 generate a string which represents the ongoing partial-application view
@@ -548,6 +452,61 @@ const quaternaryFunctionLastShuffle = remap([1, 2, 3, 0], quaternaryFunction)
 quaternaryFunctionLastShuffle(1, 2, 3, 4) === ((2 + 3 + 4) / 1)
 ```
 
+## curryObjectKN
+
+Given object and expected keys, continually curry until expected keys are met
+
+**Parameters**
+
+-   `expected` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** expected object
+    -   `expected.k` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** expected keys
+    -   `expected.n` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** minimum expected keys
+-   `fn` **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** function to be curried
+
+**Examples**
+
+```javascript
+// import {curryObjectKN} from 'katsu-curry/debug'
+import {curryObjectKN} from 'katsu-curry/debug'
+const setTheTable = curryObjectKN({
+  k: [`knives`, `forks`, `spoons`],
+  n: 4
+}, function placeSet({knives, forks, spoons, drinks = [`wine`]}) (
+  `${knives} x ${forks} + ${spoons} + ${drinks}`
+))
+const setTheKnivesAndSpoons = setTheTable({forks: [0,1,2,3]}) // partial-application!
+setTheKnivesAndSpoons.toString() // curry(placeSet)({forks})({knives:?,spoons:?})
+```
+
+Returns **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** invoked function or partially applied function
+
+## curryObjectKN
+
+Given object and expected keys, continually curry until expected keys are met
+
+**Parameters**
+
+-   `expected` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** expected object
+    -   `expected.k` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** expected keys
+    -   `expected.n` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** minimum expected keys
+-   `fn` **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** function to be curried
+
+**Examples**
+
+```javascript
+// import {curryObjectKN} from 'katsu-curry/debug'
+import {curryObjectKN} from 'katsu-curry'
+const setTheTable = curryObjectKN({
+  k: [`knives`, `forks`, `spoons`],
+  n: 4
+}, ({knives, forks, spoons, drinks = [`wine`]}) => (
+  `${knives} x ${forks} + ${spoons} + ${drinks}`
+))
+const setTheKnivesAndSpoons = setTheTable({forks: [0,1,2,3]}) // partial-application!
+```
+
+Returns **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** invoked function or partially applied function
+
 ## curryObjectK
 
 Given object and expected keys, continually curry until expected keys are met
@@ -591,6 +550,47 @@ const abcProps = curryObjectK([`a`, `b`, `c`], ({a, b, c, optional = 1}) => {
 abcProps({a: 1, b: 2, c: 3}) // 6
 abcProps({a: 1, b: 2}) // function expecting one more param
 abcProps({a: 1, b: 2, c: 3, optional: 10}) // 0.6
+```
+
+Returns **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** invoked function or partially applied function
+
+## curryObjectN
+
+Given object with n keys, continually curry until n keys are met
+
+**Parameters**
+
+-   `arity` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** total expected keys
+-   `fn` **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** function to be curried
+
+**Examples**
+
+```javascript
+import {curryObjectN} from 'katsu-curry/debug'
+const threeKeyProps = curryObjectN(3, Object.keys)
+threeKeyProps({a: 1, b: 2, c: 3}) // [`a`, `b`, `c`]
+threeKeyProps({a: 1, b: 2}) // function expecting one more param
+threeKeyProps({a: 1, b: 2}).toString() // curry(keys)({0,1})({2:?})
+```
+
+Returns **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** invoked function or partially applied function
+
+## curryObjectN
+
+Given object with n keys, continually curry until n keys are met
+
+**Parameters**
+
+-   `arity` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** total expected keys
+-   `fn` **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** function to be curried
+
+**Examples**
+
+```javascript
+import {curryObjectN} from 'katsu-curry'
+const threeKeyProps = curryObjectN(3, Object.keys)
+threeKeyProps({a: 1, b: 2, c: 3}) // [`a`, `b`, `c`]
+threeKeyProps({a: 1, b: 2}) // function expecting one more param
 ```
 
 Returns **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** invoked function or partially applied function
