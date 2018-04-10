@@ -14,7 +14,7 @@ const siteConfig = {
   title: `🍛`, /* title for your website */
   tagline: `curry for your functions`,
   url: `https://brekk.github.io/katsu-curry`, /* your website url */
-  baseUrl: `/`, /* base url for your project */
+  baseUrl: `https://brekk.github.io/katsu-curry/`, /* base url for your project */
   headerLinks: [
     {doc: `API`, label: `API`},
     {doc: `API-in-debug-mode`, label: `Debug-mode`},
