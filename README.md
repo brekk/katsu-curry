@@ -6,6 +6,8 @@
 
 This module gives you the ability to curry functions with custom placeholders, or with object values.
 
+Read more at [brekk.github.io/katsu-curry](//brekk.github.io/katsu-curry)!
+
 ## What is `curry`?
 
 Currying is a way of modifying a given function which takes multiple arguments into a sequence of unary functions.

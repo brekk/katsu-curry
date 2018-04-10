@@ -349,14 +349,14 @@ const AnIntro = () => (
       {
         key: `currying`,
         content: `
-[Currying](//fr.umio.us/favoring-curry/) is a technique for taking a function which expects multiple parameters into one which, when supplied with [fewer parameters](/docs/API.html#curry) (or [other expectations](/docs/API.html#curryObjectN)) returns a new function that awaits the remaining ones.`
+[Currying](//fr.umio.us/favoring-curry/) is a technique for taking a function which expects multiple parameters into one which, when supplied with [fewer parameters](${docUrl(`API.html#curry`)}) (or [other expectations](${docUrl(`API.html#curryObjectN`)})) returns a new function that awaits the remaining ones.`
       },
       {
         key: `this-library`,
         content: `
-This library provides solutions for [traditional curry](/docs/API.html#curry), specifying a [number of keys for object-style curry](/docs/API.html#curryObjectK) (as originated by the [\`fpo\`](//npmjs.org/package/fpo) and [this book](https://leanpub.com/fljs)) as well as a (currently underwhelming in performance) [explicit-key object-style curry](/docs/API.html#curryObjectK).
+This library provides solutions for [traditional curry](${docUrl(`API.html#curry`)}), specifying a [number of keys for object-style curry](${docUrl(`API.html#curryObjectK`)}) (as originated by the [\`fpo\`](//npmjs.org/package/fpo) and [this book](https://leanpub.com/fljs)) as well as a (currently underwhelming in performance) [explicit-key object-style curry](${docUrl(`API.html#curryObjectK`)}).
 
-Additionally, similarly to [other libraries](#benchmark) in the space, this library provides a "placeholder" value which can be used to [omit a parameter](/docs/API-in-debug-mode.html) in partial-application.
+Additionally, similarly to [other libraries](#benchmark) in the space, this library provides a "placeholder" value which can be used to [omit a parameter](${docUrl(`API-in-debug-mode.html`)}) in partial-application.
 `
       }
     ]}
