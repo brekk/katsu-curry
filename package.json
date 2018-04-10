@@ -229,5 +229,6 @@
     "require": [
       "babel-register"
     ]
-  }
+  },
+  "runkitExampleFilename": "runkit-example.js"
 }
