@@ -230,5 +230,5 @@
       "babel-register"
     ]
   },
-  "runkitExampleFilename": "runkit-example.js"
+  "tonicExampleFilename": "runkit-example.js"
 }
