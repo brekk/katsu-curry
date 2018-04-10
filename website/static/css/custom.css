@@ -4,6 +4,9 @@ html, body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
     font-size: 16px;
 }
+.docMainWrapper {
+  min-height: 700px;
+}
 *:not(code), &:not(pre) {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }

@@ -72,9 +72,9 @@ const HomeSplash = ({language = ``}) => (
     <div className="inner">
       <ProjectTitle />
       <PromoSection>
-        <Button href="#try">Try It Out</Button>
-        <Button href={docUrl(`explanation.html`, language)}>Read More</Button>
+        <Button href="https://npm.runkit.com/katsu-curry">Try It Out</Button>
         <Button href={docUrl(`API.html`, language)}>API</Button>
+        <Button href={docUrl(`API-with-debug.html`, language)}>Debug-mode</Button>
       </PromoSection>
     </div>
   </SplashContainer>

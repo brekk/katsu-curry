@@ -90,10 +90,10 @@ GERMS.scripts.bundle = Object.assign(
   }
 )
 
-const amend = (f) => ([
+const amend = (f) => series(
   `node amend-generated-markdown-files.js ${f} > ${f}.bak`,
   `mv ${f}.bak ${f}`
-].join(` && `))
+)
 
 GERMS.scripts.bundle.script = allNPS(`bundle.commonjs`, `bundle.es6`, `bundle.debug`)
 GERMS.scripts.docs = {
@@ -115,25 +115,34 @@ GERMS.scripts.docs = {
     regular: amend(`docs/API.md`),
     debug: amend(`docs/API-in-debug-mode.md`),
     lint: `remark -u validate-links ./docs`,
-    script: [
+    script: series(
       allNPS(`docs.amend.regular`, `docs.amend.debug`, `docs.assets`),
       `nps docs.amend.lint`
-    ].join(` && `)
+    )
   },
   assets: {
     script: `cp dependencies.svg website/static/img/dependencies.svg`
   },
   build: {
-    script: `cd website && yarn docusaurus-build`,
+    script: series(
+      `cd website`,
+      `yarn docusaurus-build`
+    ),
     benchmark: {
       update: `write=true node ./benchmark-to-site.js`,
-      log: `echo "this will take a lil bit..." && node ./src/benchmark.fixture.js > benchmark.log`,
+      log: series(
+        `echo "this will take a lil bit..."`,
+        `node ./src/benchmark.fixture.js > benchmark.log`
+      ),
       script: `nps docs.build.b.log docs.build.b.update`
     },
     full: `nps docs.build.benchmark docs.build`
   },
   serve: {
-    script: `cd website && yarn start`,
+    script: series(
+      `cd website`,
+      `yarn start`
+    ),
     fresh: `nps docs.build docs.serve`
   }
 }

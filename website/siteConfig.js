@@ -17,7 +17,6 @@ const siteConfig = {
   headerLinks: [
     {doc: `API`, label: `API`},
     {doc: `API-in-debug-mode`, label: `Debug-mode`},
-    {doc: `why-fp`, label: `Why FP?`},
     {page: `help`, label: `Help`}
   ],
   users,
