@@ -8,6 +8,22 @@ import fastSome from 'fast.js/array/some'
 import {remapParameters} from '@params/remap'
 import {toString} from './to-string'
 
+/**
+ * Pass currify a test which validates placeholders, and it will give you back a function which
+ * curries other functions
+ * @method curryify
+ * @param {function} test - a function which asserts whether a given parameter is a placeholder
+ * @returns {function} - a function which curries other functions
+ * @public
+ * @example
+ * import { curryify } from 'katsu-curry/debug'
+ * const test = (x) => x === 3
+ * // help me
+ * const curry = curryify(test)
+ * const addThenDivide = (a, b, c) => a + b / c
+ * const theMagicNumber = addThenDivide(3, 2, 1)
+ * const two = theMagicNumber(0) // apparently, it's 2
+ */
 export const curryify = (test) => (fn) => {
   if (typeof fn !== `function`) {
     // eslint-disable-next-line fp/no-throw
@@ -52,8 +68,46 @@ export const curryify = (test) => (fn) => {
   curried.toString = toString(fn)
   return curried
 }
+
+/**
+ * curry a given function so that it takes multiple arguments
+ * @method curry
+ * @param {function} fn - any function
+ * @returns {function} - a curried function
+ * @public
+ * @example
+ * import {curry, $} from 'katsu-curry/debug'
+ * const divide = curry((a, b) => a / b)
+ * const half = divide($, 2)
+ * const twoOver = divide(2)
+ */
 export const curry = curryify((x) => x === PLACEHOLDER)
+
+/**
+ * easily remap an array by indices
+ * @method remapArray
+ * @param {Array} indices - an array of indices to remap
+ * @param {Array} arr - an input array
+ * @returns {Array} remapped array
+ * @public
+ * @example
+ * import {remapArray} from 'katsu-curry/debug'
+ * remapArray([2,1,0], [`up`, `is`, `what`]).join(` `) // "what is up"
+ */
 export const remapArray = curry(remapParameters)
+
+/**
+ * reframe any function with the arguments as you want, plus curry
+ * @method remap
+ * @param {Array} indices - an array of indices to remap
+ * @param {Function} fn - a function
+ * @public
+ * @example
+ * import {remap} from 'katsu-curry/debug'
+ * const quaternaryFunction = (a, b, c, d) => ((a + b + c) / d)
+ * const quaternaryFunctionLastShuffle = remap([1, 2, 3, 0], quaternaryFunction)
+ * quaternaryFunctionLastShuffle(1, 2, 3, 4) === ((2 + 3 + 4) / 1)
+ */
 export const remap = curry((indices, fn) => {
   const remapArgs = remapArray(indices)
   const curried = curry(fn)

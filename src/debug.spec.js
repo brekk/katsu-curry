@@ -2,6 +2,9 @@
 import {t} from 'jest-t-assert'
 import {composedToString} from './debug/to-string-composition'
 import {
+  $
+} from './placeholder/constant'
+import {
   pipe,
   compose
 } from './debug/fp'
@@ -192,6 +195,8 @@ test(`curry`, () => {
   t.is(curriedAdd.toString(), `curry(add)(?,?,?)`)
   t.is(curriedAdd(1).toString(), `curry(add)(1)(?,?)`)
   t.is(curriedAdd(1, 2).toString(), `curry(add)(1,2)(?)`)
+  t.is(curriedAdd(1, $, 2).toString(), `curry(add)(1,${$},2)`)
+  t.is(curriedAdd(1, $, $, 2).toString(), `curry(add)(1,${$},${$},2)`)
   t.is(curriedAdd(1, 2, 3), 6)
 })
 test(`curry returns an error when given a non-function, up front`, () => {

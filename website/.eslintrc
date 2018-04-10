@@ -1,0 +1,22 @@
+{
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "max-len": ["error", {"code": 200}],
+    "fp/no-mutation": 0,
+    "fp/no-class": 1,
+    "react/prop-types": 0,
+    "react/prefer-stateless-function": 2
+  },
+  "extends": [
+    "../.eslintrc",
+    "plugin:react/recommended"
+  ],
+  "plugins": [
+    "react",
+    "babel"
+  ]
+}

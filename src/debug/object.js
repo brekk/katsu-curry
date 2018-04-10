@@ -39,6 +39,27 @@ const barfWhen = (dis) => {
 }
 /* eslint-enable fp/no-throw */
 
+/**
+ * Given object and expected keys, continually curry until expected keys are met
+ * @method curryObjectKN
+ * @param {Object} expected - expected object
+ * @param {number} expected.n - minimum expected keys
+ * @param {Array} expected.k - expected keys
+ * @param {function} fn - function to be curried
+ * @returns {function} - invoked function or partially applied function
+ * @public
+ * @example
+ * // import {curryObjectKN} from 'katsu-curry/debug'
+ * import {curryObjectKN} from 'katsu-curry/debug'
+ * const setTheTable = curryObjectKN({
+ *   k: [`knives`, `forks`, `spoons`],
+ *   n: 4
+ * }, function placeSet({knives, forks, spoons, drinks = [`wine`]}) (
+ *   `${knives} x ${forks} + ${spoons} + ${drinks}`
+ * ))
+ * const setTheKnivesAndSpoons = setTheTable({forks: [0,1,2,3]}) // partial-application!
+ * setTheKnivesAndSpoons.toString() // curry(placeSet)({forks})({knives:?,spoons:?})
+ */
 export function curryObjectKN({k, n}, fn) {
   barfWhen(`curryObjectKN`)
     .keysAreNotAnArray(k)
@@ -58,6 +79,23 @@ export function curryObjectKN({k, n}, fn) {
   return λcurryObjectKN
 }
 
+/**
+ * Given object and expected keys, continually curry until expected keys are met
+ * @method curryObjectK
+ * @param {Array} expected - expected keys
+ * @param {function} fn - function to be curried
+ * @returns {function} - invoked function or partially applied function
+ * @public
+ * @example
+ * import {curryObjectK} from 'katsu-curry/debug'
+ * const abcProps = curryObjectK([`a`, `b`, `c`], function abc({a, b, c, optional = 1}) {
+ *  return a + b + c / optional
+ * })
+ * abcProps({a: 1, b: 2, c: 3}) // 6
+ * abcProps({a: 1, b: 2}) // function expecting one more param
+ * abcProps({a: 1, b: 2}).toString() // curry(abc)({a,b})({c:?})
+ * abcProps({a: 1, b: 2, c: 3, optional: 10}) // 0.6
+ */
 export const curryObjectK = curry(
   (keys, fn) => {
     barfWhen(`curryObjectK`)
@@ -78,6 +116,20 @@ export const curryObjectK = curry(
   }
 )
 
+/**
+ * Given object with n keys, continually curry until n keys are met
+ * @method curryObjectN
+ * @param {number} arity - total expected keys
+ * @param {function} fn - function to be curried
+ * @returns {function} - invoked function or partially applied function
+ * @public
+ * @example
+ * import {curryObjectN} from 'katsu-curry/debug'
+ * const threeKeyProps = curryObjectN(3, Object.keys)
+ * threeKeyProps({a: 1, b: 2, c: 3}) // [`a`, `b`, `c`]
+ * threeKeyProps({a: 1, b: 2}) // function expecting one more param
+ * threeKeyProps({a: 1, b: 2}).toString() // curry(keys)({0,1})({2:?})
+ */
 export function curryObjectN(arity, fn) {
   barfWhen(`curryObjectN`)
     .arityIsNotANumber(arity)

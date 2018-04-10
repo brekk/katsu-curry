@@ -5,9 +5,16 @@ import fastSome from 'fast.js/array/some'
  * curries other functions
  * @method curryify
  * @param {function} test - a function which asserts whether a given parameter is a placeholder
- // * @param {function} fn - a function to be curried
- * @returns {function} - a curried function
- * @private
+ * @returns {function} - a function which curries other functions
+ * @public
+ * @example
+ * import { curryify } from 'katsu-curry'
+ * const test = (x) => x === 3
+ * // help me
+ * const curry = curryify(test)
+ * const addThenDivide = (a, b, c) => a + b / c
+ * const theMagicNumber = addThenDivide(3, 2, 1)
+ * const two = theMagicNumber(0) // apparently, it's 2
  */
 export const curryify = (test) => {
   if (typeof test !== `function`) {

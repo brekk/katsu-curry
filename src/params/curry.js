@@ -2,7 +2,7 @@ import {PLACEHOLDER} from '@placeholder/index'
 import fastSome from 'fast.js/array/some'
 
 /**
- * curry a given function so that it takes multiple arguments (or a tuple of arguments)
+ * curry a given function so that it takes multiple arguments
  * @method curry
  * @param {function} fn - any function
  * @returns {function} - a curried function

@@ -226,10 +226,10 @@ pipe(
     )
     if (!TOP_FIVE_ONLY) {
       suite.add(
-        padLog(`fpo.curryMultiple`),
+        padLog(`fpo #curryMultiple`),
         () => fpo.curryMultiple({n, fn})({a: random(), b: random(), c: random()})
       ).add(
-        padLog(`fpo.curry`),
+        padLog(`fpo #curry`),
         () => fpo.curry({n, fn})({a: random(), b: random(), c: random()})
       )
     }
