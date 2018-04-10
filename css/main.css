@@ -2082,6 +2082,20 @@ a.module:hover {
     color: #001;
 }
 
+#introduction {
+  /* knife knife knife */
+  p {
+    padding: 1rem;
+    max-width: 40rem;
+  }
+  /* .blockElement {
+    display: block;
+    margin: 2rem auto;
+    max-width: 40em;
+    text-align: left;
+  } */
+}
+
 @media only screen and (min-width: 30rem) {
     .benchmark table > thead > tr > td:nth-child(1),
     .benchmark table > tbody > tr > td:nth-child(1) {
